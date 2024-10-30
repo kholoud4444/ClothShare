@@ -1,0 +1,28 @@
+.header-background {
+  position: relative;
+  height: 100vh; // Full viewport height
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: inherit;
+    background-size: inherit;
+    background-position: inherit;
+   filter: blur(8px);
+  }
+  .header-content {
+    //position: relative;
+    color: #17222d;
+    text-align: center;
+    z-index: 2; // Keep text above blurred background
+  }
+}
