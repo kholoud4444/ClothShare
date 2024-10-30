@@ -1,7 +1,9 @@
 package com.ntg.backend.service.imp;
 
+import com.ntg.backend.dto.NeedyDto;
 import com.ntg.backend.dto.VolunteerDto;
 import com.ntg.backend.entity.Volunteer;
+import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.VolunteerRepo;
 import com.ntg.backend.service.VolunteerService;
 import org.modelmapper.ModelMapper;
@@ -29,7 +31,10 @@ public class VolunteerServiceImp implements VolunteerService {
 
     @Override
     public VolunteerDto getVolunteerById(long volunteerId) {
-        Volunteer volunteer = volunteerRepo.findById(volunteerId).get();
+
+        Volunteer volunteer = volunteerRepo.findById(volunteerId)
+                .orElseThrow(()
+                -> new ResourceNotFoundException("User", "id", volunteerId));
         return    modelMapper.map(volunteer, VolunteerDto.class);
 
 
@@ -41,20 +46,29 @@ public class VolunteerServiceImp implements VolunteerService {
 
     @Override
     public void deleteVolunteerById(long volunteerId) {
-        Volunteer volunteer =  volunteerRepo.findById(volunteerId).get();
+        Volunteer volunteer =  volunteerRepo.findById(volunteerId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", volunteerId));
         volunteerRepo.delete(volunteer);
     }
 
     @Override
     public List<VolunteerDto> getAllVolunteers() {
         List<Volunteer> volunteers = volunteerRepo.findAll();
-        return volunteers.stream().map(volunteer -> modelMapper.map(volunteer, VolunteerDto.class)).collect(Collectors.toList());
+        if (volunteers.isEmpty()) {
+            throw new ResourceNotFoundException("No Volunteer records found");
+        }
+        else {
+            return volunteers.stream().map(volunteer ->
+                    modelMapper.map(volunteer, VolunteerDto.class)).collect(Collectors.toList());
+        }
+
     }
 
     @Override
     public VolunteerDto updateVolunteer(VolunteerDto volunteerDto, long volunteerId) {
 
-         Volunteer volunteer = volunteerRepo.findById(volunteerId).get();
+         Volunteer volunteer = volunteerRepo.findById(volunteerId).orElseThrow(()
+                 -> new ResourceNotFoundException("User", "id", volunteerId));
          volunteer.setFirstName(volunteerDto.getFirstName());
          volunteer.setLastName(volunteerDto.getLastName());
          volunteer.setEmail(volunteerDto.getEmail());
