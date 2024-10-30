@@ -36,12 +36,9 @@ public class VolunteerServiceImp implements VolunteerService {
                 .orElseThrow(()
                 -> new ResourceNotFoundException("User", "id", volunteerId));
         return    modelMapper.map(volunteer, VolunteerDto.class);
+        
 
-
-
-        }
-
-
+    }
 
 
     @Override
@@ -80,9 +77,9 @@ public class VolunteerServiceImp implements VolunteerService {
          volunteer.setPassword(volunteerDto.getPassword());
 
          Volunteer savedVolunteer = volunteerRepo.save(volunteer);
-            return modelMapper.map(savedVolunteer,VolunteerDto.class);
+         return modelMapper.map(savedVolunteer,VolunteerDto.class);
 
-        }
+    }
 
 
 

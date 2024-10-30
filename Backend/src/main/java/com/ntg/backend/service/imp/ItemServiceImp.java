@@ -28,7 +28,7 @@ public class ItemServiceImp implements ItemService {
     }
 
     @Override
-    public ItemDto updateItem(ItemDto itemDto,long  id) {
+    public ItemDto updateItem(ItemDto itemDto,long id) {
         Item item = itemRepo.findById(id).get();
         item.setType(itemDto.getType());
         item.setSize(itemDto.getSize());
@@ -42,9 +42,9 @@ public class ItemServiceImp implements ItemService {
     }
 
     @Override
-    public List<ItemDto> getAllItem() {
+    public List<ItemDto> getAllItems() {
         List<Item> items = itemRepo.findAll();
-        return items.stream().map(needy -> modelMapper.map(needy, ItemDto.class)).collect(Collectors.toList());
+        return items.stream().map(item -> modelMapper.map(item, ItemDto.class)).collect(Collectors.toList());
     }
 
     @Override
