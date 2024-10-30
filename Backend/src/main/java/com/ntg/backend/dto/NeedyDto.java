@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -15,7 +16,12 @@ public class NeedyDto {
     private Long needyId;
     private String firstName;
     private String lastName;
+    private String password;
+    private String email;
     private String phone;
+    private String nationalId;
+    private String gender;
+    private Date birthDate;
     private String location;
     private List<RequestDto> requests;  // Nested list of RequestDTOs
 }
