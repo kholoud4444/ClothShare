@@ -2,6 +2,7 @@ package com.ntg.backend.service.imp;
 
 import com.ntg.backend.dto.ItemDto;
 import com.ntg.backend.entity.Item;
+import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.ItemRepo;
 import com.ntg.backend.service.ItemService;
 import org.modelmapper.ModelMapper;
@@ -29,7 +30,8 @@ public class ItemServiceImp implements ItemService {
 
     @Override
     public ItemDto updateItem(ItemDto itemDto,long id) {
-        Item item = itemRepo.findById(id).get();
+        Item item = itemRepo.findById(id).orElseThrow(()
+                -> new ResourceNotFoundException("User", "id", id));
         item.setType(itemDto.getType());
         item.setSize(itemDto.getSize());
         item.setState(itemDto.getState());
@@ -49,13 +51,15 @@ public class ItemServiceImp implements ItemService {
 
     @Override
     public ItemDto getItemById(long id) {
-        Item needy = itemRepo.findById(id).get();
+        Item needy = itemRepo.findById(id).orElseThrow(()
+                -> new ResourceNotFoundException("User", "id", id));
         return modelMapper.map(needy, ItemDto.class);
     }
 
     @Override
     public void deleteItem(long id) {
-        Item needy =  itemRepo.findById(id).get();
+        Item needy =  itemRepo.findById(id).orElseThrow(()
+                -> new ResourceNotFoundException("User", "id", id));
         itemRepo.delete(needy);
     }
 }

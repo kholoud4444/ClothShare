@@ -3,6 +3,7 @@ package com.ntg.backend.service.imp;
 
 import com.ntg.backend.dto.RequestDto;
 import com.ntg.backend.entity.Request;
+import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.RequestRepo;
 import com.ntg.backend.service.RequestService;
 import org.modelmapper.ModelMapper;
@@ -29,7 +30,8 @@ public class RequestServiceImp implements RequestService {
 
     @Override
     public RequestDto updateRequest(RequestDto requestDto,long id) {
-        Request request = requestRepo.findById(id).get();
+        Request request = requestRepo.findById(id).orElseThrow(()
+                -> new ResourceNotFoundException("User", "id", id));
         request.setDate(requestDto.getDate());
         request.setStatus(requestDto.getStatus());
         request.setReason(requestDto.getReason());
@@ -45,13 +47,15 @@ public class RequestServiceImp implements RequestService {
 
     @Override
     public RequestDto getRequestById(long id) {
-        Request request = requestRepo.findById(id).get();
+        Request request = requestRepo.findById(id).orElseThrow(()
+                -> new ResourceNotFoundException("User", "id", id));
         return modelMapper.map(request, RequestDto.class);
     }
 
     @Override
     public void deleteRequest(long id) {
-        Request request =  requestRepo.findById(id).get();
+        Request request =  requestRepo.findById(id).orElseThrow(()
+                -> new ResourceNotFoundException("User", "id", id));
         requestRepo.delete(request);
     }
 
