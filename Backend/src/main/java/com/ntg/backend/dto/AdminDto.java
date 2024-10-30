@@ -1,25 +1,17 @@
-package com.ntg.backend.entity;
+package com.ntg.backend.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-@Entity
-@Table(name = "Admin")
-public class Admin {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AdminDto {
     private Long adminId;
     private String phone;
     private String name;
     private String password;
 }
-

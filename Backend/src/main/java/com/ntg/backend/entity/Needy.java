@@ -1,10 +1,10 @@
 package com.ntg.backend.entity;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.*;
 import java.util.List;
 
 @NoArgsConstructor
@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
+@Table(name = "Needy")
 public class Needy extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

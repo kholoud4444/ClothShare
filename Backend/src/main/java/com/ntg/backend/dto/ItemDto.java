@@ -1,13 +1,10 @@
-package com.ntg.backend.entity;
+package com.ntg.backend.dto;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import jakarta.persistence.*;
-
-
 
 import java.util.List;
 
@@ -15,13 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
-@Entity
-@Table(name = "Item")
-public class Item {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ItemDto {
     private Long itemId;
-
     private String type;
     private String size;
     private String state;
@@ -29,12 +21,6 @@ public class Item {
     private String imgUrl;
     private String description;
     private String status;
-
-    @ManyToOne
-    @JoinColumn(name = "volunteer_id")
-    private Volunteer volunteer;
-
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
-    private List<Request> requests;
-
+    private Long volunteerId; // Optional: include volunteer ID if needed
+    private List<RequestDto> requests;  // Nested list of RequestDTOs
 }

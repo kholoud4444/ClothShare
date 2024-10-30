@@ -1,19 +1,18 @@
-package com.ntg.backend.entity;
+package com.ntg.backend.dto;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import jakarta.persistence.*;
 import java.util.Date;
-
+import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-@MappedSuperclass
-public abstract class User {
-
+public class VolunteerDto {
     private String firstName;
     private String lastName;
     private String password;
@@ -23,5 +22,7 @@ public abstract class User {
     private String gender;
     private Date birthDate;
     private String location;
+    private Long volunteerId;
+    private List<ItemDto> items;
 
 }
