@@ -15,10 +15,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class NeedyServiceImp implements NeedyService {
+
     @Autowired
     private NeedyRepo needyRepo;
+
     @Autowired
-    private ModelMapper modelMapper ;
+    private ModelMapper modelMapper;
+
     @Override
     public NeedyDto createNeedy(NeedyDto needyDto) {
         // Map the Needy to Volunteer entity
@@ -27,9 +30,6 @@ public class NeedyServiceImp implements NeedyService {
         Needy savedNeedy =  needyRepo.save(needy);
         return    modelMapper.map(savedNeedy, NeedyDto.class);
     }
-
-
-
 
     @Override
     public NeedyDto updateNeedy(NeedyDto needyDto,long  id) {
@@ -44,9 +44,7 @@ public class NeedyServiceImp implements NeedyService {
         needy.setPassword(needyDto.getPassword());
         needy.setBirthDate(needyDto.getBirthDate());
        Needy savedNeedy = needyRepo.save(needy);
-       return    modelMapper.map(savedNeedy, NeedyDto.class);
-
-
+       return modelMapper.map(savedNeedy, NeedyDto.class);
     }
 
     @Override
@@ -58,14 +56,12 @@ public class NeedyServiceImp implements NeedyService {
     @Override
     public NeedyDto getNeedyById(long id) {
         Needy needy = needyRepo.findById(id).get();
-        return    modelMapper.map(needy, NeedyDto.class);
+        return modelMapper.map(needy, NeedyDto.class);
     }
 
     @Override
     public void deleteNeedy(long id) {
         Needy needy =  needyRepo.findById(id).get();
         needyRepo.delete(needy);
-
-
     }
 }
