@@ -1,13 +1,10 @@
 package com.ntg.backend.service.imp;
 
 import com.ntg.backend.dto.NeedyDto;
-import com.ntg.backend.dto.VolunteerDto;
 import com.ntg.backend.entity.Needy;
-import com.ntg.backend.entity.Volunteer;
 import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.NeedyRepo;
 import com.ntg.backend.service.NeedyService;
-import jakarta.persistence.Id;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
