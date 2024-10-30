@@ -4,8 +4,10 @@ import com.ntg.backend.dto.NeedyDto;
 import com.ntg.backend.dto.VolunteerDto;
 import com.ntg.backend.entity.Needy;
 import com.ntg.backend.entity.Volunteer;
+import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.NeedyRepo;
 import com.ntg.backend.service.NeedyService;
+import jakarta.persistence.Id;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +35,7 @@ public class NeedyServiceImp implements NeedyService {
 
     @Override
     public NeedyDto updateNeedy(NeedyDto needyDto,long  id) {
-        Needy needy = needyRepo.findById(id).get();
+        Needy needy = needyRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Needy not found with id: " + id));
         needy.setFirstName(needyDto.getFirstName());
         needy.setLastName(needyDto.getLastName());
         needy.setEmail(needyDto.getEmail());
@@ -50,18 +52,23 @@ public class NeedyServiceImp implements NeedyService {
     @Override
     public List<NeedyDto> getAllNeedy() {
         List<Needy> needies = needyRepo.findAll();
-        return needies.stream().map(needy -> modelMapper.map(needy, NeedyDto.class)).collect(Collectors.toList());
+        if (needies.isEmpty()) {
+            throw new ResourceNotFoundException("No needy records found");
+        }
+        else {
+            return needies.stream().map(needy -> modelMapper.map(needy, NeedyDto.class)).collect(Collectors.toList());
+        }
     }
 
     @Override
     public NeedyDto getNeedyById(long id) {
-        Needy needy = needyRepo.findById(id).get();
+        Needy needy = needyRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         return modelMapper.map(needy, NeedyDto.class);
     }
 
     @Override
     public void deleteNeedy(long id) {
-        Needy needy =  needyRepo.findById(id).get();
+        Needy needy =  needyRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         needyRepo.delete(needy);
     }
 }
