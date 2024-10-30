@@ -32,22 +32,22 @@ public class ItemController {
     @GetMapping
     public ResponseEntity<List<ItemDto>> getAllItems()
     {
-        List<ItemDto> NeedyDTOs = itemServiceImp.getAllItems() ;
-        return new ResponseEntity<>(NeedyDTOs,HttpStatus.OK);
+        List<ItemDto> ItemDTOs = itemServiceImp.getAllItems() ;
+        return new ResponseEntity<>(ItemDTOs,HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteNeedyById(@PathVariable("id") Long id)
+    public ResponseEntity<String> deleteItemById(@PathVariable("id") Long id)
     {
         itemServiceImp.deleteItem(id);
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ItemDto> VolunteerDto(@RequestBody ItemDto needyDto,@PathVariable("id") long id)
+    public ResponseEntity<ItemDto> VolunteerDto(@RequestBody ItemDto itemDto,@PathVariable("id") long id)
     {
-        ItemDto updatedneedyDto = itemServiceImp.updateItem(needyDto,id);
-        return new ResponseEntity<>(updatedneedyDto,HttpStatus.OK);
+        ItemDto updatedItemDto = itemServiceImp.updateItem(itemDto,id);
+        return new ResponseEntity<>(updatedItemDto,HttpStatus.OK);
     }
 
 }
