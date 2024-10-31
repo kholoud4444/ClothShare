@@ -6,19 +6,47 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NeedyMapper {
-    public Needy Mappertoentity(NeedyDto needy) {
-        Needy needy1 = new Needy();
-        needy1.setLastName(needy.getLastName());
-        needy1.setFirstName(needy.getFirstName());
-        needy1.setEmail(needy.getEmail());
-        needy1.setPhone(needy.getPhone());
-        needy1.setBirthDate(needy.getBirthDate());
-        needy1.setPassword(needy.getPassword());
-        needy1.setGender(needy.getGender());
-        needy1.setLocation(needy.getLocation());
-        needy1.setNationalId(needy.getNationalId());
-        return needy1;
+    public Needy mapToEntity(NeedyDto needyDto) {
+        Needy needy = new Needy();
+        needy.setFirstName(needyDto.getFirstName());
+        needy.setLastName(needyDto.getLastName());
+        needy.setEmail(needyDto.getEmail());
+        needy.setPhone(needyDto.getPhone());
+        needy.setBirthDate(needyDto.getBirthDate());
+        needy.setPassword(needyDto.getPassword());
+        needy.setGender(needyDto.getGender());
+        needy.setLocation(needyDto.getLocation());
+        needy.setNationalId(needyDto.getNationalId());
+        return needy;
+    }
 
-
+    public void updateEntityFromDto(NeedyDto needyDto, Needy needy) {
+        if (needyDto.getFirstName() != null) {
+            needy.setFirstName(needyDto.getFirstName());
+        }
+        if (needyDto.getLastName() != null) {
+            needy.setLastName(needyDto.getLastName());
+        }
+        if (needyDto.getEmail() != null) {
+            needy.setEmail(needyDto.getEmail());
+        }
+        if (needyDto.getPhone() != null) {
+            needy.setPhone(needyDto.getPhone());
+        }
+        if (needyDto.getBirthDate() != null) {
+            needy.setBirthDate(needyDto.getBirthDate());
+        }
+        if (needyDto.getPassword() != null) {
+            needy.setPassword(needyDto.getPassword());
+        }
+        if (needyDto.getGender() != null) {
+            needy.setGender(needyDto.getGender());
+        }
+        if (needyDto.getLocation() != null) {
+            needy.setLocation(needyDto.getLocation());
+        }
+        if (needyDto.getNationalId() != null) {
+            needy.setNationalId(needyDto.getNationalId());
+        }
     }
 }
