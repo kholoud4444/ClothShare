@@ -1,30 +1,71 @@
-// navbar.component.scss
+nav {
+  background-color: #2c3e50;
+}
 
 .logo-img {
-  width: 100px; // Adjust size as needed
+  width: 90px; // Adjusted for smaller screens
   height: auto;
   margin-left: 20px;
-  padding-left:10px ;
-}
-nav{
-  background-color: #2c3e50;
+  padding-left: 10px;
 }
 
 .navbar-nav .nav-item {
   margin: 0 0.5rem;
 
   &:hover {
-    background-color: #355575; // Background color on hover
+    background-color: #355575; // Hover background
     border-radius: 5px;
-    color: #2c3e50// Optional: add rounded corners on hover
+    color: #2c3e50;
   }
 }
 
-// Style for the nav links inside the <li> elements
 .nav-link {
   color: #ffffff;
   font-weight: 500;
+  padding: 0.5rem 1rem;
   text-align: center;
-  padding: 0.5rem 1rem; // Adjust padding for hover background coverage
-  display: block; // Make link cover full <li> area
+  display: block;
+}
+
+.navbar-toggler {
+  border: none;
+  color: #ffffff;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 991px) {
+  .navbar-nav {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .logo-img {
+    width: 80px;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .logo-img {
+    width: 70px;
+    margin: 0 auto;
+    padding-left: 0;
+  }
+
+  .nav-link {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-item {
+    margin: 0.25rem 0;
+  }
 }
