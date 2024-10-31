@@ -17,12 +17,22 @@
     background-image: inherit;
     background-size: inherit;
     background-position: inherit;
-   filter: blur(8px);
+   filter: blur(2px);
   }
   .header-content {
     //position: relative;
     color: #17222d;
     text-align: center;
     z-index: 2; // Keep text above blurred background
+  }
+  h1 ,p {
+    background-color: #fafafa;
+    width:400px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-radius: 6px;
+    opacity: 0.8;
+
+
   }
 }

@@ -5,13 +5,15 @@ import {RegisterComponent} from './components/register/register.component';
 import {NavComponent} from './components/nav/nav.component';
 import {HeaderComponent} from './components/header/header.component';
 import {AboutUsComponent} from './components/about-us/about-us.component';
+import {FooterComponent} from './components/footer/footer.component';
+import {ContactUsComponent} from './components/contact-us/contact-us.component';
 
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoginComponent, RegisterComponent, NavComponent, HeaderComponent, AboutUsComponent],
+  imports: [RouterOutlet, LoginComponent, RegisterComponent, NavComponent, HeaderComponent, AboutUsComponent, FooterComponent, ContactUsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
