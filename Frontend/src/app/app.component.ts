@@ -7,13 +7,14 @@ import {HeaderComponent} from './components/header/header.component';
 import {AboutUsComponent} from './components/about-us/about-us.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {ContactUsComponent} from './components/contact-us/contact-us.component';
+import {ItemComponent} from './components/item/item.component';
 
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoginComponent, RegisterComponent, NavComponent, HeaderComponent, AboutUsComponent, FooterComponent, ContactUsComponent],
+  imports: [RouterOutlet, LoginComponent, RegisterComponent, NavComponent, HeaderComponent, AboutUsComponent, FooterComponent, ContactUsComponent, ItemComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
