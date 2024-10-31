@@ -1,9 +1,12 @@
 package com.ntg.backend.service.imp;
 
+import com.ntg.backend.Mapper.ItemMapper;
 import com.ntg.backend.dto.ItemDto;
 import com.ntg.backend.entity.Item;
+import com.ntg.backend.entity.Volunteer;
 import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.ItemRepo;
+import com.ntg.backend.repository.VolunteerRepo;
 import com.ntg.backend.service.ItemService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,43 +20,50 @@ public class ItemServiceImp implements ItemService {
 
     @Autowired
     private ItemRepo itemRepo;
+    @Autowired
+    private VolunteerRepo volunteerRepository;
+
 
     @Autowired
-    private ModelMapper modelMapper;
+    private ItemMapper itemMapper;
 
     @Override
-    public ItemDto createItem(ItemDto itemDto) {
-        Item item = modelMapper.map(itemDto, Item.class);
-        Item savedItem = itemRepo.save(item);
-        return modelMapper.map(savedItem, ItemDto.class);
+    public Item createItem(ItemDto itemDto) {
+        Volunteer volunteer = volunteerRepository.findById(itemDto.getVolunteerId())
+                .orElseThrow(() -> new RuntimeException("Volunteer not found"));
+
+        Item item = itemMapper.Mappertoentity(itemDto);
+
+        volunteer.getItems().add(item);
+        item.setVolunteer(volunteer);
+
+        itemRepo.save(item);
+
+        // Map saved item back to ItemDto and return it
+        return item;
     }
 
+
     @Override
-    public ItemDto updateItem(ItemDto itemDto,long id) {
+    public Item updateItem(ItemDto itemDto,long id) {
         Item item = itemRepo.findById(id).orElseThrow(()
                 -> new ResourceNotFoundException("User", "id", id));
-        item.setType(itemDto.getType());
-        item.setSize(itemDto.getSize());
-        item.setState(itemDto.getState());
-        item.setGenderSuitability(itemDto.getGenderSuitability());
-        item.setImgUrl(itemDto.getImgUrl());
-        item.setDescription(itemDto.getDescription());
-        item.setStatus(itemDto.getStatus());
-        Item savedItem = itemRepo.save(item);
-        return modelMapper.map(savedItem, ItemDto.class);
+       Item newItem = itemMapper.Mappertoentity(itemDto);
+        Item savedItem = itemRepo.save(newItem);
+        return savedItem;
     }
 
     @Override
-    public List<ItemDto> getAllItems() {
+    public List<Item> getAllItems() {
         List<Item> items = itemRepo.findAll();
-        return items.stream().map(item -> modelMapper.map(item, ItemDto.class)).collect(Collectors.toList());
+        return items;
     }
 
     @Override
-    public ItemDto getItemById(long id) {
+    public Item getItemById(long id) {
         Item needy = itemRepo.findById(id).orElseThrow(()
                 -> new ResourceNotFoundException("User", "id", id));
-        return modelMapper.map(needy, ItemDto.class);
+        return needy;
     }
 
     @Override

@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 @Getter
 public class NeedyDto {
-    private Long needyId;
     private String firstName;
     private String lastName;
     private String password;
@@ -23,5 +22,5 @@ public class NeedyDto {
     private String gender;
     private Date birthDate;
     private String location;
-    private List<RequestDto> requests;  // Nested list of RequestDTOs
+//    private List<RequestDto> requests;  // Nested list of RequestDTOs
 }

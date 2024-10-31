@@ -1,6 +1,7 @@
 package com.ntg.backend.controller;
 
 import com.ntg.backend.dto.NeedyDto;
+import com.ntg.backend.entity.Needy;
 import com.ntg.backend.service.imp.NeedyServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,22 +16,22 @@ public class NeedyController {
     @Autowired
     private NeedyServiceImp needyServiceImp;
     @PostMapping
-    public ResponseEntity<NeedyDto> addNeedy(@RequestBody NeedyDto needyDto) {
-        NeedyDto savedNeedyDto = needyServiceImp.createNeedy(needyDto);
+    public ResponseEntity<Needy> addNeedy(@RequestBody NeedyDto needyDto) {
+        Needy savedNeedyDto = needyServiceImp.createNeedy(needyDto);
         return new ResponseEntity<>(savedNeedyDto, HttpStatus.OK);
     }
     @GetMapping("{id}")
-    public ResponseEntity<NeedyDto>getNeedyById(@PathVariable("id") long id )
+    public ResponseEntity<Needy>getNeedyById(@PathVariable("id") long id )
     {
-        NeedyDto needyDto = needyServiceImp.getNeedyById(id);
-        return new ResponseEntity<>(needyDto,HttpStatus.OK);
+        Needy needy = needyServiceImp.getNeedyById(id);
+        return new ResponseEntity<>(needy,HttpStatus.OK);
 
     }
 
     @GetMapping
-    public ResponseEntity<List<NeedyDto>>getAllNeedy()
+    public ResponseEntity<List<Needy>>getAllNeedy()
     {
-        List<NeedyDto> NeedyDTOs = needyServiceImp.getAllNeedy() ;
+        List<Needy> NeedyDTOs = needyServiceImp.getAllNeedy() ;
         return new ResponseEntity<>(NeedyDTOs,HttpStatus.OK);
     }
 
@@ -41,9 +42,9 @@ public class NeedyController {
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
     }
     @PutMapping("{id}")
-    public ResponseEntity<NeedyDto> VolunteerDto(@RequestBody NeedyDto needyDto,@PathVariable("id") long id)
+    public ResponseEntity<Needy> VolunteerDto(@RequestBody NeedyDto needyDto,@PathVariable("id") long id)
     {
-        NeedyDto updatedneedyDto = needyServiceImp.updateNeedy(needyDto,id);
+        Needy updatedneedyDto = needyServiceImp.updateNeedy(needyDto,id);
         return new ResponseEntity<>(updatedneedyDto,HttpStatus.OK);
     }
 

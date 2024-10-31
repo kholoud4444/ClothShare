@@ -1,6 +1,7 @@
 package com.ntg.backend.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,12 @@ public class    Request {
     private Long requestId;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "needy_id")
     private Needy needy;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "item_id")
     private Item item;
 

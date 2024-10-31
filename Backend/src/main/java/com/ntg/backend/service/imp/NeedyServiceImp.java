@@ -1,5 +1,6 @@
 package com.ntg.backend.service.imp;
 
+import com.ntg.backend.Mapper.NeedyMapper;
 import com.ntg.backend.dto.NeedyDto;
 import com.ntg.backend.entity.Needy;
 import com.ntg.backend.exception.ResourceNotFoundException;
@@ -18,20 +19,21 @@ public class NeedyServiceImp implements NeedyService {
     @Autowired
     private NeedyRepo needyRepo;
 
+
     @Autowired
-    private ModelMapper modelMapper;
+    private NeedyMapper needyMapper;
 
     @Override
-    public NeedyDto createNeedy(NeedyDto needyDto) {
+    public Needy createNeedy(NeedyDto needydto) {
         // Map the Needy to Volunteer entity
-        Needy needy = modelMapper.map(needyDto, Needy.class);
+        Needy needy = needyMapper.Mappertoentity(needydto);
         // Save the Needy entity to the database
         Needy savedNeedy =  needyRepo.save(needy);
-        return    modelMapper.map(savedNeedy, NeedyDto.class);
+        return   needy;
     }
 
     @Override
-    public NeedyDto updateNeedy(NeedyDto needyDto,long  id) {
+    public Needy updateNeedy(NeedyDto needyDto,long  id) {
         Needy needy = needyRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Needy not found with id: " + id));
         needy.setFirstName(needyDto.getFirstName());
         needy.setLastName(needyDto.getLastName());
@@ -42,25 +44,25 @@ public class NeedyServiceImp implements NeedyService {
         needy.setNationalId(needyDto.getNationalId());
         needy.setPassword(needyDto.getPassword());
         needy.setBirthDate(needyDto.getBirthDate());
-       Needy savedNeedy = needyRepo.save(needy);
-       return modelMapper.map(savedNeedy, NeedyDto.class);
+       return needyRepo.save(needy);
+
     }
 
     @Override
-    public List<NeedyDto> getAllNeedy() {
+    public List<Needy> getAllNeedy() {
         List<Needy> needies = needyRepo.findAll();
         if (needies.isEmpty()) {
             throw new ResourceNotFoundException("No needy records found");
         }
         else {
-            return needies.stream().map(needy -> modelMapper.map(needy, NeedyDto.class)).collect(Collectors.toList());
+            return needies;
         }
     }
 
     @Override
-    public NeedyDto getNeedyById(long id) {
+    public Needy getNeedyById(long id) {
         Needy needy = needyRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-        return modelMapper.map(needy, NeedyDto.class);
+        return needy;
     }
 
     @Override

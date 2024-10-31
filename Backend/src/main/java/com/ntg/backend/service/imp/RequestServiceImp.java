@@ -1,9 +1,14 @@
 package com.ntg.backend.service.imp;
 
 
+import com.ntg.backend.Mapper.RequestMapper;
 import com.ntg.backend.dto.RequestDto;
+import com.ntg.backend.entity.Item;
+import com.ntg.backend.entity.Needy;
 import com.ntg.backend.entity.Request;
 import com.ntg.backend.exception.ResourceNotFoundException;
+import com.ntg.backend.repository.ItemRepo;
+import com.ntg.backend.repository.NeedyRepo;
 import com.ntg.backend.repository.RequestRepo;
 import com.ntg.backend.service.RequestService;
 import org.modelmapper.ModelMapper;
@@ -19,37 +24,50 @@ public class RequestServiceImp implements RequestService {
     private RequestRepo requestRepo;
 
     @Autowired
-    private ModelMapper modelMapper;
-
+    private RequestMapper requestMapper;
+    @Autowired
+    private NeedyRepo needyRepo;
+    @Autowired
+    private ItemRepo itemRepo;
     @Override
-    public RequestDto createRequest(RequestDto requestDto) {
-        Request request = modelMapper.map(requestDto, Request.class);
-        Request savedRequest = requestRepo.save(request);
-        return modelMapper.map(savedRequest, RequestDto.class);
+    public Request createRequest(RequestDto requestDto,Long id_needy,Long id_items) {
+        Item item = itemRepo.findById(id_items).get();
+        Needy needy = needyRepo.findById(id_needy).get();
+        Request request = requestMapper.MaptoEntity(requestDto);
+        needy.getRequests().add(request);
+        request.setNeedy(needy);
+
+        item.getRequests().add(request);
+        request.setItem(item);
+        itemRepo.save(item);
+
+
+
+      return request;
     }
 
-    @Override
-    public RequestDto updateRequest(RequestDto requestDto,long id) {
-        Request request = requestRepo.findById(id).orElseThrow(()
-                -> new ResourceNotFoundException("User", "id", id));
-        request.setDate(requestDto.getDate());
-        request.setStatus(requestDto.getStatus());
-        request.setReason(requestDto.getReason());
-        Request savedRequest = requestRepo.save(request);
-        return modelMapper.map(savedRequest, RequestDto.class);
-    }
+//    @Override
+//    public RequestDto updateRequest(RequestDto requestDto,long id) {
+//        Request request = requestRepo.findById(id).orElseThrow(()
+//                -> new ResourceNotFoundException("User", "id", id));
+//        request.setDate(requestDto.getDate());
+//        request.setStatus(requestDto.getStatus());
+//        request.setReason(requestDto.getReason());
+//        Request savedRequest = requestRepo.save(request);
+//        return modelMapper.map(savedRequest, RequestDto.class);
+//    }
 
     @Override
-    public List<RequestDto> getAllRequests() {
+    public List<Request> getAllRequests() {
         List<Request> requests = requestRepo.findAll();
-        return requests.stream().map(request -> modelMapper.map(request, RequestDto.class)).collect(Collectors.toList());
+        return requests;
     }
 
     @Override
-    public RequestDto getRequestById(long id) {
+    public Request getRequestById(long id) {
         Request request = requestRepo.findById(id).orElseThrow(()
                 -> new ResourceNotFoundException("User", "id", id));
-        return modelMapper.map(request, RequestDto.class);
+        return request;
     }
 
     @Override

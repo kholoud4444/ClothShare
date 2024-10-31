@@ -22,7 +22,6 @@ public class VolunteerDto {
     private String gender;
     private Date birthDate;
     private String location;
-    private Long volunteerId;
-    private List<ItemDto> items;
+
 
 }

@@ -1,5 +1,6 @@
 package com.ntg.backend.service.imp;
 
+import com.ntg.backend.Mapper.VolunteerMapper;
 import com.ntg.backend.dto.NeedyDto;
 import com.ntg.backend.dto.VolunteerDto;
 import com.ntg.backend.entity.Volunteer;
@@ -16,71 +17,67 @@ import java.util.stream.Collectors;
 @Service
 public class VolunteerServiceImp implements VolunteerService {
     @Autowired
-   private VolunteerRepo volunteerRepo;
+    private VolunteerRepo volunteerRepo;
     @Autowired
-    private ModelMapper modelMapper ;
-    @Override
-    public VolunteerDto addVolunteer(VolunteerDto volunteerDto) {
-        // Map the VolunteerDto to Volunteer entity
-        Volunteer volunteer = modelMapper.map(volunteerDto, Volunteer.class);
-        // Save the volunteer entity to the database
-        Volunteer savedVolunteer =  volunteerRepo.save(volunteer);
+    private VolunteerMapper volunteerMapper;
 
-        return    modelMapper.map(savedVolunteer, VolunteerDto.class);
+
+    @Override
+    public Volunteer addVolunteer(VolunteerDto volunteerDto) {
+        Volunteer volunteer = volunteerMapper.mapperToEntity(volunteerDto);
+        return volunteerRepo.save(volunteer);
+
+
     }
 
     @Override
-    public VolunteerDto getVolunteerById(long volunteerId) {
+    public Volunteer getVolunteerById(long volunteerId) {
 
-        Volunteer volunteer = volunteerRepo.findById(volunteerId)
+        return volunteerRepo.findById(volunteerId)
                 .orElseThrow(()
-                -> new ResourceNotFoundException("User", "id", volunteerId));
-        return    modelMapper.map(volunteer, VolunteerDto.class);
-        
+                        -> new ResourceNotFoundException("User", "id", volunteerId));
+
 
     }
 
 
     @Override
     public void deleteVolunteerById(long volunteerId) {
-        Volunteer volunteer =  volunteerRepo.findById(volunteerId)
+        Volunteer volunteer = volunteerRepo.findById(volunteerId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", volunteerId));
         volunteerRepo.delete(volunteer);
     }
 
     @Override
-    public List<VolunteerDto> getAllVolunteers() {
+    public List<Volunteer> getAllVolunteers() {
         List<Volunteer> volunteers = volunteerRepo.findAll();
         if (volunteers.isEmpty()) {
             throw new ResourceNotFoundException("No Volunteer records found");
         }
-        else {
-            return volunteers.stream().map(volunteer ->
-                    modelMapper.map(volunteer, VolunteerDto.class)).collect(Collectors.toList());
-        }
+        return volunteers;
 
     }
 
     @Override
-    public VolunteerDto updateVolunteer(VolunteerDto volunteerDto, long volunteerId) {
+    public Volunteer updateVolunteer(VolunteerDto volunteerDto, long volunteerId) {
 
-         Volunteer volunteer = volunteerRepo.findById(volunteerId).orElseThrow(()
-                 -> new ResourceNotFoundException("User", "id", volunteerId));
-         volunteer.setFirstName(volunteerDto.getFirstName());
-         volunteer.setLastName(volunteerDto.getLastName());
-         volunteer.setEmail(volunteerDto.getEmail());
-         volunteer.setPhone(volunteerDto.getPhone());
-         volunteer.setGender(volunteerDto.getGender());
-         volunteer.setBirthDate(volunteerDto.getBirthDate());
-         volunteer.setNationalId(volunteerDto.getNationalId());
-         volunteer.setLocation(volunteerDto.getLocation());
-         volunteer.setPassword(volunteerDto.getPassword());
+        Volunteer volunteer = volunteerRepo.findById(volunteerId).orElseThrow(()
+                -> new ResourceNotFoundException("User", "id", volunteerId));
+        volunteer.setFirstName(volunteerDto.getFirstName());
+        volunteer.setLastName(volunteerDto.getLastName());
+        volunteer.setEmail(volunteerDto.getEmail());
+        volunteer.setPhone(volunteerDto.getPhone());
+        volunteer.setGender(volunteerDto.getGender());
+        volunteer.setBirthDate(volunteerDto.getBirthDate());
+        volunteer.setNationalId(volunteerDto.getNationalId());
+        volunteer.setLocation(volunteerDto.getLocation());
+        volunteer.setPassword(volunteerDto.getPassword());
 
-         Volunteer savedVolunteer = volunteerRepo.save(volunteer);
-         return modelMapper.map(savedVolunteer,VolunteerDto.class);
+        return volunteerRepo.save(volunteer);
 
     }
-
-
-
 }
+
+
+
+

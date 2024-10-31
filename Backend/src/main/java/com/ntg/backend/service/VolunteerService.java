@@ -1,13 +1,14 @@
 package com.ntg.backend.service;
 
 import com.ntg.backend.dto.VolunteerDto;
+import com.ntg.backend.entity.Volunteer;
 
 import java.util.List;
 
 public interface VolunteerService {
-    VolunteerDto addVolunteer(VolunteerDto volunteerDto);
-    VolunteerDto getVolunteerById(long volunteerId);
-    void deleteVolunteerById(long volunteerId);
-    List<VolunteerDto> getAllVolunteers();
-    VolunteerDto updateVolunteer(VolunteerDto volunteerDto, long volunteerId);
+    Volunteer addVolunteer(VolunteerDto volunteerDto);
+   Volunteer getVolunteerById(long volunteerId);
+   void deleteVolunteerById(long volunteerId);
+    List<Volunteer> getAllVolunteers();
+   Volunteer updateVolunteer(VolunteerDto volunteerDto, long volunteerId);
 }

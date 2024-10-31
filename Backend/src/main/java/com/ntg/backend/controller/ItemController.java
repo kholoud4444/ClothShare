@@ -1,6 +1,7 @@
 package com.ntg.backend.controller;
 
 import com.ntg.backend.dto.ItemDto;
+import com.ntg.backend.entity.Item;
 import com.ntg.backend.service.imp.ItemServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,22 +18,22 @@ public class ItemController {
     private ItemServiceImp itemServiceImp;
 
     @PostMapping
-    public ResponseEntity<ItemDto> addItem(@RequestBody ItemDto itemDto) {
-        ItemDto savedItemDto = itemServiceImp.createItem(itemDto);
+    public ResponseEntity<Item> addItem(@RequestBody ItemDto itemDto) {
+        Item savedItemDto = itemServiceImp.createItem(itemDto);
         return new ResponseEntity<>(savedItemDto, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ItemDto>getItemById(@PathVariable("id") long id )
+    public ResponseEntity<Item>getItemById(@PathVariable("id") long id )
     {
-        ItemDto itemDto = itemServiceImp.getItemById(id);
+       Item itemDto = itemServiceImp.getItemById(id);
         return new ResponseEntity<>(itemDto,HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<ItemDto>> getAllItems()
+    public ResponseEntity<List<Item>> getAllItems()
     {
-        List<ItemDto> ItemDTOs = itemServiceImp.getAllItems() ;
+        List<Item> ItemDTOs = itemServiceImp.getAllItems() ;
         return new ResponseEntity<>(ItemDTOs,HttpStatus.OK);
     }
 
@@ -44,9 +45,9 @@ public class ItemController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ItemDto> VolunteerDto(@RequestBody ItemDto itemDto,@PathVariable("id") long id)
+    public ResponseEntity<Item> VolunteerDto(@RequestBody ItemDto itemDto,@PathVariable("id") long id)
     {
-        ItemDto updatedItemDto = itemServiceImp.updateItem(itemDto,id);
+        Item updatedItemDto = itemServiceImp.updateItem(itemDto,id);
         return new ResponseEntity<>(updatedItemDto,HttpStatus.OK);
     }
 

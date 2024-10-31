@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 @Getter
 public class ItemDto {
-    private Long itemId;
     private String type;
     private String size;
     private String state;
@@ -22,5 +21,5 @@ public class ItemDto {
     private String description;
     private String status;
     private Long volunteerId; // Optional: include volunteer ID if needed
-    private List<RequestDto> requests;  // Nested list of RequestDTOs
+    // Nested list of RequestDTOs
 }

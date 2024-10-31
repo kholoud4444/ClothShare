@@ -2,6 +2,7 @@ package com.ntg.backend.controller;
 
 
 import com.ntg.backend.dto.RequestDto;
+import com.ntg.backend.entity.Request;
 import com.ntg.backend.service.imp.RequestServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,23 +18,25 @@ public class RequestController {
     @Autowired
     private RequestServiceImp requestServiceImp;
 
-    @PostMapping
-    public ResponseEntity<RequestDto> addRequest(@RequestBody RequestDto requestDto) {
-        RequestDto savedRequestDto = requestServiceImp.createRequest(requestDto);
-        return new ResponseEntity<>(savedRequestDto, HttpStatus.OK);
+    @PostMapping("/{id}/{idd}")
+    public ResponseEntity<Request> addRequest(@RequestBody RequestDto requestDto,
+                                              @PathVariable("id") long idNeedy,
+                                              @PathVariable("idd") long idItems) {
+        Request savedRequest = requestServiceImp.createRequest(requestDto, idNeedy, idItems);
+        return new ResponseEntity<>(savedRequest, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<RequestDto>getRequestById(@PathVariable("id") long id )
+    public ResponseEntity<Request>getRequestById(@PathVariable("id") long id )
     {
-        RequestDto requestDto = requestServiceImp.getRequestById(id);
+        Request requestDto = requestServiceImp.getRequestById(id);
         return new ResponseEntity<>(requestDto,HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<RequestDto>> getAllRequests()
+    public ResponseEntity<List<Request>> getAllRequests()
     {
-        List<RequestDto> RequestDTOs = requestServiceImp.getAllRequests() ;
+        List<Request> RequestDTOs = requestServiceImp.getAllRequests() ;
         return new ResponseEntity<>(RequestDTOs,HttpStatus.OK);
     }
 
@@ -44,10 +47,10 @@ public class RequestController {
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<RequestDto> VolunteerDto(@RequestBody RequestDto requestDto,@PathVariable("id") long id)
-    {
-        RequestDto updatedRequestDto = requestServiceImp.updateRequest(requestDto,id);
-        return new ResponseEntity<>(updatedRequestDto,HttpStatus.OK);
-    }
+//    @PutMapping("{id}")
+//    public ResponseEntity<Request> VolunteerDto(@RequestBody RequestDto requestDto, @PathVariable("id") long id)
+//    {
+//        RequestDto updatedRequestDto = requestServiceImp.updateRequest(requestDto,id);
+//        return new ResponseEntity<>(updatedRequestDto,HttpStatus.OK);
+//    }
 }

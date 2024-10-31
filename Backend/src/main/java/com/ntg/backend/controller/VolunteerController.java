@@ -1,6 +1,7 @@
 package com.ntg.backend.controller;
 
 import com.ntg.backend.dto.VolunteerDto;
+import com.ntg.backend.entity.Volunteer;
 import com.ntg.backend.service.imp.VolunteerServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,26 +16,26 @@ public class VolunteerController {
     @Autowired
     private VolunteerServiceImp volunteerServiceImp;
     @PostMapping
-    public ResponseEntity<VolunteerDto> addVolunteer(@RequestBody VolunteerDto volunteerDto) {
-        VolunteerDto savedVolunteerDto = volunteerServiceImp.addVolunteer(volunteerDto);
+    public ResponseEntity<Volunteer> addVolunteer(@RequestBody VolunteerDto volunteerDto) {
+        Volunteer savedVolunteerDto = volunteerServiceImp.addVolunteer(volunteerDto);
         return new ResponseEntity<>(savedVolunteerDto, HttpStatus.OK);
     }
     @GetMapping("{id}")
-    public ResponseEntity<VolunteerDto>getVolunteerById(@PathVariable("id") long id )
+    public ResponseEntity<Volunteer>getVolunteerById(@PathVariable("id") long id )
     {
-        VolunteerDto volunteerDto = volunteerServiceImp.getVolunteerById(id);
+        Volunteer volunteerDto = volunteerServiceImp.getVolunteerById(id);
         return new ResponseEntity<>(volunteerDto,HttpStatus.OK);
-        
+
     }
-    
+
     @GetMapping
-    public ResponseEntity<List<VolunteerDto>>getAllVolunteer()
+    public ResponseEntity<List<Volunteer>>getAllVolunteer()
     {
-        List<VolunteerDto> volunteerDTOs = volunteerServiceImp.getAllVolunteers() ;
+        List<Volunteer> volunteerDTOs = volunteerServiceImp.getAllVolunteers() ;
         return new ResponseEntity<>(volunteerDTOs,HttpStatus.OK);
 
     }
-    
+
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteVolunteerById(@PathVariable("id") Long id)
     {
@@ -42,12 +43,12 @@ public class VolunteerController {
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
     }
     @PutMapping("{id}")
-    public ResponseEntity<VolunteerDto> VolunteerDto(@RequestBody VolunteerDto volunteerDto,@PathVariable("id") long id)
+    public ResponseEntity<Volunteer> VolunteerDto(@RequestBody VolunteerDto volunteerDto,@PathVariable("id") long id)
     {
-        VolunteerDto updatedvolunteerDto = volunteerServiceImp.updateVolunteer(volunteerDto,id);
+        Volunteer updatedvolunteerDto = volunteerServiceImp.updateVolunteer(volunteerDto,id);
         return new ResponseEntity<>(updatedvolunteerDto,HttpStatus.OK);
     }
-   
+
 
   
 
