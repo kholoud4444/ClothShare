@@ -18,13 +18,12 @@ public class RequestController {
     @Autowired
     private RequestServiceImp requestServiceImp;
 
-    @PostMapping("/{id}/{idd}")
-    public ResponseEntity<Request> addRequest(@RequestBody RequestDto requestDto,
-                                              @PathVariable("id") long idNeedy,
-                                              @PathVariable("idd") long idItems) {
-        Request savedRequest = requestServiceImp.createRequest(requestDto, idNeedy, idItems);
-        return new ResponseEntity<>(savedRequest, HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity<Request> createRequest(@RequestBody RequestDto requestDto) {
+        Request createdRequest = requestServiceImp.createRequest(requestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdRequest);
     }
+
 
     @GetMapping("{id}")
     public ResponseEntity<Request>getRequestById(@PathVariable("id") long id )
@@ -47,10 +46,10 @@ public class RequestController {
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
     }
 
-//    @PutMapping("{id}")
-//    public ResponseEntity<Request> VolunteerDto(@RequestBody RequestDto requestDto, @PathVariable("id") long id)
-//    {
-//        RequestDto updatedRequestDto = requestServiceImp.updateRequest(requestDto,id);
-//        return new ResponseEntity<>(updatedRequestDto,HttpStatus.OK);
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Request> updateRequest(@PathVariable Long id, @RequestBody RequestDto requestDto) {
+        // Call the service to update the request
+        Request updatedRequest = requestServiceImp.updateRequest(requestDto, id);
+        return ResponseEntity.ok(updatedRequest);
+    }
 }

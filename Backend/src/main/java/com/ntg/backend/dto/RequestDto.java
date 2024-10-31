@@ -14,8 +14,8 @@ import java.util.Date;
 @Getter
 public class RequestDto {
 //    private Long requestId;
-//    private Long needyId; // Optional: include needy ID if needed
-//    private Long itemId;  // Optional: include item ID if needed
+    private Long needyId; // Optional: include needy ID if needed
+    private Long itemId;  // Optional: include item ID if needed
     private Date date;
     private String status;
     private String reason;
