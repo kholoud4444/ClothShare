@@ -1,15 +1,13 @@
-<div class="bg-container">
+<div class="bg-container" dir="rtl">
   <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
     <div class="text-center mb-4">
-
       <img loading="lazy"
            class="login-logo img-fluid"
            src="assets/images/login-bg.jpg"
-           alt="Logo"
-      />
+           alt="Logo" />
     </div>
     <h3 class="text-center mb-4 text-primary fw-bold">تسجيل الدخول</h3>
-    <form>
+    <form class="text-end">
       <div class="mb-3">
         <label for="email" class="form-label">البريد الإلكتروني</label>
         <input
@@ -28,9 +26,9 @@
           placeholder="أدخل كلمة المرور"
           required />
       </div>
-      <button type="submit" class="btn btn-primary btn-lg w-100 mt-3">تسجيل الدخول</button>
+      <button type="submit" class="btn btn-primary btn-lg w-100 mt-3" routerLink="/page/home">تسجيل الدخول</button>
       <div class="text-center mt-3">
-        <a class="text-muted text-decoration-none small" routerLink="/register">هل انت عضو جديد </a>
+        <a class="text-muted text-decoration-none small" routerLink="/register">هل انت عضو جديد</a>
       </div>
     </form>
   </div>
