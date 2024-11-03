@@ -1,0 +1,32 @@
+.card {
+  position: relative;
+  opacity: 0.95;
+}
+
+p-tag{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.card-footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .price {
+    margin: 0.4rem 0;
+    font-size: 1.2rem;
+  }
+}
+
+.out-of-stock {
+  opacity: 0.5;
+}
+
+.low-stock {
+  border-width: 2px;
+  border-color: #ae510f;
+}
+

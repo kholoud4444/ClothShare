@@ -5,7 +5,7 @@
     <h3 class="text-center mb-4 text-primary fw-bold">إنشاء حساب جديد</h3>
     <form>
 
-      <div class="row g-3">
+      <div class="row g-3" >
         <div class="col-md-6">
           <label for="firstName" class="form-label">الاسم الأول</label>
           <input type="text" id="firstName" class="form-control" placeholder="أدخل الاسم الأول" required />
@@ -34,6 +34,18 @@
       <div class="mb-3">
         <label for="phone" class="form-label">رقم الهاتف</label>
         <input type="tel" id="phone" class="form-control" placeholder="أدخل رقم الهاتف" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="address" class="form-label">الموقع</label>
+<!--        <input type="tel" id="address" class="form-control" placeholder="اختار موقعك" required />-->
+        <select id="address" class="form-select" required>
+          <option value="" disabled selected>اختر موقعك </option>
+          <option value="cairo">القاهرة</option>
+          <option value="needy">الجيزة</option>
+          <option value="">اسكندرية</option>
+          <option value="needy">اخرى </option>
+        </select>
       </div>
 
       <div class="mb-3">
