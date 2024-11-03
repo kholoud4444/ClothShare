@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +19,6 @@ public class NeedyDto {
     private String phone;
     private String nationalId;
     private String gender;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String location;
-//    private List<RequestDto> requests;  // Nested list of RequestDTOs
 }

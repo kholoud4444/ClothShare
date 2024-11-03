@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.time.LocalDate;
 
-import java.util.Date;
-import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -20,7 +19,7 @@ public class VolunteerDto {
     private String phone;
     private String nationalId;
     private String gender;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String location;
 
 
