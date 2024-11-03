@@ -14,9 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "Needy")
 public class Needy extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long needyId;
+
 
     @OneToMany(mappedBy = "needy", cascade = CascadeType.ALL)
     private List<Request> requests;

@@ -15,8 +15,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Setter
 @Getter
-@MappedSuperclass
+@Entity
+@Table(name="users")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
 
     @NotBlank(message = "First name is required")
     @Column(nullable = false, length = 10)

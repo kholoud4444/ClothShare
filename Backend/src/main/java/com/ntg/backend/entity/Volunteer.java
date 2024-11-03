@@ -17,12 +17,8 @@ import java.util.List;
 @Getter
 @Entity
 public class Volunteer extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long volunteerId;
 
     @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
-
     private List<Item> items ;
 
 }
