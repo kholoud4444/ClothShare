@@ -15,6 +15,9 @@ import java.util.List;
 public class NeedyController {
     @Autowired
     private NeedyServiceImp needyServiceImp;
+    public String hello() {
+        return"hello";
+    }
     @PostMapping
     public ResponseEntity<Needy> addNeedy(@RequestBody NeedyDto needyDto) {
         Needy savedNeedyDto = needyServiceImp.createNeedy(needyDto);
