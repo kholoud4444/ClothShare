@@ -8,6 +8,7 @@ import {HeaderComponent} from './components/header/header.component';
 import {PagesComponent} from './components/pages/pages.component';
 import {ContactUsComponent} from './components/contact-us/contact-us.component';
 import {HomeComponent} from './components/pages/home/home.component';
+import {NeedyHistoryComponent} from './components/needy-history/needy-history.component';
 
 export const routes: Routes = [
   {path: "login", component:LoginComponent},
@@ -17,6 +18,7 @@ export const routes: Routes = [
   {path:"contactUs" , component:ContactUsComponent},
   {path:"item" , component:ItemComponent},
   {path:"products" , component:ProductsComponent},
+  {path:"needy-history", component:NeedyHistoryComponent},
   {path:'page', component:PagesComponent,
     children:[
       {path:'home', component:HomeComponent},
