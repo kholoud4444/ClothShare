@@ -1,7 +1,7 @@
 package com.ntg.backend.jwt;
 
 
-import com.ntg.backend.entity.User;
+
 import com.ntg.backend.repository.UserRepo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
