@@ -21,6 +21,7 @@ public class VolunteerDto {
     private String gender;
     private LocalDate birthDate;
     private String location;
+    private String role;
 
 
 }

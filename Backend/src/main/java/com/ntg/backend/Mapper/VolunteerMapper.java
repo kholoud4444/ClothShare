@@ -18,6 +18,7 @@ public class VolunteerMapper {
         volunteer.setLastName(volunteerDto.getLastName());
         volunteer.setBirthDate(volunteerDto.getBirthDate());
         volunteer.setNationalId(volunteerDto.getNationalId());
+        volunteer.setRole(volunteerDto.getRole());
         return volunteer;
     }
 
@@ -48,6 +49,9 @@ public class VolunteerMapper {
         }
         if (volunteerDto.getNationalId() != null) {
             volunteer.setNationalId(volunteerDto.getNationalId());
+        }
+        if (volunteerDto.getRole() != null) {
+            volunteer.setRole(volunteerDto.getRole());
         }
     }
 }

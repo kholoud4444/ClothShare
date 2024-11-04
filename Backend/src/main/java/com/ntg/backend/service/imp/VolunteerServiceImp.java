@@ -7,6 +7,7 @@ import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.VolunteerRepo;
 import com.ntg.backend.service.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,16 +17,19 @@ public class VolunteerServiceImp implements VolunteerService {
 
     private final VolunteerRepo volunteerRepo;
     private final VolunteerMapper volunteerMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public VolunteerServiceImp(VolunteerRepo volunteerRepo, VolunteerMapper volunteerMapper) {
+    public VolunteerServiceImp(VolunteerRepo volunteerRepo, VolunteerMapper volunteerMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.volunteerRepo = volunteerRepo;
         this.volunteerMapper = volunteerMapper;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
     public Volunteer addVolunteer(VolunteerDto volunteerDto) {
         Volunteer volunteer = volunteerMapper.mapToEntity(volunteerDto);
+        volunteer.setPassword(bCryptPasswordEncoder.encode(volunteerDto.getPassword()));
         return volunteerRepo.save(volunteer);
     }
 

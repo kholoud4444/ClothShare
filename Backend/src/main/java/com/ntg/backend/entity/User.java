@@ -8,8 +8,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,8 +25,8 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @Table(name="users")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User {
+@Inheritance(strategy = InheritanceType.JOINED  )
+public abstract class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -35,6 +43,8 @@ public abstract class User {
     @Size(min = 8, message = "Password must be at least 8 characters long")
     @Column(nullable = false)
     private String password;
+
+    private String role;
 
     @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Email must be valid")
     @NotBlank(message = "Email is required")
@@ -72,4 +82,42 @@ public abstract class User {
         }
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Create a list to hold the authorities
+//        List<GrantedAuthority> authorities = new ArrayList<>();
+//
+//        // Check the role and add the corresponding GrantedAuthority
+//        if (role.equals("volunteer")) {
+//            authorities.add(new SimpleGrantedAuthority("ROLE_VOLUNTEER"));
+//        } else if (role.equals("needy")) {
+//            authorities.add(new SimpleGrantedAuthority("ROLE_NEEDY"));
+//        }
+//
+//        // Return an unmodifiable collection of authorities
+//        return Collections.unmodifiableCollection(authorities);
+
+        return Collections.singletonList(new SimpleGrantedAuthority(getRole()));
+    }
+
+
+    @Override
+    public String getUsername() {
+        return getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
