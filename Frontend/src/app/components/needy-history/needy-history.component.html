@@ -1,22 +1,20 @@
 <div class="container mt-2">
-  <ng-container>
+  <ng-container *ngIf="needies | async as listNeedies; else failureOrLoading">
     <div class="card">
-      <div class="card-header">Customers</div>
+      <div class="card-header">Needies</div>
       <div class="card-body">
-        <div>
-
-        </div>
         <table class="table">
           <thead>
           <tr>
-            <th>ID</th><th>Name</th><th>Email</th>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Actions</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let n of needies | async">
-            <td>{{n.id}}</td>
-            <td>{{n.name}}</td>
-            <td>{{n.email}}</td>
+          <tr *ngFor="let n of listNeedies">
+            <td>{{ n.id }}</td>
+            <td>{{ n.status }}</td>
             <td>
               <button (click)="handleDeleteNeedy(n)" class="btn btn-danger">
                 <i class="bi bi-trash"></i>
@@ -28,14 +26,15 @@
       </div>
     </div>
   </ng-container>
-  <ng-template #failureOrLading>
+  <ng-template #failureOrLoading>
     <ng-container *ngIf="errorMessage; else loading">
       <div class="text-danger">
-        {{errorMessage}}
+        {{ errorMessage }}
       </div>
     </ng-container>
     <ng-template #loading>
       Loading .....
+
     </ng-template>
   </ng-template>
 </div>

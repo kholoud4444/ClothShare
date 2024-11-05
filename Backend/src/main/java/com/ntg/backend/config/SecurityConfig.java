@@ -47,8 +47,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf(customizer -> customizer.disable());
-        http.authorizeHttpRequests(requests -> requests.requestMatchers("/api/volunteer","/api/needy","login").permitAll()
-                .anyRequest().authenticated());
+//        http.authorizeHttpRequests(requests -> requests.requestMatchers("/api/volunteer","/api/needy","login").permitAll()
+//                .anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); //stateless session

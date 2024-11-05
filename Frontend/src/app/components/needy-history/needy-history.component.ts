@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {Router} from "@angular/router";
-import {Needy} from '../model/needy';
-import {NeedyService} from '../services/needy.service';
-import { provideHttpClient  } from '@angular/common/http';
-import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
-import {map, Observable} from 'rxjs';
+import { FormBuilder } from "@angular/forms";
+import { Router } from "@angular/router";
+import { Needy } from '../model/needy';
+import { NeedyService } from '../services/needy.service';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { map, Observable } from 'rxjs';
+
 @Component({
   selector: 'app-needy-history',
   templateUrl: './needy-history.component.html',
@@ -17,30 +17,34 @@ import {map, Observable} from 'rxjs';
     NgIf
   ]
 })
-export class NeedyHistoryComponent  {
-  needies! : Observable<Array<Needy>>;
-
+export class NeedyHistoryComponent implements OnInit {
+  needies!: Observable<Array<Needy>>;
   errorMessage!: string;
-  constructor(private needyService : NeedyService, private fb : FormBuilder, private router : Router) { }
+
+  constructor(
+    private needyService: NeedyService,
+    private fb: FormBuilder,
+    private router: Router
+  ) { }
+
+  ngOnInit() {
+    this.loadNeedies();
+  }
+
+  loadNeedies() {
+    this.needies = this.needyService.getAllNeedy();
+  }
 
   handleDeleteNeedy(n: Needy) {
     let conf = confirm("Are you sure?");
-    if(!conf) return;
+    if (!conf) return;
     this.needyService.deleteNeedyById(n.id).subscribe({
-      next : (resp) => {
-        this.needies=this.needies.pipe(
-          map(data=>{
-            let index=data.indexOf(n);
-            data.slice(index,1)
-            return data;
-          })
-        );
+      next: () => {
+        this.loadNeedies(); // Reload needies after deletion
       },
-      error : err => {
+      error: err => {
         console.log(err);
       }
-    })
+    });
   }
-
-
 }
