@@ -26,12 +26,7 @@ public class VolunteerServiceImp implements VolunteerService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @Override
-    public Volunteer addVolunteer(VolunteerDto volunteerDto) {
-        Volunteer volunteer = volunteerMapper.mapToEntity(volunteerDto);
-        volunteer.setPassword(bCryptPasswordEncoder.encode(volunteerDto.getPassword()));
-        return volunteerRepo.save(volunteer);
-    }
+
 
     @Override
     public Volunteer getVolunteerById(long volunteerId) {

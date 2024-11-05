@@ -6,6 +6,7 @@ import com.ntg.backend.service.imp.NeedyServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,14 +16,13 @@ import java.util.List;
 public class NeedyController {
     @Autowired
     private NeedyServiceImp needyServiceImp;
-    public String hello() {
-        return"hello";
-    }
-    @PostMapping
-    public ResponseEntity<Needy> addNeedy(@RequestBody NeedyDto needyDto) {
-        Needy savedNeedyDto = needyServiceImp.createNeedy(needyDto);
-        return new ResponseEntity<>(savedNeedyDto, HttpStatus.OK);
-    }
+
+    //    @PostMapping
+//    public ResponseEntity<Needy> addNeedy(@RequestBody NeedyDto needyDto) {
+//        Needy savedNeedyDto = needyServiceImp.createNeedy(needyDto);
+//        return new ResponseEntity<>(savedNeedyDto, HttpStatus.OK);
+//    }
+    @PreAuthorize("hasRole('ROLE_NEEDY')")
     @GetMapping("{id}")
     public ResponseEntity<Needy>getNeedyById(@PathVariable("id") long id )
     {
@@ -31,6 +31,7 @@ public class NeedyController {
 
     }
 
+    @PreAuthorize("hasRole('ROLE_NEEDY')")
     @GetMapping
     public ResponseEntity<List<Needy>>getAllNeedy()
     {
@@ -44,6 +45,7 @@ public class NeedyController {
         needyServiceImp.deleteNeedy(id);
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('ROLE_NEEDY')")
     @PutMapping("{id}")
     public ResponseEntity<Needy> VolunteerDto(@RequestBody NeedyDto needyDto,@PathVariable("id") long id)
     {

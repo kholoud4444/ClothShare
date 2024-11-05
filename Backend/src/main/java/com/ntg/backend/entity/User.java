@@ -12,12 +12,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,7 +34,7 @@ public abstract class User implements UserDetails {
     @NotBlank(message = "First name is required")
     @Column(nullable = false, length = 10)
     private String firstName;
-
+    //
     @NotBlank(message = "Last name is required")
     @Column(nullable = false, length = 10)
     private String lastName;
@@ -84,21 +84,17 @@ public abstract class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Create a list to hold the authorities
-//        List<GrantedAuthority> authorities = new ArrayList<>();
-//
-//        // Check the role and add the corresponding GrantedAuthority
-//        if (role.equals("volunteer")) {
-//            authorities.add(new SimpleGrantedAuthority("ROLE_VOLUNTEER"));
-//        } else if (role.equals("needy")) {
-//            authorities.add(new SimpleGrantedAuthority("ROLE_NEEDY"));
-//        }
-//
-//        // Return an unmodifiable collection of authorities
-//        return Collections.unmodifiableCollection(authorities);
+        // Check if the role is null
+        if (role == null) {
+            // Handle null role, maybe return an empty authority list or throw an exception
+            return Collections.emptyList(); // Return empty authorities to prevent NullPointerException
+        }
 
-        return Collections.singletonList(new SimpleGrantedAuthority(getRole()));
+        // Map the role string to a SimpleGrantedAuthority with the "ROLE_" prefix
+        String roleName = "ROLE_" + role.toUpperCase();
+        return Collections.singletonList(new SimpleGrantedAuthority(roleName));
     }
+
 
 
     @Override

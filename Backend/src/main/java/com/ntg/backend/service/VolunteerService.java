@@ -6,9 +6,9 @@ import com.ntg.backend.entity.Volunteer;
 import java.util.List;
 
 public interface VolunteerService {
-    Volunteer addVolunteer(VolunteerDto volunteerDto);
-   Volunteer getVolunteerById(long volunteerId);
-   void deleteVolunteerById(long volunteerId);
+    //    Volunteer addVolunteer(VolunteerDto volunteerDto);
+    Volunteer getVolunteerById(long volunteerId);
+    void deleteVolunteerById(long volunteerId);
     List<Volunteer> getAllVolunteers();
-   Volunteer updateVolunteer(VolunteerDto volunteerDto, long volunteerId);
+    Volunteer updateVolunteer(VolunteerDto volunteerDto, long volunteerId);
 }
