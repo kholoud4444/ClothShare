@@ -1,0 +1,36 @@
+<table class="table">
+  <thead class="text-end">
+  <tr>
+    <th>الحالة</th>
+    <th>المراجعات</th>
+    <th>الفئة</th>
+    <th>السعر</th>
+    <th>الصورة</th>
+    <th>الاسم</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products" class="text-end">
+    <td>
+      <p-tag [value]="product.availabilityStatus" [severity]="getSeverity(product.availabilityStatus)" *ngIf="product.availabilityStatus"></p-tag>
+    </td>
+    <td>
+      <ng-container *ngFor="let star of getStars(product.rating)">
+        <span class="star">&#9733;</span>
+      </ng-container>
+    </td>
+    <td>{{ product.category }}</td>
+    <td>{{ product.price | currency }}</td>
+    <td>
+      <img
+        [ngSrc]="product.thumbnail || 'https://via.placeholder.com/100'"
+        [alt]="product.title || 'لا توجد صورة'"
+        width="100"
+        height="100"
+        class="shadow-4"
+        loading="lazy" />
+    </td>
+    <td>{{ product.title }}</td>
+  </tr>
+  </tbody>
+</table>
