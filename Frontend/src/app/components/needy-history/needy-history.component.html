@@ -6,20 +6,25 @@
         <table class="table">
           <thead>
           <tr>
-            <th>ID</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th>حذف</th>
+            <th>السبب</th>
+            <th>الحاله</th>
+            <th>التاريخ</th>
+            <th>الاسم</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let n of listNeedies">
-            <td>{{ n.requestId }}</td>
-            <td>{{ n.status }}</td>
             <td>
-              <button (click)="handleDeleteRequest(n)" class="btn btn-danger">
+              <button (click)="handleDeleteRequest(n)" class="btn btn-danger">حذف
                 <i class="bi bi-trash"></i>
               </button>
             </td>
+            <td>{{ n.reason }}</td>
+            <td>{{ n.status }}</td>
+            <td>{{ n.date }}</td>
+            <td>الاسم</td>
+
           </tr>
           </tbody>
         </table>
