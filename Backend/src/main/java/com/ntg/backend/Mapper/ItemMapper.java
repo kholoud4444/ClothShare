@@ -10,7 +10,7 @@ public class ItemMapper {
     public Item mapToEntity(ItemDto itemDto) {
         Item item = new Item();
         item.setSize(itemDto.getSize());
-        item.setImgUrl(itemDto.getImgUrl());
+        item.setImageUrl(itemDto.getImageUrl());
         item.setType(itemDto.getType());
         item.setGenderSuitability(itemDto.getGenderSuitability());
         item.setState(itemDto.getState());
@@ -23,8 +23,8 @@ public class ItemMapper {
         if (itemDto.getSize() != null) {
             item.setSize(itemDto.getSize());
         }
-        if (itemDto.getImgUrl() != null) {
-            item.setImgUrl(itemDto.getImgUrl());
+        if (itemDto.getImageUrl() != null) {
+            item.setImageUrl(itemDto.getImageUrl());
         }
         if (itemDto.getType() != null) {
             item.setType(itemDto.getType());

@@ -1,6 +1,7 @@
 package com.ntg.backend.dto;
 
 
+import com.ntg.backend.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,13 +14,13 @@ import java.util.List;
 @Setter
 @Getter
 public class ItemDto {
-    private String type;
-    private String size;
-    private String state;
-    private String genderSuitability;
-    private String imgUrl;
+    private Item.ClothingType type;
+    private Item.ClothingSize size;
+    private Item.ItemState state;
+    private Item.GenderSuitability genderSuitability;
+    private String imageUrl;
     private String description;
-    private String status;
+    private Item.ItemStatus status;
     private Long volunteerId; // Optional: include volunteer ID if needed
-    // Nested list of RequestDTOs
+
 }
