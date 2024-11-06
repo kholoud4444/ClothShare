@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Needy} from '../model/needy';
+import {Needy} from '../components/model/needy';
 
 
 @Injectable({
@@ -19,8 +19,7 @@ export class NeedyService{
   public addNeedy(needy: Needy):Observable<Needy>{
     return this.http.post<Needy>("/api/needy",needy);
   }
-  public deleteNeedyById(id: number) {
-    return this.http.delete("/api/needy/${id}");
+  public deleteRequestById(requestId: number) {
+    return this.http.delete("/api/request/${requestId}");
   }
-
 }

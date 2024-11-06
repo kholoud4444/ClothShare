@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Needy } from '../model/needy';
-import { NeedyService } from '../services/needy.service';
+import { NeedyService } from '../../services/needy.service';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { map, Observable } from 'rxjs';
 
@@ -33,12 +33,13 @@ export class NeedyHistoryComponent implements OnInit {
 
   loadNeedies() {
     this.needies = this.needyService.getAllNeedy();
+
   }
 
-  handleDeleteNeedy(n: Needy) {
+  handleDeleteRequest(n: Needy) {
     let conf = confirm("Are you sure?");
     if (!conf) return;
-    this.needyService.deleteNeedyById(n.id).subscribe({
+    this.needyService.deleteRequestById(n.requestId).subscribe({
       next: () => {
         this.loadNeedies(); // Reload needies after deletion
       },

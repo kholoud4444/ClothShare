@@ -1,5 +1,6 @@
 export interface Needy {
-  id : number;
-
+  reason : string;
   status : string;
+  requestId: number;
+
 }

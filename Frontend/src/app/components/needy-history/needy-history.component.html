@@ -13,10 +13,10 @@
           </thead>
           <tbody>
           <tr *ngFor="let n of listNeedies">
-            <td>{{ n.id }}</td>
+            <td>{{ n.requestId }}</td>
             <td>{{ n.status }}</td>
             <td>
-              <button (click)="handleDeleteNeedy(n)" class="btn btn-danger">
+              <button (click)="handleDeleteRequest(n)" class="btn btn-danger">
                 <i class="bi bi-trash"></i>
               </button>
             </td>
