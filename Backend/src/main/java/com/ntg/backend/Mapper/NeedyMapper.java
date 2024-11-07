@@ -1,6 +1,6 @@
 package com.ntg.backend.Mapper;
 
-import com.ntg.backend.dto.NeedyDto;
+import com.ntg.backend.dto.requestDto.NeedyDto;
 import com.ntg.backend.entity.Needy;
 import org.springframework.stereotype.Component;
 

@@ -1,13 +1,13 @@
 package com.ntg.backend.Mapper;
 
-import com.ntg.backend.dto.ItemDto;
+import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.entity.Item;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ItemMapper {
 
-    public Item mapToEntity(ItemDto itemDto) {
+    public Item mapToItemEntity(ItemDto itemDto) {
         Item item = new Item();
         item.setSize(itemDto.getSize());
         item.setImageUrl(itemDto.getImageUrl());
@@ -17,6 +17,19 @@ public class ItemMapper {
         item.setStatus(itemDto.getStatus());
         item.setDescription(itemDto.getDescription());
         return item;
+    }
+
+    public ItemDto mapToItemDto(Item item) {
+        ItemDto itemDto = new ItemDto();
+        itemDto.setDescription(item.getDescription());
+        itemDto.setType(item.getType());
+        itemDto.setSize(item.getSize());
+        itemDto.setGenderSuitability(item.getGenderSuitability());
+        itemDto.setState(item.getState());
+        itemDto.setImageUrl(item.getImageUrl());
+        itemDto.setStatus(item.getStatus());
+        itemDto.setVolunteerId(item.getVolunteer().getUserId());
+        return itemDto;
     }
 
     public void updateEntityFromDto(ItemDto itemDto, Item item) {

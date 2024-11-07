@@ -40,8 +40,8 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private GenderSuitability genderSuitability;
 
-    @NotBlank(message = "Image URL is required")
-    @Size(max = 255, message = "Image URL should not exceed 255 characters")
+//    @NotBlank(message = "Image URL is required")
+//    @Size(max = 255, message = "Image URL should not exceed 255 characters")
     private String imageUrl;
 
     @Size(max = 500, message = "Description should not exceed 500 characters")

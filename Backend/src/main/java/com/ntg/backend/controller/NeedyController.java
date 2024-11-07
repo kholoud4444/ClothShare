@@ -1,6 +1,6 @@
 package com.ntg.backend.controller;
 
-import com.ntg.backend.dto.NeedyDto;
+import com.ntg.backend.dto.requestDto.NeedyDto;
 import com.ntg.backend.entity.Needy;
 import com.ntg.backend.service.imp.NeedyServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +39,7 @@ public class NeedyController {
         return new ResponseEntity<>(NeedyDTOs,HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteNeedyById(@PathVariable("id") Long id)
-    {
-        needyServiceImp.deleteNeedy(id);
-        return new ResponseEntity<>("Deleted",HttpStatus.OK);
-    }
+
     @PreAuthorize("hasRole('ROLE_NEEDY')")
     @PutMapping("{id}")
     public ResponseEntity<Needy> VolunteerDto(@RequestBody NeedyDto needyDto,@PathVariable("id") long id)

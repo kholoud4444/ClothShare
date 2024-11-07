@@ -1,6 +1,6 @@
 package com.ntg.backend.service;
 
-import com.ntg.backend.dto.ItemDto;
+import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.entity.Item;
 
 import java.util.List;

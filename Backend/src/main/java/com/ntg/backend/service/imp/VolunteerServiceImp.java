@@ -1,7 +1,10 @@
 package com.ntg.backend.service.imp;
 
+import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.dto.responseDto.VolunteerResponseDetails;
 import com.ntg.backend.Mapper.VolunteerMapper;
-import com.ntg.backend.dto.VolunteerDto;
+import com.ntg.backend.dto.requestDto.VolunteerDto;
+import com.ntg.backend.dto.responseDto.VolunteerWithItemsDetails;
 import com.ntg.backend.entity.Volunteer;
 import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.VolunteerRepo;
@@ -11,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VolunteerServiceImp implements VolunteerService {
@@ -28,36 +32,32 @@ public class VolunteerServiceImp implements VolunteerService {
 
 
 
+
+
     @Override
-    public Volunteer getVolunteerById(long volunteerId) {
-        return volunteerRepo.findById(volunteerId)
+    public VolunteerWithItemsDetails getVolunteerWithItemsDetails(long volunteerId) {
+        Volunteer volunteer =  volunteerRepo.findById(volunteerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Volunteer", "id", volunteerId));
+        return volunteerMapper.toVolunteerWithItemsDetails(volunteer);
+
+
     }
 
     @Override
-    public void deleteVolunteerById(long volunteerId) {
-        Volunteer volunteer = volunteerRepo.findById(volunteerId)
-                .orElseThrow(() -> new ResourceNotFoundException("Volunteer", "id", volunteerId));
-        volunteerRepo.delete(volunteer);
-    }
-
-    @Override
-    public List<Volunteer> getAllVolunteers() {
+    public List<VolunteerWithItemsDetails> getAllVolunteersWithItems() {
         List<Volunteer> volunteers = volunteerRepo.findAll();
-        if (volunteers.isEmpty()) {
-            throw new ResourceNotFoundException("No Volunteer records found");
-        }
-        return volunteers;
+
+        return volunteers.stream()
+                .map(volunteerMapper::toVolunteerWithItemsDetails)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Volunteer updateVolunteer(VolunteerDto volunteerDto, long volunteerId) {
-        Volunteer volunteer = volunteerRepo.findById(volunteerId)
-                .orElseThrow(() -> new ResourceNotFoundException("Volunteer", "id", volunteerId));
-
-        // Update fields from VolunteerDto
-        volunteerMapper.updateEntityFromDto(volunteerDto, volunteer);
-
-        return volunteerRepo.save(volunteer);
+    public List<ItemDto> getAllItemsByVolunteerId(long volunteerId) {
+       Volunteer volunteer = volunteerRepo.findById(volunteerId)
+               .orElseThrow(() -> new ResourceNotFoundException("Volunteer", "id", volunteerId));
+        return volunteerMapper.toItemDtoList(volunteer);
     }
+
+
 }

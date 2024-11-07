@@ -1,6 +1,6 @@
 package com.ntg.backend.controller;
 
-import com.ntg.backend.dto.RegistrationDto;
+import com.ntg.backend.dto.requestDto.RegistrationDto;
 import com.ntg.backend.entity.User;
 import com.ntg.backend.service.imp.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;

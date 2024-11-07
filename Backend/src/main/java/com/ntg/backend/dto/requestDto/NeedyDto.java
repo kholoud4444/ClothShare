@@ -1,4 +1,4 @@
-package com.ntg.backend.dto;
+package com.ntg.backend.dto.requestDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

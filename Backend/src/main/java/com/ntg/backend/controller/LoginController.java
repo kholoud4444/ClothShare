@@ -1,10 +1,8 @@
 package com.ntg.backend.controller;
 
-import com.ntg.backend.dto.LoginDto;
+import com.ntg.backend.dto.requestDto.LoginDto;
 import com.ntg.backend.entity.User;
 import com.ntg.backend.jwt.JwtService;
-import com.ntg.backend.repository.UserRepo;
-import com.ntg.backend.service.UserService;
 import com.ntg.backend.service.imp.UserServiceImp;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

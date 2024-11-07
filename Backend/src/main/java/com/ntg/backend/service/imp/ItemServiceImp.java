@@ -1,7 +1,7 @@
 package com.ntg.backend.service.imp;
 
 import com.ntg.backend.Mapper.ItemMapper;
-import com.ntg.backend.dto.ItemDto;
+import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.entity.Item;
 import com.ntg.backend.entity.Volunteer;
 import com.ntg.backend.exception.ResourceNotFoundException;
@@ -32,7 +32,7 @@ public class ItemServiceImp implements ItemService {
         Volunteer volunteer = volunteerRepo.findById(itemDto.getVolunteerId())
                 .orElseThrow(() -> new ResourceNotFoundException("Volunteer", "id", itemDto.getVolunteerId()));
 
-        Item item = itemMapper.mapToEntity(itemDto);
+        Item item = itemMapper.mapToItemEntity(itemDto);
         volunteer.getItems().add(item);
         item.setVolunteer(volunteer);
         return itemRepo.save(item);

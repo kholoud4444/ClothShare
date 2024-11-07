@@ -1,7 +1,7 @@
 package com.ntg.backend.service.imp;
 
 import com.ntg.backend.Mapper.NeedyMapper;
-import com.ntg.backend.dto.NeedyDto;
+import com.ntg.backend.dto.requestDto.NeedyDto;
 import com.ntg.backend.entity.Needy;
 import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.NeedyRepo;
@@ -23,11 +23,6 @@ public class NeedyServiceImp implements NeedyService {
         this.needyMapper = needyMapper;
     }
 
-    @Override
-    public Needy createNeedy(NeedyDto needyDto) {
-        Needy needy = needyMapper.mapToEntity(needyDto);
-        return needyRepo.save(needy);
-    }
 
     @Override
     public Needy updateNeedy(NeedyDto needyDto, long id) {
@@ -55,10 +50,5 @@ public class NeedyServiceImp implements NeedyService {
                 .orElseThrow(() -> new ResourceNotFoundException("Needy", "id", id));
     }
 
-    @Override
-    public void deleteNeedy(long id) {
-        Needy needy = needyRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Needy", "id", id));
-        needyRepo.delete(needy);
-    }
+
 }

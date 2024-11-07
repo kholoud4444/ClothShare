@@ -1,11 +1,28 @@
 package com.ntg.backend.Mapper;
 
-import com.ntg.backend.dto.VolunteerDto;
+import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.dto.responseDto.UserResponseDetails;
+import com.ntg.backend.dto.responseDto.VolunteerResponseDetails;
+import com.ntg.backend.dto.requestDto.VolunteerDto;
+import com.ntg.backend.dto.responseDto.VolunteerWithItemsDetails;
+import com.ntg.backend.entity.Item;
 import com.ntg.backend.entity.Volunteer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class VolunteerMapper {
+
+    private final UserMapper userMapper; // Injecting the UserMapper
+    private final ItemMapper itemMapper;
+
+    public VolunteerMapper(UserMapper userMapper, ItemMapper itemMapper) {
+        this.userMapper = userMapper;
+        this.itemMapper = itemMapper;
+    }
 
     public Volunteer mapToEntity(VolunteerDto volunteerDto) {
         Volunteer volunteer = new Volunteer();
@@ -22,36 +39,26 @@ public class VolunteerMapper {
         return volunteer;
     }
 
-    public void updateEntityFromDto(VolunteerDto volunteerDto, Volunteer volunteer) {
-        if (volunteerDto.getPassword() != null) {
-            volunteer.setPassword(volunteerDto.getPassword());
-        }
-        if (volunteerDto.getLocation() != null) {
-            volunteer.setLocation(volunteerDto.getLocation());
-        }
-        if (volunteerDto.getGender() != null) {
-            volunteer.setGender(volunteerDto.getGender());
-        }
-        if (volunteerDto.getEmail() != null) {
-            volunteer.setEmail(volunteerDto.getEmail());
-        }
-        if (volunteerDto.getPhone() != null) {
-            volunteer.setPhone(volunteerDto.getPhone());
-        }
-        if (volunteerDto.getFirstName() != null) {
-            volunteer.setFirstName(volunteerDto.getFirstName());
-        }
-        if (volunteerDto.getLastName() != null) {
-            volunteer.setLastName(volunteerDto.getLastName());
-        }
-        if (volunteerDto.getBirthDate() != null) {
-            volunteer.setBirthDate(volunteerDto.getBirthDate());
-        }
-        if (volunteerDto.getNationalId() != null) {
-            volunteer.setNationalId(volunteerDto.getNationalId());
-        }
-        if (volunteerDto.getRole() != null) {
-            volunteer.setRole(volunteerDto.getRole());
-        }
+
+
+
+    public VolunteerWithItemsDetails toVolunteerWithItemsDetails(Volunteer volunteer) {
+        VolunteerWithItemsDetails volunteerWithItemsDetails = new VolunteerWithItemsDetails();
+        userMapper.mapToUserDto(volunteer, volunteerWithItemsDetails);
+
+        List<ItemDto> itemsDto = volunteer.getItems().stream()
+                .map(itemMapper::mapToItemDto)
+                .collect(Collectors.toList());
+
+        volunteerWithItemsDetails.setItems(itemsDto);
+        return volunteerWithItemsDetails;
     }
+
+    public List<ItemDto> toItemDtoList(Volunteer volunteer) {
+        // If there are items related to the volunteer, map them to ItemDto
+        return volunteer.getItems().stream()
+                .map(itemMapper::mapToItemDto) // Map each Item to ItemDto
+                .collect(Collectors.toList());
+    }
+
 }

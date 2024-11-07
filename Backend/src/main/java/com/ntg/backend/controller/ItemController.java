@@ -1,6 +1,6 @@
 package com.ntg.backend.controller;
 
-import com.ntg.backend.dto.ItemDto;
+import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.entity.Item;
 import com.ntg.backend.service.imp.ItemServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;

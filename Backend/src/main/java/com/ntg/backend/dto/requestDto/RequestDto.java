@@ -1,4 +1,4 @@
-package com.ntg.backend.dto;
+package com.ntg.backend.dto.requestDto;
 
 
 import com.ntg.backend.entity.Request;
@@ -15,9 +15,12 @@ import java.time.LocalDate;
 @Getter
 public class RequestDto {
 //    private Long requestId;
-    private Long needyId; // Optional: include needy ID if needed
-    private Long itemId;  // Optional: include item ID if needed
+private Long requestId;
     private LocalDate date;
     private Request.RequestStatus status;
     private String reason;
+    private Long needyId;    // Add needyId
+    private Long itemId;     // Add itemId
+
+
 }

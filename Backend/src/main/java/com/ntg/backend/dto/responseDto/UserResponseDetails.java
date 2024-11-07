@@ -1,27 +1,24 @@
-package com.ntg.backend.dto;
-
+package com.ntg.backend.dto.responseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.time.LocalDate;
 
-@NoArgsConstructor
-@AllArgsConstructor
+import java.time.LocalDate;
 @Setter
 @Getter
-public class VolunteerDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserResponseDetails {
+    private Long userId;
     private String firstName;
     private String lastName;
-    private String password;
+    private String role;
     private String email;
     private String phone;
     private String nationalId;
     private String gender;
     private LocalDate birthDate;
     private String location;
-    private String role;
-
-
 }

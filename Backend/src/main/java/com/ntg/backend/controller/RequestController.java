@@ -1,7 +1,8 @@
 package com.ntg.backend.controller;
 
 
-import com.ntg.backend.dto.RequestDto;
+import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
+import com.ntg.backend.dto.requestDto.RequestDto;
 import com.ntg.backend.entity.Request;
 import com.ntg.backend.service.imp.RequestServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,17 @@ public class RequestController {
         // Call the service to update the request
         Request updatedRequest = requestServiceImp.updateRequest(requestDto, id);
         return ResponseEntity.ok(updatedRequest);
+    }
+    @GetMapping("needy/{id}")
+    public ResponseEntity<List<Request>> getRequestByNeedyId(@PathVariable("id") Long id)
+    {
+        List<Request> Request = requestServiceImp.getAllRequestsByNeedyId(id) ;
+        return new ResponseEntity<>(Request,HttpStatus.OK);
+    }
+    @GetMapping("/details/{id}")
+    public ResponseEntity<RequestWithItemDetails>getRequestWithItemsDetails(@PathVariable("id") long id )
+    {
+        RequestWithItemDetails requestWithItemDetails = requestServiceImp.getRequestWithItemDetails(id);
+        return new ResponseEntity<>(requestWithItemDetails,HttpStatus.OK);
     }
 }

@@ -1,9 +1,11 @@
 package com.ntg.backend.controller;
 
-import com.ntg.backend.dto.VolunteerDto;
+import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.dto.responseDto.VolunteerResponseDetails;
+import com.ntg.backend.dto.requestDto.VolunteerDto;
+import com.ntg.backend.dto.responseDto.VolunteerWithItemsDetails;
 import com.ntg.backend.entity.Volunteer;
 import com.ntg.backend.service.imp.VolunteerServiceImp;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,48 +18,35 @@ import java.util.List;
 
 @RequestMapping("/api/volunteer")
 public class VolunteerController {
-    @Autowired
-    private VolunteerServiceImp volunteerServiceImp;
-    //    @PostMapping
-//    public ResponseEntity<Volunteer> addVolunteer(@RequestBody VolunteerDto volunteerDto) {
-//        Volunteer savedVolunteerDto = volunteerServiceImp.addVolunteer(volunteerDto);
-//        return new ResponseEntity<>(savedVolunteerDto, HttpStatus.OK);
-//    }
-    @PreAuthorize("hasRole('volunteer')")
-    @GetMapping("{id}")
-    public ResponseEntity<Volunteer>getVolunteerById(@PathVariable("id") long id )
-    {
-        Volunteer volunteerDto = volunteerServiceImp.getVolunteerById(id);
-        return new ResponseEntity<>(volunteerDto,HttpStatus.OK);
 
-    }
+    private final VolunteerServiceImp volunteerServiceImp;
 
-    @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
-    @GetMapping
-    public ResponseEntity<List<Volunteer>>getAllVolunteer()
-    {
-        List<Volunteer> volunteerDTOs = volunteerServiceImp.getAllVolunteers() ;
-        return new ResponseEntity<>(volunteerDTOs,HttpStatus.OK);
-
-    }
-
-    @PreAuthorize("hasRole('volunteer')")
-    @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteVolunteerById(@PathVariable("id") Long id)
-    {
-        volunteerServiceImp.deleteVolunteerById(id);
-        return new ResponseEntity<>("Deleted",HttpStatus.OK);
-    }
-    @PreAuthorize("hasRole('volunteer')")
-    @PutMapping("{id}")
-    public ResponseEntity<Volunteer> VolunteerDto(@RequestBody VolunteerDto volunteerDto,@PathVariable("id") long id)
-    {
-        Volunteer updatedvolunteerDto = volunteerServiceImp.updateVolunteer(volunteerDto,id);
-        return new ResponseEntity<>(updatedvolunteerDto,HttpStatus.OK);
+    public VolunteerController(VolunteerServiceImp volunteerServiceImp) {
+        this.volunteerServiceImp = volunteerServiceImp;
     }
 
 
+    @GetMapping("/details/{id}")
+    public ResponseEntity<VolunteerWithItemsDetails>getVolunteerWithItemsDetails(@PathVariable("id") long id )
+    {
+        VolunteerWithItemsDetails volunteerWithItemsDetails = volunteerServiceImp.getVolunteerWithItemsDetails(id);
+        return new ResponseEntity<>(volunteerWithItemsDetails,HttpStatus.OK);
 
+    }
+    @GetMapping("/all")
+    public ResponseEntity< List<VolunteerWithItemsDetails>>getAllVolunteerWithItemsDetails()
+    {
+        List<VolunteerWithItemsDetails> volunteersWithItemsDetails = volunteerServiceImp.getAllVolunteersWithItems();
+        return new ResponseEntity<>(volunteersWithItemsDetails,HttpStatus.OK);
+
+    }
+    @GetMapping("/all/items/{id}")
+    public ResponseEntity<List<ItemDto>>getAllItemsByVolunteerId(@PathVariable("id") long volunteerId)
+    {
+        List<ItemDto> itemsByVolunteerId = volunteerServiceImp.getAllItemsByVolunteerId(volunteerId);
+        return new ResponseEntity<>(itemsByVolunteerId,HttpStatus.OK);
+
+    }
 
 
 

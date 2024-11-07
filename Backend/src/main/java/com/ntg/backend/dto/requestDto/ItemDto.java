@@ -1,4 +1,4 @@
-package com.ntg.backend.dto;
+package com.ntg.backend.dto.requestDto;
 
 
 import com.ntg.backend.entity.Item;
@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
