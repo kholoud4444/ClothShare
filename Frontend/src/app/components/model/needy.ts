@@ -1,5 +1,12 @@
 export interface Needy {
-  id : number;
-
-  status : string;
+  firstName: string ;
+  lastName:string;
+  password: string ;
+  email:string ;
+  phone:string ;
+  nationalId: string ;
+  gender:string ;
+  birthDate:  string;
+  location:string ;
+  role:string ;
 }

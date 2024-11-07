@@ -1,73 +1,136 @@
 <div class="bg-container" dir="rtl">
-  <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%;">
-    <h3 class="text-center mb-4 text-primary fw-bold">إنشاء حساب جديد</h3>
-    <form>
-      <div class="row g-3">
-        <div class="col-md-6">
-          <label for="firstName" class="form-label">الاسم الأول</label>
-          <input type="text" id="firstName" class="form-control" placeholder="أدخل الاسم الأول" required />
+  <!-- Main Container -->
+  <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center">
+    <!-- Registration Card -->
+    <div class="card shadow-lg p-4 w-100" style="max-width: 500px;">
+      <h3 class="text-center mb-4 text-primary fw-bold">إنشاء حساب جديد</h3>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <!-- First and Last Name Row -->
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="firstName" class="form-label">الاسم الأول</label>
+            <input
+              type="text"
+              id="firstName"
+              class="form-control"
+              formControlName="firstName"
+              placeholder="أدخل الاسم الأول"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="lastName" class="form-label">الاسم الأخير</label>
+            <input
+              type="text"
+              id="lastName"
+              class="form-control"
+              formControlName="lastName"
+              placeholder="أدخل الاسم الأخير"
+              required
+            />
+          </div>
         </div>
-        <div class="col-md-6">
-          <label for="lastName" class="form-label">الاسم الأخير</label>
-          <input type="text" id="lastName" class="form-control" placeholder="أدخل الاسم الأخير" required />
+
+        <!-- Email -->
+        <div class="mb-3 mt-3 text-end">
+          <label for="email" class="form-label">البريد الإلكتروني</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="أدخل بريدك الإلكتروني"
+            required
+          />
         </div>
-      </div>
 
-      <div class="mb-3 mt-3 text-end">
-        <label for="email" class="form-label">البريد الإلكتروني</label>
-        <input type="email" id="email" class="form-control" placeholder="أدخل بريدك الإلكتروني" required />
-      </div>
+        <!-- Password -->
+        <div class="mb-3 text-end">
+          <label for="password" class="form-label">كلمة المرور</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="أدخل كلمة المرور"
+            required
+          />
+        </div>
 
-      <div class="mb-3 text-end">
-        <label for="password" class="form-label">كلمة المرور</label>
-        <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور" required />
-      </div>
+        <!-- National ID -->
+        <div class="mb-3 text-end">
+          <label for="nationalId" class="form-label">الرقم القومي</label>
+          <input
+            type="text"
+            id="nationalId"
+            class="form-control"
+            formControlName="nationalId"
+            placeholder="أدخل الرقم القومي"
+            required
+          />
+        </div>
 
-      <div class="mb-3 text-end">
-        <label for="nationalId" class="form-label">الرقم القومي</label>
-        <input type="text" id="nationalId" class="form-control" placeholder="أدخل الرقم القومي" required />
-      </div>
+        <!-- Phone -->
+        <div class="mb-3 text-end">
+          <label for="phone" class="form-label">رقم الهاتف</label>
+          <input
+            type="tel"
+            id="phone"
+            class="form-control text-end"
+            formControlName="phone"
+            placeholder="أدخل رقم الهاتف"
+            required
+          />
+        </div>
 
-      <div class="mb-3 text-end">
-        <label for="phone" class="form-label">رقم الهاتف</label>
-        <input type="tel" id="phone" class="form-control text-end" placeholder="أدخل رقم الهاتف" required />
-      </div>
+        <!-- Location -->
+        <div class="mb-3 text-end">
+          <label for="location" class="form-label">الموقع</label>
+          <select id="location" class="form-select" formControlName="location" required>
+            <option value="" disabled selected>اختر موقعك</option>
+            <option value="cairo">القاهرة</option>
+            <option value="giza">الجيزة</option>
+            <option value="alex">اسكندرية</option>
+            <option value="other">اخرى</option>
+          </select>
+        </div>
 
-      <div class="mb-3 text-end">
-        <label for="address" class="form-label">الموقع</label>
-        <select id="address" class="form-select" required>
-          <option value="" disabled selected>اختر موقعك</option>
-          <option value="cairo">القاهرة</option>
-          <option value="giza">الجيزة</option>
-          <option value="alex">اسكندرية</option>
-          <option value="other">اخرى</option>
-        </select>
-      </div>
+        <!-- Gender -->
+        <div class="mb-3 text-end">
+          <label for="gender" class="form-label">النوع</label>
+          <select id="gender" class="form-select" formControlName="gender" required>
+            <option value="" disabled selected>اختر النوع</option>
+            <option value="male">ذكر</option>
+            <option value="female">أنثى</option>
+          </select>
+        </div>
 
-      <div class="mb-3 text-end">
-        <label for="gender" class="form-label">النوع</label>
-        <select id="gender" class="form-select" required>
-          <option value="" disabled selected>اختر النوع</option>
-          <option value="male">ذكر</option>
-          <option value="female">أنثى</option>
-        </select>
-      </div>
+        <!-- Birth Date -->
+        <div class="mb-3 text-end">
+          <label for="birthDate" class="form-label">تاريخ الميلاد</label>
+          <input
+            type="date"
+            id="birthDate"
+            class="form-control text-end"
+            formControlName="birthDate"
+            required
+          />
+        </div>
 
-      <div class="mb-3 text-end">
-        <label for="birthdate" class="form-label">تاريخ الميلاد</label>
-        <input type="date" id="birthdate" class="form-control text-end" required />
-      </div>
+        <!-- Role Selection -->
+        <div class="mb-3 text-end">
+          <label for="role" class="form-label">نوع المستخدم</label>
+          <select id="role" class="form-select" formControlName="role" required>
+            <option value="" disabled selected>اختر نوع المستخدم</option>
+            <option value="admin">مدير</option>
+            <option value="needy">محتاج</option>
+            <option value="volunteer">متطوع</option>
+          </select>
+        </div>
 
-      <div class="mb-3 text-end">
-        <label for="userType" class="form-label">نوع المستخدم</label>
-        <select id="userType" class="form-select" required>
-          <option value="" disabled selected>اختر نوع المستخدم</option>
-          <option value="volunteer">متطوع</option>
-          <option value="needy">محتاج</option>
-        </select>
-      </div>
-
-      <button type="submit" class="btn btn-primary btn-lg w-100 mt-3 text-center" routerLink="/login">إنشاء حساب</button>
-    </form>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary btn-lg w-100 mt-3 text-center">إنشاء حساب</button>
+      </form>
+    </div>
   </div>
 </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
-import { Needy } from '../model/needy';
-import { NeedyService } from '../../services/needy.service';
+import { Request } from '../model/request';
+import { RequestService } from '../../services/request.service';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { map, Observable } from 'rxjs';
 
@@ -18,29 +18,30 @@ import { map, Observable } from 'rxjs';
   ]
 })
 export class NeedyHistoryComponent implements OnInit {
-  needies!: Observable<Array<Needy>>;
+  requests!: Observable<Array<Request>>;
   errorMessage!: string;
 
   constructor(
-    private needyService: NeedyService,
+    private requestService: RequestService,
     private fb: FormBuilder,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.loadNeedies();
+    this.loadRequests();
   }
 
-  loadNeedies() {
-    this.needies = this.needyService.getAllNeedy();
+  loadRequests(): void {
+    this.requests = this.requestService.getAllRequests();
+
   }
 
-  handleDeleteNeedy(n: Needy) {
+  handleDeleteRequest(n: Request) {
     let conf = confirm("Are you sure?");
     if (!conf) return;
-    this.needyService.deleteNeedyById(n.id).subscribe({
+    this.requestService.deleteRequestById(n.requestId).subscribe({
       next: () => {
-        this.loadNeedies(); // Reload needies after deletion
+        this.loadRequests(); // Reload requests after deletion
       },
       error: err => {
         console.log(err);
