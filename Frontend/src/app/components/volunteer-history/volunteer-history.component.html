@@ -1,6 +1,7 @@
 <table class="table">
   <thead class="text-end">
   <tr>
+    <th>الإعدادات </th>
     <th>الحالة</th>
     <th>المراجعات</th>
     <th>الفئة</th>
@@ -11,6 +12,20 @@
   </thead>
   <tbody>
   <tr *ngFor="let product of products" class="text-end">
+    <td>
+      <p-button
+        icon="pi pi-plus"
+        styleClass="p-button-text p-button-rounded p-button-success"
+        label="New"
+        (click)="onNewProduct(product)"
+      ></p-button>
+      <p-button
+        icon="pi pi-trash"
+        styleClass="p-button-text p-button-rounded p-button-danger"
+        label="Delete"
+        (click)="onDeleteProduct(product)"
+      ></p-button>
+    </td>
     <td>
       <p-tag [value]="product.availabilityStatus" [severity]="getSeverity(product.availabilityStatus)" *ngIf="product.availabilityStatus"></p-tag>
     </td>
@@ -28,7 +43,8 @@
         width="100"
         height="100"
         class="shadow-4"
-        loading="lazy" />
+        loading="lazy"
+      />
     </td>
     <td>{{ product.title }}</td>
   </tr>

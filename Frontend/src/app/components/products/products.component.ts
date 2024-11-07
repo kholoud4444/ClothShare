@@ -4,6 +4,7 @@ import {CurrencyPipe, UpperCasePipe} from '@angular/common';
 import {RatingModule} from 'primeng/rating';
 import {FormsModule} from '@angular/forms';
 import {TagModule} from 'primeng/tag';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -13,7 +14,9 @@ import {TagModule} from 'primeng/tag';
     RatingModule,
     FormsModule,
     TagModule,
-    CurrencyPipe
+    CurrencyPipe,
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
@@ -21,7 +24,7 @@ import {TagModule} from 'primeng/tag';
 export class ProductsComponent {
 
   products: Array<IProduct> = [
-    
+
   ];
 
 }

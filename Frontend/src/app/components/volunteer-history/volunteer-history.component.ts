@@ -8,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {PaginatorModule} from 'primeng/paginator';
 import {TagModule} from 'primeng/tag';
 import {Product} from './product';
+import { PrimeIcons } from 'primeng/api';
 
 
 @Component({
@@ -65,5 +66,14 @@ export class VolunteerHistoryComponent  implements OnInit {
 
   getStars(rating: number): any[] {
     return Array(Math.round(rating));
+  }
+  onNewProduct(product: Product): void {
+    console.log('New product clicked:', product);
+    // Add functionality for "New" action
+  }
+
+  onDeleteProduct(product: Product): void {
+    console.log('Delete product clicked:', product);
+    // Add functionality for "Delete" action
   }
 }

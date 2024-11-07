@@ -27,3 +27,25 @@ nav {
   padding: 0.5rem 1rem; // ضبط الحشو لملء مساحة الخلفية
   display: block; // جعل الرابط يغطي كامل مساحة <li>
 }
+
+/* Trigger dropdown on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Initially hide the dropdown */
+.dropdown-menu {
+  display: block;
+  opacity: 0;
+  transform: translateY(-10px);
+  position: absolute;
+  visibility: hidden;
+}
+
+/* Make it visible on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+  visibility: visible;
+}

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Needy } from '../model/needy';
-import { NeedyService } from '../services/needy.service';
+import { NeedyService } from '../../services/needy.service';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { map, Observable } from 'rxjs';
 

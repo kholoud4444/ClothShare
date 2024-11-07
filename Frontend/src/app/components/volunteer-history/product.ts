@@ -11,4 +11,6 @@ export interface Product {
   sku: string;
   availabilityStatus: string;  // Add this field
   thumbnail: string;
+  label : string ;
+  icon : string ;
 }

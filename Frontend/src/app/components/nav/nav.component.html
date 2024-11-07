@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <!-- Logo على اليسار -->
-    <a class="navbar-brand" routerLink="/home" routerLinkActive="active">
+    <a class="navbar-brand" routerLink="/page/home" routerLinkActive="active">
       <img src="assets/images/Logo.png" alt="Logo" class="logo-img" />
     </a>
 
@@ -13,14 +13,58 @@
     <div [ngClass]="{'collapse': isNavbarCollapsed, 'navbar-collapse': true}" id="navbarNav">
       <a class="nav-link text-white" routerLink="/login" routerLinkActive="active">تسجيل الدخول</a>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-end">
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/volunteerHistory" routerLinkActive="active">قائمة الطلبات </a>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link text-white" routerLink="/volunteerHistory" routerLinkActive="active">قائمة الطلبات </a>-->
+<!--        </li>-->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-white"
+            href="#"
+            id="AdminDropdown"
+            role="button"
+            aria-expanded="false"
+          >
+            الأدمن
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="volunteerDropdown">
+            <li><a class="dropdown-item" routerLink="/volunteerHistory">طلبات المتطوع </a></li>
+            <li><a class="dropdown-item" routerLink="/addItemVolunteer">تقارير</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/products" routerLinkActive="active">تبرع بالملابس</a>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-white"
+            href="#"
+            id="volunteerDropdown"
+            role="button"
+            aria-expanded="false"
+          >
+            المستفيد
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="volunteerDropdown">
+            <li><a class="dropdown-item" routerLink="/volunteerHistory">طلباتى</a></li>
+            <li><a class="dropdown-item" routerLink="/addItemVolunteer">طلب منتج</a></li>
+          </ul>
         </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-white"
+            href="#"
+            id="needyDropdown"
+            role="button"
+            aria-expanded="false"
+          >
+            المتطوع
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="volunteerDropdown">
+            <li><a class="dropdown-item" routerLink="/volunteerHistory">منتجاتى</a></li>
+            <li><a class="dropdown-item" routerLink="/addItemVolunteer">اضافة منتج</a></li>
+          </ul>
+        </li>
+
+
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/item" routerLinkActive="active">طلب المنتج</a>
+          <a class="nav-link text-white" routerLink="/products" routerLinkActive="active">المنتجات </a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" routerLink="/about" routerLinkActive="active">من نحن </a>

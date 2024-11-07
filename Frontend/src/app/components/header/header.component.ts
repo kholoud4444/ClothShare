@@ -12,12 +12,9 @@ import {NgStyle} from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
   images: string[] = [
-    // 'assets/images/slide1.jpg',
-    'assets/images/slide2.jpg',
+    'assets/images/bg3.jpg',
+    'assets/images/bg5.jpg',
     'assets/images/bg2.jpg',
-    'assets/images/slide3.jpg'
-
-
   ];
   currentImageIndex = 0;
   ngOnInit(): void {
