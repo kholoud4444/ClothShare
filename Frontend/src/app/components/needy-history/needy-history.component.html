@@ -1,7 +1,7 @@
 <div class="container mt-2">
-  <ng-container *ngIf="needies | async as listNeedies; else failureOrLoading">
+  <ng-container *ngIf="requests | async as listRequests; else failureOrLoading">
     <div class="card">
-      <div class="card-header">Needies</div>
+      <div class="card-header">Requests</div>
       <div class="card-body">
         <table class="table">
           <thead>
@@ -14,7 +14,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let n of listNeedies">
+          <tr *ngFor="let n of listRequests">
             <td>
               <button (click)="handleDeleteRequest(n)" class="btn btn-danger">حذف
                 <i class="bi bi-trash"></i>

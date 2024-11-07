@@ -1,6 +1,4 @@
 body, html {
-  height: 100%;
-  margin: 0;
   font-family: 'Cairo', sans-serif;
   direction: rtl; /* النص من اليمين إلى اليسار */
 }
@@ -9,16 +7,13 @@ body, html {
   background-image: url("/assets/images/bg2.jpg");
   background-size: cover;
   background-position: center;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 20px; /* لضمان تنسيق جيد على الشاشات الصغيرة */
+    background-color: #f8f9fa;
 
 }
 
 .card {
-  border-radius: 16px;
+  border-radius: 10px;
   backdrop-filter: blur(8px);
   background: rgba(255, 255, 255, 0.85);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
@@ -28,4 +23,12 @@ body, html {
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+/*................................................................................*/
+
+
+@media (max-width: 576px) {
+  .card {
+    width: 90%;
+  }
 }
