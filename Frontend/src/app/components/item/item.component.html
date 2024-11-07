@@ -19,13 +19,13 @@
     </button>
 
     <!-- Conditionally displayed request form -->
-    <div *ngIf="showRequestForm" class="request-form">
+    <div *ngIf="showRequestForm" class="request-form d-flex">
       <input type="text" placeholder="أدخل طلبك هنا" [(ngModel)]="requestText" class="form-control" />
       <button
         pButton
         pRipple
         label="إرسال الطلب"
-        class="p-button-primary mt-2'"
+        class="p-button-primary mt-2' talabSawp "
         (click)="submitRequest()">
       </button >
     </div>

@@ -10,6 +10,7 @@ import {HomeComponent} from './components/pages/home/home.component';
 import {NeedyHistoryComponent} from './components/needy-history/needy-history.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {VolunteerHistoryComponent} from './components/volunteer-history/volunteer-history.component';
+import {AddProductComponent} from './components/add-product/add-product.component';
 
 export const routes: Routes = [
   {path: "login", component:LoginComponent},
@@ -19,6 +20,7 @@ export const routes: Routes = [
   {path:"contactUs" , component:ContactUsComponent},
   {path:"item" , component:ItemComponent},
   {path:"products" , component:ProductsComponent},
+  {path:"addProduct" , component:AddProductComponent},
   {path:"needy-history", component:NeedyHistoryComponent},
   {path:"volunteerHistory" , component:VolunteerHistoryComponent},
   {path:'page', component:PagesComponent,

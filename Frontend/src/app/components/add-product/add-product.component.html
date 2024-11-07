@@ -1,0 +1,60 @@
+<div class="addProductPage">
+  <div class="container">
+    <!-- Header -->
+    <h2 class="text-center">إضافة منتج</h2>
+
+    <!-- Product Add Form -->
+    <form (ngSubmit)="onSubmit()">
+      <!-- Image Upload Field -->
+      <div class="form-group">
+        <label for="image" class="text-end">تحميل الصورة</label>
+        <input type="file" id="image" class="form-control" [(ngModel)]="product.image" name="image" required />
+      </div>
+
+      <!-- Type Selector Dropdown -->
+      <div class="form-group">
+        <label for="type" class="text-end">النوع</label>
+        <select id="type" class="form-control" [(ngModel)]="product.type" name="type" required>
+          <option value="dress">فستان</option>
+          <option value="shirt">قميص</option>
+          <option value="pants">بنطلون</option>
+          <option value="jacket">جاكيت</option>
+        </select>
+      </div>
+
+      <!-- Condition Selector Dropdown -->
+      <div class="form-group">
+        <label for="condition" class="text-end">الحالة</label>
+        <select id="condition" class="form-control" [(ngModel)]="product.condition" name="condition" required>
+          <option value="new">جديد</option>
+          <option value="old">مستعمل</option>
+        </select>
+      </div>
+
+      <!-- Size Selector Dropdown -->
+      <div class="form-group">
+        <label for="size" class="text-end">المقاس</label>
+        <select id="size" class="form-control" [(ngModel)]="product.size" name="size" required>
+          <option value="small">صغير</option>
+          <option value="medium">متوسط</option>
+          <option value="large">كبير</option>
+        </select>
+      </div>
+
+      <!-- Description Textarea -->
+      <div class="form-group">
+        <label for="description" class="text-end">الوصف</label>
+        <textarea id="description" class="form-control" [(ngModel)]="product.description" name="description" rows="3" required></textarea>
+      </div>
+
+      <!-- Add Button -->
+      <button type="submit" class="btn btn-primary btn-block">إضافة</button>
+
+      <!-- Success Message -->
+      <div *ngIf="message" class="alert alert-success mt-3 text-center">
+        {{ message }}
+      </div>
+    </form>
+  </div>
+
+</div>

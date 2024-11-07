@@ -1,15 +1,15 @@
 .footer-container {
+  padding-top : 12px;
   background-color: #001F3F;
   color: #C7EAF6;
-  padding: 20px;
   text-align: center;
   font-family: 'Arial', sans-serif;
+  height:23vh ;
 }
 
 .footer-content {
   display: flex;
   justify-content: space-around;
-  padding: 20px 0;
   flex-wrap: wrap;
 }
 
@@ -47,5 +47,9 @@
 
 html[dir="rtl"] {
   direction: rtl;
+}
+
+.divider2 {
+  margin-bottom: 5px;
 }
 

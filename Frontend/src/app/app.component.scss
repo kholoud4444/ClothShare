@@ -3,10 +3,10 @@ $font-family: 'Roboto', sans-serif;
 $base-padding: 15px;
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
-body {
-  margin: -15px;
-  padding: 1px;
-  font-family: $font-family;
+//body {
+//  margin: -15px;
+//  padding: 1px;
+//  font-family: $font-family;
 
 
 
@@ -19,4 +19,4 @@ body {
   p {
     line-height: 1.5;
   }
-}
+//}
