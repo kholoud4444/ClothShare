@@ -13,12 +13,19 @@
   <tbody>
   <tr *ngFor="let product of products" class="text-end">
     <td>
+<!--      <p-button-->
+<!--        icon="pi pi-plus"-->
+<!--        styleClass="p-button-text p-button-rounded p-button-success"-->
+<!--        label="New"-->
+<!--        (click)="onNewProduct(product)"-->
+<!--      ></p-button>-->
       <p-button
-        icon="pi pi-plus"
+        icon="pi pi-pencil"
         styleClass="p-button-text p-button-rounded p-button-success"
-        label="New"
-        (click)="onNewProduct(product)"
+        label="Edit"
+        (click)="onEditProduct(product)"
       ></p-button>
+
       <p-button
         icon="pi pi-trash"
         styleClass="p-button-text p-button-rounded p-button-danger"

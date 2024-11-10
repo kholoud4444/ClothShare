@@ -76,4 +76,9 @@ export class VolunteerHistoryComponent  implements OnInit {
     console.log('Delete product clicked:', product);
     // Add functionality for "Delete" action
   }
+
+  onEditProduct(product: Product): void {
+    console.log('Edit product clicked:', product);
+    // Add functionality for "edit" action
+  }
 }
