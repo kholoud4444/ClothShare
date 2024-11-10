@@ -15,7 +15,6 @@ import java.util.List;
 @Table(name = "Needy")
 public class Needy extends User {
 
-
     @OneToMany(mappedBy = "needy", cascade = CascadeType.ALL)
     private List<Request> requests;
 }

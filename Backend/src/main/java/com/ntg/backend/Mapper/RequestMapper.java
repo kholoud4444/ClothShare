@@ -19,7 +19,7 @@ public class RequestMapper {
         this.needyMapper = needyMapper;
     }
 
-    public static RequestDto mapToRequestDto(Request request) {
+    public RequestDto mapToRequestDto(Request request) {
         if (request == null) {
             return null;
         }

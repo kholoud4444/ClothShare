@@ -1,18 +1,18 @@
 package com.ntg.backend.dto.responseDto;
 
-import com.ntg.backend.dto.requestDto.ItemDto;
+
+import com.ntg.backend.dto.requestDto.RequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class VolunteerWithItemsDetails extends UserResponseDetails{
-    private List<ItemDto> items; // List of items associated with the volunteer
+public class NeedyWithRequestsList extends UserResponseDetails{
+    private List<RequestDto> requests; // List of requests associated with the needy
 }

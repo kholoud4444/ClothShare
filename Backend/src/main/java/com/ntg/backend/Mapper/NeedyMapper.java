@@ -1,12 +1,24 @@
 package com.ntg.backend.Mapper;
 
 import com.ntg.backend.dto.requestDto.NeedyDto;
+import com.ntg.backend.dto.requestDto.RequestDto;
 import com.ntg.backend.dto.responseDto.NeedyInfo;
 import com.ntg.backend.entity.Needy;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class NeedyMapper {
+    private final UserMapper userMapper;
+    private final RequestMapper requestMapper;
+
+    public NeedyMapper(UserMapper userMapper, RequestMapper requestMapper) {
+        this.userMapper = userMapper;
+        this.requestMapper = requestMapper;
+    }
+
     public Needy mapToEntity(NeedyDto needyDto) {
         Needy needy = new Needy();
         needy.setFirstName(needyDto.getFirstName());
@@ -59,5 +71,12 @@ public class NeedyMapper {
         needyInfo.setGender(needy.getGender());
         needyInfo.setLocation(needy.getLocation());
         return needyInfo;
+    }
+
+    public List<RequestDto> toRequestDtoList(Needy needy) {
+        // If there are requests related to the needy, map them to RequestDto
+        return needy.getRequests().stream()
+                .map(requestMapper::mapToRequestDto)
+                .collect(Collectors.toList());
     }
 }

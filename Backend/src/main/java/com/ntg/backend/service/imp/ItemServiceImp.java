@@ -35,7 +35,7 @@ public class ItemServiceImp implements ItemService {
     private final RequestMapper requestMapper;
 
 
-    @Autowired
+
     public ItemServiceImp(ItemRepo itemRepo, RequestRepo requestRepo, VolunteerRepo volunteerRepo, ItemMapper itemMapper, NeedyMapper needyMapper, RequestMapper requestMapper) {
         this.itemRepo = itemRepo;
         this.requestRepo = requestRepo;

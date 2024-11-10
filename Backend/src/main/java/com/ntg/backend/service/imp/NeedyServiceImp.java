@@ -2,8 +2,7 @@ package com.ntg.backend.service.imp;
 
 import com.ntg.backend.Mapper.NeedyMapper;
 import com.ntg.backend.Mapper.RequestMapper;
-import com.ntg.backend.dto.requestDto.NeedyDto;
-import com.ntg.backend.dto.responseDto.NeedyRequestDetails;
+import com.ntg.backend.dto.requestDto.RequestDto;
 import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.entity.Needy;
 import com.ntg.backend.exception.ResourceNotFoundException;
@@ -29,31 +28,11 @@ public class NeedyServiceImp implements NeedyService {
         this.requestMapper = requestMapper;
     }
 
-
     @Override
-    public Needy updateNeedy(NeedyDto needyDto, long id) {
-        Needy needy = needyRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Needy", "id", id));
-
-        // Update fields from NeedyDto
-        needyMapper.updateEntityFromDto(needyDto, needy);
-
-        return needyRepo.save(needy);
-    }
-
-    @Override
-    public List<Needy> getAllNeedy() {
-        List<Needy> needies = needyRepo.findAll();
-        if (needies.isEmpty()) {
-            throw new ResourceNotFoundException("No needy records found");
-        }
-        return needies;
-    }
-
-    @Override
-    public Needy getNeedyById(long id) {
-        return needyRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Needy", "id", id));
+    public List<RequestDto> getAllRequestsByNeedyId(long needyId) {
+        Needy needy = needyRepo.findById(needyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Needy", "id", needyId));
+        return needyMapper.toRequestDtoList(needy);
     }
 
     @Override
@@ -64,6 +43,5 @@ public class NeedyServiceImp implements NeedyService {
                 .map(requestMapper::mapToRequestWithItemDetails)
                 .collect(Collectors.toList());
     }
-
 
 }

@@ -5,6 +5,7 @@ import com.ntg.backend.dto.responseDto.VolunteerWithItemsDetails;
 import com.ntg.backend.service.imp.VolunteerServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class VolunteerController {
     }
 
     // get specific Volunteer data with Items details
+    @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
     @GetMapping("/details/{id}")
     public ResponseEntity<VolunteerWithItemsDetails>getVolunteerWithItemsDetails(@PathVariable("id") long id )
     {
@@ -29,6 +31,7 @@ public class VolunteerController {
     }
 
     // get all Volunteers data with Items details
+    @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
     @GetMapping("/all")
     public ResponseEntity< List<VolunteerWithItemsDetails>>getAllVolunteerWithItemsDetails()
     {
@@ -37,6 +40,7 @@ public class VolunteerController {
     }
 
     //get all Items details for specific Volunteer
+    @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
     @GetMapping("/all/items/{id}")
     public ResponseEntity<List<ItemDto>>getAllItemsByVolunteerId(@PathVariable("id") long volunteerId)
     {

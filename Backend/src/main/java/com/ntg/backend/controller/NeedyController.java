@@ -1,10 +1,9 @@
 package com.ntg.backend.controller;
 
-import com.ntg.backend.dto.requestDto.NeedyDto;
+import com.ntg.backend.dto.requestDto.RequestDto;
 import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.entity.Needy;
 import com.ntg.backend.service.imp.NeedyServiceImp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,39 +21,18 @@ public class NeedyController {
         this.needyServiceImp = needyServiceImp;
     }
 
-    //    @PostMapping
-//    public ResponseEntity<Needy> addNeedy(@RequestBody NeedyDto needyDto) {
-//        Needy savedNeedyDto = needyServiceImp.createNeedy(needyDto);
-//        return new ResponseEntity<>(savedNeedyDto, HttpStatus.OK);
-//    }
+    //get all Requests for specific Needy
     @PreAuthorize("hasRole('ROLE_NEEDY')")
-    @GetMapping("{id}")
-    public ResponseEntity<Needy>getNeedyById(@PathVariable("id") long id )
+    @GetMapping("/allRequests/{id}")
+    public ResponseEntity<List<RequestDto>> getAllRequestsByNeedyId(@PathVariable("id") long needyId)
     {
-        Needy needy = needyServiceImp.getNeedyById(id);
-        return new ResponseEntity<>(needy,HttpStatus.OK);
-
+        List<RequestDto> requestsByNeedyId = needyServiceImp.getAllRequestsByNeedyId(needyId);
+        return new ResponseEntity<>(requestsByNeedyId,HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_NEEDY')")
-    @GetMapping
-    public ResponseEntity<List<Needy>>getAllNeedy()
-    {
-        List<Needy> NeedyDTOs = needyServiceImp.getAllNeedy() ;
-        return new ResponseEntity<>(NeedyDTOs,HttpStatus.OK);
-    }
-
-
-    @PreAuthorize("hasRole('ROLE_NEEDY')")
-    @PutMapping("{id}")
-    public ResponseEntity<Needy> VolunteerDto(@RequestBody NeedyDto needyDto,@PathVariable("id") long id)
-    {
-        Needy updatedneedyDto = needyServiceImp.updateNeedy(needyDto,id);
-        return new ResponseEntity<>(updatedneedyDto,HttpStatus.OK);
-    }
     @PreAuthorize("hasRole('ROLE_NEEDY')")
     @GetMapping("allRequestsDetails/{id}")
-    public ResponseEntity<List<RequestWithItemDetails>>getAllRequestsByNeedyId(@PathVariable("id")Long needyId)
+    public ResponseEntity<List<RequestWithItemDetails>> getAllRequestsDetailsByNeedyId(@PathVariable("id") long needyId)
     {
         List<RequestWithItemDetails> requestsWithItemDetailsByNeedyId = needyServiceImp.getAllRequestDetailsByNeedyId(needyId) ;
         return new ResponseEntity<>(requestsWithItemDetailsByNeedyId,HttpStatus.OK);

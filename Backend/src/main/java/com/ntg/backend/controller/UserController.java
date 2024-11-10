@@ -14,11 +14,9 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
     private final UserServiceImp userServiceImp;
-    private final UserRepo userRepo;
 
-    public UserController(UserServiceImp userServiceImp, UserRepo userRepo) {
+    public UserController(UserServiceImp userServiceImp) {
         this.userServiceImp = userServiceImp;
-        this.userRepo = userRepo;
     }
 
     @GetMapping("/details/{id}")
@@ -28,19 +26,21 @@ public class UserController {
         return new ResponseEntity<>(userResponseDetails, HttpStatus.OK);
 
     }
+
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable("id") Long id)
     {
         userServiceImp.deleteUserById(id);
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
     }
+
     @GetMapping("/allUsers/{role}")
     public ResponseEntity<List<UserResponseDetails>> getAllUsersByRole(@PathVariable("role") String role )
     {
         List<UserResponseDetails> userResponseDetails = userServiceImp.getAllUsersWithRole(role);
         return new ResponseEntity<>(userResponseDetails, HttpStatus.OK);
-
     }
+
     @PutMapping("{id}")
     public ResponseEntity<UserResponseDetails> updateUser(@RequestBody UserResponseDetails userResponseDetails, @PathVariable("id") long id)
     {
