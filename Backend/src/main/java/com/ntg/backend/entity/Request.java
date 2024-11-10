@@ -17,7 +17,9 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @Entity
-@Table(name = "Request")
+@Table(name = "requests", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"needy_id", "item_id"})
+})
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +53,7 @@ public class Request {
     @Getter
     public enum RequestStatus {
         مرفوض,
+        قيد_المراجعه,
         تم_الموافقه
     }
 }

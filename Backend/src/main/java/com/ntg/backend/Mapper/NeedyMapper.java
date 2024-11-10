@@ -1,6 +1,7 @@
 package com.ntg.backend.Mapper;
 
 import com.ntg.backend.dto.requestDto.NeedyDto;
+import com.ntg.backend.dto.responseDto.NeedyInfo;
 import com.ntg.backend.entity.Needy;
 import org.springframework.stereotype.Component;
 
@@ -48,5 +49,15 @@ public class NeedyMapper {
         if (needyDto.getNationalId() != null) {
             needy.setNationalId(needyDto.getNationalId());
         }
+    }
+    public NeedyInfo mapNeedyToNeedyInfo(Needy needy) {
+        NeedyInfo needyInfo = new NeedyInfo();
+        needyInfo.setUserId(needy.getUserId());
+        needyInfo.setFirstName(needy.getFirstName());
+        needyInfo.setLastName(needy.getLastName());
+        needyInfo.setPhone(needy.getPhone());
+        needyInfo.setGender(needy.getGender());
+        needyInfo.setLocation(needy.getLocation());
+        return needyInfo;
     }
 }

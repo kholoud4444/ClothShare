@@ -10,15 +10,12 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponseDetails {
+public class NeedyInfo {
     private Long userId;
     private String firstName;
     private String lastName;
-    private String email;
     private String phone;
-    private String nationalId;
     private String gender;
-    private LocalDate birthDate;
     private String location;
-    private String role;
+
 }

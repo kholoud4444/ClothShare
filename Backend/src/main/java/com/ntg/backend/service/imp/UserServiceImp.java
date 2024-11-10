@@ -4,11 +4,8 @@ import com.ntg.backend.Mapper.UserMapper;
 import com.ntg.backend.dto.requestDto.RegistrationDto;
 import com.ntg.backend.dto.responseDto.UserResponseDetails;
 import com.ntg.backend.entity.User;
-import com.ntg.backend.entity.Volunteer;
 import com.ntg.backend.exception.ResourceNotFoundException;
-import com.ntg.backend.repository.NeedyRepo;
 import com.ntg.backend.repository.UserRepo;
-import com.ntg.backend.repository.VolunteerRepo;
 import com.ntg.backend.service.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,20 +19,13 @@ import java.util.stream.Collectors;
 public class UserServiceImp implements UserService {
     private final UserRepo userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    private final VolunteerRepo volunteerRepository;
     private final UserMapper userMapper; // Repository for Volunteer
-
-
-    private final NeedyRepo needyRepository;
     private final UserRepo userRepo;
 
-    public UserServiceImp(UserRepo userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, VolunteerRepo volunteerRepository, UserMapper userMapper, NeedyRepo needyRepository, UserRepo userRepo) {
+    public UserServiceImp(UserRepo userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,UserMapper userMapper, UserRepo userRepo) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.volunteerRepository = volunteerRepository;
         this.userMapper = userMapper;
-        this.needyRepository = needyRepository;
         this.userRepo = userRepo;
     }
 
@@ -85,9 +75,8 @@ public class UserServiceImp implements UserService {
             userMapper.mapToUserDto(user, userResponseDetails); // Map each user to UserResponseDetails
             userResponseDetailsList.add(userResponseDetails); // Add to result list
         }
+
         return userResponseDetailsList;
-
-
     }
 
     @Override

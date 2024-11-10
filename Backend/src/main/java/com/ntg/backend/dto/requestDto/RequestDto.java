@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Getter
 public class RequestDto {
 //    private Long requestId;
-private Long requestId;
+    private Long requestId;
     private LocalDate date;
     private Request.RequestStatus status;
     private String reason;

@@ -1,6 +1,7 @@
 package com.ntg.backend.controller;
 
 import com.ntg.backend.dto.requestDto.NeedyDto;
+import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.entity.Needy;
 import com.ntg.backend.service.imp.NeedyServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,13 @@ public class NeedyController {
     {
         Needy updatedneedyDto = needyServiceImp.updateNeedy(needyDto,id);
         return new ResponseEntity<>(updatedneedyDto,HttpStatus.OK);
+    }
+    @PreAuthorize("hasRole('ROLE_NEEDY')")
+    @GetMapping("allRequestsDetails/{id}")
+    public ResponseEntity<List<RequestWithItemDetails>>getAllRequestsByNeedyId(@PathVariable("id")Long needyId)
+    {
+        List<RequestWithItemDetails> requestsWithItemDetailsByNeedyId = needyServiceImp.getAllRequestDetailsByNeedyId(needyId) ;
+        return new ResponseEntity<>(requestsWithItemDetailsByNeedyId,HttpStatus.OK);
     }
 
 

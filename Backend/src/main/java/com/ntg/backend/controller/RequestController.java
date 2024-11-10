@@ -20,9 +20,9 @@ public class RequestController {
     private RequestServiceImp requestServiceImp;
 
     @PostMapping
-    public ResponseEntity<Request> createRequest(@RequestBody RequestDto requestDto) {
-        Request createdRequest = requestServiceImp.createRequest(requestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdRequest);
+    public ResponseEntity<RequestWithItemDetails> createRequest(@RequestBody RequestDto requestDto) {
+        RequestWithItemDetails requestWithItemDetails = requestServiceImp.createRequest(requestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(requestWithItemDetails);
     }
 
 

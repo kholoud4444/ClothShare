@@ -11,10 +11,12 @@ import com.ntg.backend.repository.ItemRepo;
 import com.ntg.backend.repository.NeedyRepo;
 import com.ntg.backend.repository.RequestRepo;
 import com.ntg.backend.service.RequestService;
+import com.sun.jdi.request.DuplicateRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RequestServiceImp implements RequestService {
@@ -23,6 +25,7 @@ public class RequestServiceImp implements RequestService {
     private final RequestMapper requestMapper;
     private final NeedyRepo needyRepo;
     private final ItemRepo itemRepo;
+
 
     @Autowired
     public RequestServiceImp(RequestRepo requestRepo, RequestMapper requestMapper, NeedyRepo needyRepo, ItemRepo itemRepo) {
@@ -33,22 +36,26 @@ public class RequestServiceImp implements RequestService {
     }
 
     @Override
-    public Request createRequest(RequestDto requestDto) {
-        Item item = itemRepo.findById(requestDto.getItemId())
-                .orElseThrow(() -> new ResourceNotFoundException("Item", "id", requestDto.getItemId()));
-        Needy needy = needyRepo.findById(requestDto.getNeedyId())
+    public RequestWithItemDetails createRequest(RequestDto requestDto) {
+        Needy needyUser = needyRepo.findById(requestDto.getNeedyId())
                 .orElseThrow(() -> new ResourceNotFoundException("Needy", "id", requestDto.getNeedyId()));
 
-        Request request = requestMapper.mapToEntity(requestDto);
-        needy.getRequests().add(request);
-        request.setNeedy(needy);
+        Item item = itemRepo.findById(requestDto.getItemId())
+                .orElseThrow(() -> new ResourceNotFoundException("Item", "id", requestDto.getItemId()));
 
-        item.getRequests().add(request);
+        //Check if a request with the same Needy and Item already exists
+        Optional<Request> existingRequest = requestRepo.findByNeedyAndItem(needyUser, item);
+        if (existingRequest.isPresent()) {
+            throw new DuplicateRequestException("A request for this item by the same needy user already exists.");
+        }
+
+        Request request = requestMapper.mapRequestToEntity(requestDto);
+        request.setNeedy(needyUser);
         request.setItem(item);
 
-        return requestRepo.save(request);
+        Request savedRequest = requestRepo.save(request);
+        return requestMapper.mapToRequestWithItemDetails(savedRequest);
     }
-
 
     @Override
     public Request updateRequest(RequestDto requestDto, long id) {
