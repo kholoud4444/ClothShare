@@ -1,13 +1,9 @@
 package com.ntg.backend.Mapper;
 
 import com.ntg.backend.dto.requestDto.ItemDto;
-import com.ntg.backend.dto.responseDto.UserResponseDetails;
-import com.ntg.backend.dto.responseDto.VolunteerResponseDetails;
 import com.ntg.backend.dto.requestDto.VolunteerDto;
 import com.ntg.backend.dto.responseDto.VolunteerWithItemsDetails;
-import com.ntg.backend.entity.Item;
 import com.ntg.backend.entity.Volunteer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -38,9 +34,6 @@ public class VolunteerMapper {
         volunteer.setRole(volunteerDto.getRole());
         return volunteer;
     }
-
-
-
 
     public VolunteerWithItemsDetails toVolunteerWithItemsDetails(Volunteer volunteer) {
         VolunteerWithItemsDetails volunteerWithItemsDetails = new VolunteerWithItemsDetails();

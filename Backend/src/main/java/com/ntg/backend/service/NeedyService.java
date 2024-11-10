@@ -9,6 +9,4 @@ public interface NeedyService {
     Needy updateNeedy(NeedyDto needyDto,long id);
     List<Needy> getAllNeedy();
     Needy getNeedyById(long id);
-
-
 }

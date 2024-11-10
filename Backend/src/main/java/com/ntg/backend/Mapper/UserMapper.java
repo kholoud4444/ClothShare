@@ -35,6 +35,7 @@ public class UserMapper {
 
         return user;
     }
+
 //    public UserResponseDetails mapToUserDto(User user) {
 //        if (user == null) {
 //            return null;
@@ -54,19 +55,20 @@ public class UserMapper {
 //
 //        return userDto;
 //    }
-public void mapToUserDto(User user, UserResponseDetails userResponseDetails) {
-    userResponseDetails.setUserId(user.getUserId());
-    userResponseDetails.setFirstName(user.getFirstName());
-    userResponseDetails.setLastName(user.getLastName());
-    userResponseDetails.setRole(user.getRole());
-    userResponseDetails.setEmail(user.getEmail());
-    userResponseDetails.setPhone(user.getPhone());
-    userResponseDetails.setNationalId(user.getNationalId());
-    userResponseDetails.setGender(user.getGender());
-    userResponseDetails.setBirthDate(user.getBirthDate());
-    userResponseDetails.setLocation(user.getLocation());
 
+    public void mapToUserDto(User user, UserResponseDetails userResponseDetails) {
+        userResponseDetails.setUserId(user.getUserId());
+        userResponseDetails.setFirstName(user.getFirstName());
+        userResponseDetails.setLastName(user.getLastName());
+        userResponseDetails.setRole(user.getRole());
+        userResponseDetails.setEmail(user.getEmail());
+        userResponseDetails.setPhone(user.getPhone());
+        userResponseDetails.setNationalId(user.getNationalId());
+        userResponseDetails.setGender(user.getGender());
+        userResponseDetails.setBirthDate(user.getBirthDate());
+        userResponseDetails.setLocation(user.getLocation());
     }
+
     public void updateUserDtoToEntity(UserResponseDetails userResponseDetails, User user) {
 
         if (userResponseDetails.getLocation() != null) {
@@ -87,8 +89,6 @@ public void mapToUserDto(User user, UserResponseDetails userResponseDetails) {
         if (userResponseDetails.getBirthDate() != null) {
             user.setBirthDate(userResponseDetails.getBirthDate());
         }
-
-
     }
 }
 

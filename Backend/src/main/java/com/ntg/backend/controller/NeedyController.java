@@ -14,8 +14,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/needy")
 public class NeedyController {
-    @Autowired
-    private NeedyServiceImp needyServiceImp;
+
+    private final NeedyServiceImp needyServiceImp;
+
+    public NeedyController(NeedyServiceImp needyServiceImp) {
+        this.needyServiceImp = needyServiceImp;
+    }
 
     //    @PostMapping
 //    public ResponseEntity<Needy> addNeedy(@RequestBody NeedyDto needyDto) {

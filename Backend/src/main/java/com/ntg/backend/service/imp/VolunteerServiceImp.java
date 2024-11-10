@@ -1,9 +1,7 @@
 package com.ntg.backend.service.imp;
 
 import com.ntg.backend.dto.requestDto.ItemDto;
-import com.ntg.backend.dto.responseDto.VolunteerResponseDetails;
 import com.ntg.backend.Mapper.VolunteerMapper;
-import com.ntg.backend.dto.requestDto.VolunteerDto;
 import com.ntg.backend.dto.responseDto.VolunteerWithItemsDetails;
 import com.ntg.backend.entity.Volunteer;
 import com.ntg.backend.exception.ResourceNotFoundException;
@@ -21,26 +19,18 @@ public class VolunteerServiceImp implements VolunteerService {
 
     private final VolunteerRepo volunteerRepo;
     private final VolunteerMapper volunteerMapper;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public VolunteerServiceImp(VolunteerRepo volunteerRepo, VolunteerMapper volunteerMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public VolunteerServiceImp(VolunteerRepo volunteerRepo, VolunteerMapper volunteerMapper) {
         this.volunteerRepo = volunteerRepo;
         this.volunteerMapper = volunteerMapper;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-
-
-
-
 
     @Override
     public VolunteerWithItemsDetails getVolunteerWithItemsDetails(long volunteerId) {
         Volunteer volunteer =  volunteerRepo.findById(volunteerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Volunteer", "id", volunteerId));
         return volunteerMapper.toVolunteerWithItemsDetails(volunteer);
-
-
     }
 
     @Override
@@ -58,6 +48,4 @@ public class VolunteerServiceImp implements VolunteerService {
                .orElseThrow(() -> new ResourceNotFoundException("Volunteer", "id", volunteerId));
         return volunteerMapper.toItemDtoList(volunteer);
     }
-
-
 }
