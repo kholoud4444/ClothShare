@@ -1,7 +1,9 @@
 package com.ntg.backend.Mapper;
 
+import com.ntg.backend.dto.responseDto.NeedyInfo;
 import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.dto.requestDto.RequestDto;
+import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
 import com.ntg.backend.entity.Item;
 import com.ntg.backend.entity.Needy;
 import com.ntg.backend.entity.Request;
@@ -9,12 +11,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RequestMapper {
+    private final ItemMapper itemMapper;
+    private final NeedyMapper needyMapper;
 
-    public static RequestDto toDto(Request request) {
+    public RequestMapper(ItemMapper itemMapper, NeedyMapper needyMapper) {
+        this.itemMapper = itemMapper;
+        this.needyMapper = needyMapper;
+    }
+
+    public static RequestDto mapToRequestDto(Request request) {
         if (request == null) {
             return null;
         }
-
         RequestDto requestDto = new RequestDto();
         requestDto.setRequestId(request.getRequestId());
         requestDto.setDate(request.getDate());
@@ -23,60 +31,56 @@ public class RequestMapper {
         return requestDto;
     }
 
-    public Request mapToEntity(RequestDto requestDto) {
+    public Request mapRequestToEntity(RequestDto requestDto) {
         if (requestDto == null) {
             return null;
         }
-
-        // Create a new Request entity
         Request request = new Request();
-
-        // Map properties from RequestDto to Request entity
-        request.setRequestId(requestDto.getRequestId());  // If the requestId is set in the DTO
+        request.setRequestId(requestDto.getRequestId());
         request.setDate(requestDto.getDate());
         request.setStatus(requestDto.getStatus());
         request.setReason(requestDto.getReason());
 
-        // Retrieve Needy and Item entities based on their IDs
-        Needy needy = new Needy();  // Assuming the Needy entity is just an object with an ID
-        needy.setUserId(requestDto.getNeedyId());  // Set Needy ID to the object
+        Needy needy = new Needy();
+        needy.setUserId(requestDto.getNeedyId());
 
-        Item item = new Item();  // Same with Item, assuming you have an Item object
-        item.setItemId(requestDto.getItemId());  // Set Item ID to the object
+        Item item = new Item();
+        item.setItemId(requestDto.getItemId());
 
-        // Set the related entities in the Request
         request.setNeedy(needy);
         request.setItem(item);
 
         return request;
     }
-    // Method to map Request entity with Item details to RequestWithItemDetails DTO
+
     public RequestWithItemDetails mapToRequestWithItemDetails(Request request) {
         if (request == null) {
-            return null; // Return null if the request is null
+            return null;
         }
+        RequestWithItemDetails requestWithItemDetails = new RequestWithItemDetails();
 
-        // Create a new instance of the DTO
-        RequestWithItemDetails dto = new RequestWithItemDetails();
+        requestWithItemDetails.setRequestStatus(request.getStatus().name()); // Mapping enum to string
+        requestWithItemDetails.setReason(request.getReason());
+        requestWithItemDetails.setDate(request.getDate());
 
-        // Map Request details
-        dto.setRequestStatus(request.getStatus().name()); // Mapping enum to string
-        dto.setReason(request.getReason());
-        dto.setDate(java.sql.Date.valueOf(request.getDate())); // Convert LocalDate to Date
+        requestWithItemDetails.setItemData(itemMapper.mapToItemDto(request.getItem()));
+        return requestWithItemDetails;
+    }
+    public RequestWithNeedyDetails mapRequestToRequestWithNeedyDetails(Request request) {
+        // Fetch Needy User details
+        Needy needyUser = request.getNeedy();
 
-        // Get Item from the Request and map the Item details
-        Item item = request.getItem();
-        if (item != null) {
-            dto.setType(item.getType().name()); // Map enum to string
-            dto.setSize(item.getSize().name()); // Map enum to string
-            dto.setState(item.getState().name()); // Map enum to string
-            dto.setGenderSuitability(item.getGenderSuitability().name()); // Map enum to string
-            dto.setImageUrl(item.getImageUrl()); // Map Image URL
-            dto.setDescription(item.getDescription()); // Map Description
-            dto.setStatus(item.getStatus().name()); // Map ItemStatus enum to string
-        }
+        // Map Needy entity to NeedyInfo DTO
+        NeedyInfo needyInfo = needyMapper.mapNeedyToNeedyInfo(needyUser);
 
-        return dto;
+        // Create and populate RequestWithNeedyDetails DTO
+        RequestWithNeedyDetails requestWithNeedyDetails = new RequestWithNeedyDetails();
+        requestWithNeedyDetails.setRequestStatus(String.valueOf(request.getStatus()));
+        requestWithNeedyDetails.setReason(request.getReason());
+        requestWithNeedyDetails.setDate(request.getDate());
+        requestWithNeedyDetails.setNeedyInfo(needyInfo);
+
+        return requestWithNeedyDetails;
     }
 }
 

@@ -3,6 +3,7 @@ package com.ntg.backend.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
 import com.ntg.backend.entity.Item;
 import com.ntg.backend.service.imp.ItemServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,5 +93,13 @@ public class ItemController {
         Item updatedItemDto = itemServiceImp.updateItem(itemDto,id);
         return new ResponseEntity<>(updatedItemDto,HttpStatus.OK);
     }
+    @GetMapping("requestsWithNeedyDetails/{id}")
+    public ResponseEntity<List<RequestWithNeedyDetails>> getAllRequestsNeedyDetails(@PathVariable("id") long itemId)
+    {
+        List<RequestWithNeedyDetails> requestWithNeedyDetails = itemServiceImp.requestWithNeedyDetails(itemId);
+        return new ResponseEntity<>(requestWithNeedyDetails, HttpStatus.OK);
+    }
+
+
 
 }

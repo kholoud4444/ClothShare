@@ -1,30 +1,48 @@
 package com.ntg.backend.service.imp;
 
 import com.ntg.backend.Mapper.ItemMapper;
+import com.ntg.backend.Mapper.NeedyMapper;
+import com.ntg.backend.Mapper.RequestMapper;
 import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.dto.responseDto.NeedyInfo;
+import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
+import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
+import com.ntg.backend.dto.responseDto.UserResponseDetails;
 import com.ntg.backend.entity.Item;
+import com.ntg.backend.entity.Needy;
+import com.ntg.backend.entity.Request;
 import com.ntg.backend.entity.Volunteer;
 import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.ItemRepo;
+import com.ntg.backend.repository.RequestRepo;
 import com.ntg.backend.repository.VolunteerRepo;
 import com.ntg.backend.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItemServiceImp implements ItemService {
 
     private final ItemRepo itemRepo;
+    private final RequestRepo requestRepo;
     private final VolunteerRepo volunteerRepo;
     private final ItemMapper itemMapper;
+    private final NeedyMapper needyMapper;
+    private final RequestMapper requestMapper;
+
 
     @Autowired
-    public ItemServiceImp(ItemRepo itemRepo, VolunteerRepo volunteerRepo, ItemMapper itemMapper) {
+    public ItemServiceImp(ItemRepo itemRepo, RequestRepo requestRepo, VolunteerRepo volunteerRepo, ItemMapper itemMapper, NeedyMapper needyMapper, RequestMapper requestMapper) {
         this.itemRepo = itemRepo;
+        this.requestRepo = requestRepo;
         this.volunteerRepo = volunteerRepo;
         this.itemMapper = itemMapper;
+        this.needyMapper = needyMapper;
+        this.requestMapper = requestMapper;
     }
 
     @Override
@@ -66,4 +84,33 @@ public class ItemServiceImp implements ItemService {
                 new ResourceNotFoundException("Item", "id", id));
         itemRepo.delete(item);
     }
+
+    @Override
+  public List<RequestWithNeedyDetails> requestWithNeedyDetails(long itemId) {
+        // Step 1: Fetch the Item (this will also fetch its associated requests)
+        Item item = itemRepo.findById(itemId)
+                .orElseThrow(() -> new ResourceNotFoundException("Item", "id", itemId));
+
+        // Step 2: Fetch all associated Requests for the Item
+        List<Request> requests = requestRepo.findByItem(item);// Assuming this returns a List<Request>
+        if (requests.isEmpty()) {
+            throw new ResourceNotFoundException("Request", "itemId", itemId);  // Or handle in another way if needed
+        }
+
+        // Step 3: Process each Request and map it to a DTO
+        List<RequestWithNeedyDetails> requestWithNeedyDetailsList = new ArrayList<>();
+        for (Request request : requests) {
+            // Fetch Needy User details
+          RequestWithNeedyDetails  requestWithNeedyDetails = requestMapper.mapRequestToRequestWithNeedyDetails(request);
+
+
+            // Add the DTO to the list
+            requestWithNeedyDetailsList.add(requestWithNeedyDetails);
+        }
+
+        // Step 4: Return the populated list of DTOs
+        return requestWithNeedyDetailsList;
+    }
+
+
 }

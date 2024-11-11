@@ -1,20 +1,19 @@
 package com.ntg.backend.dto.responseDto;
 
-import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.entity.Needy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestWithItemDetails {
+public class RequestWithNeedyDetails {
     private String requestStatus;
-    private String  reason;
+    private String reason;
     private LocalDate date;
-    private ItemDto itemData;
+    private NeedyInfo needyInfo;
 }
