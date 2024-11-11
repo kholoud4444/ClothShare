@@ -21,6 +21,4 @@ import {ProductsComponent} from './components/products/products.component';
 })
 export class AppComponent {
   title = 'Frontend';
-
-
 }
