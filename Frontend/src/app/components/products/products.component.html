@@ -139,9 +139,13 @@
         </div>
       </div>
     </div>
-
-
-
-
   </div>
+
+  <p-paginator
+    [rows]="itemsPerPage"
+    [totalRecords]="products.length"
+    (onPageChange)="paginate($event)">
+  </p-paginator>
 </div>
+
+
