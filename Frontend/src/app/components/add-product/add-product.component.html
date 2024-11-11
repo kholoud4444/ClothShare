@@ -3,58 +3,51 @@
     <!-- Header -->
     <h2 class="text-center">إضافة منتج</h2>
 
-    <!-- Product Add Form -->
-    <form (ngSubmit)="onSubmit()">
-      <!-- Image Upload Field -->
-      <div class="form-group">
-        <label for="image" class="text-end">تحميل الصورة</label>
-        <input type="file" id="image" class="form-control" [(ngModel)]="product.image" name="image" required />
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" (change)="onImageSelected($event)" />
       </div>
+
 
       <!-- Type Selector Dropdown -->
       <div class="form-group">
         <label for="type" class="text-end">النوع</label>
-        <select id="type" class="form-control" [(ngModel)]="product.type" name="type" required>
-          <option value="dress">فستان</option>
-          <option value="shirt">قميص</option>
-          <option value="pants">بنطلون</option>
-          <option value="jacket">جاكيت</option>
+        <select id="type" class="form-control" formControlName="type"  name="type" required>
+          <option value="فستان">فستان</option>
+          <option value="قميص">قميص</option>
+          <option value="بنطلون">بنطلون</option>
+          <option value="جاكيت">جاكيت</option>
         </select>
       </div>
 
       <!-- Condition Selector Dropdown -->
       <div class="form-group">
         <label for="condition" class="text-end">الحالة</label>
-        <select id="condition" class="form-control" [(ngModel)]="product.condition" name="condition" required>
-          <option value="new">جديد</option>
-          <option value="old">مستعمل</option>
+        <select id="condition" class="form-control" formControlName="state"  name="state" required>
+          <option value="جديد">جديد</option>
+          <option value="مستعمل">مستعمل</option>
         </select>
       </div>
 
       <!-- Size Selector Dropdown -->
       <div class="form-group">
         <label for="size" class="text-end">المقاس</label>
-        <select id="size" class="form-control" [(ngModel)]="product.size" name="size" required>
-          <option value="small">صغير</option>
-          <option value="medium">متوسط</option>
-          <option value="large">كبير</option>
+        <select id="size" class="form-control" formControlName="size"  name="size" required>
+          <option value="صغير">صغير</option>
+          <option value="متوسط">متوسط</option>
+          <option value="كبير">كبير</option>
         </select>
       </div>
 
-      <!-- Description Textarea -->
-      <div class="form-group">
-        <label for="description" class="text-end">الوصف</label>
-        <textarea id="description" class="form-control" [(ngModel)]="product.description" name="description" rows="3" required></textarea>
+      <div>
+        <label for="description">Description:</label>
+        <input type="text" id="description" formControlName="description" />
       </div>
-
-      <!-- Add Button -->
-      <button type="submit" class="btn btn-primary btn-block">إضافة</button>
-
-      <!-- Success Message -->
-      <div *ngIf="message" class="alert alert-success mt-3 text-center">
-        {{ message }}
-      </div>
+      <button type="submit">إضافة</button>
     </form>
+
   </div>
 
 </div>
