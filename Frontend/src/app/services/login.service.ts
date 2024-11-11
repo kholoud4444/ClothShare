@@ -9,8 +9,8 @@ import {Login} from '../components/model/login';
 })
 export class LoginService {
   constructor(private http:HttpClient) { }
-  public login(login: Login): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>("/api/login", login);
+  public login(login: Login): Observable<any> {
+    return this.http.post<any>("/api/login", login);
   }
 
 }
