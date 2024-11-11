@@ -9,6 +9,6 @@ import com.ntg.backend.entity.Needy;
 import java.util.List;
 
 public interface NeedyService {
-    List<RequestDto> getAllRequestsByNeedyId(long needyId);
     List<RequestWithItemDetails> getAllRequestDetailsByNeedyId(long needyId);
+    List<RequestWithItemDetails> getAllRequestDetailsForAllNeedies();
 }

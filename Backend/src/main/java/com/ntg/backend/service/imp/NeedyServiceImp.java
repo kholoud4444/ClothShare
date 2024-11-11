@@ -2,7 +2,6 @@ package com.ntg.backend.service.imp;
 
 import com.ntg.backend.Mapper.NeedyMapper;
 import com.ntg.backend.Mapper.RequestMapper;
-import com.ntg.backend.dto.requestDto.RequestDto;
 import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.entity.Needy;
 import com.ntg.backend.exception.ResourceNotFoundException;
@@ -29,13 +28,6 @@ public class NeedyServiceImp implements NeedyService {
     }
 
     @Override
-    public List<RequestDto> getAllRequestsByNeedyId(long needyId) {
-        Needy needy = needyRepo.findById(needyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Needy", "id", needyId));
-        return needyMapper.toRequestDtoList(needy);
-    }
-
-    @Override
     public List<RequestWithItemDetails> getAllRequestDetailsByNeedyId(long needyId) {
      Needy needyUser =  needyRepo.findById(needyId).orElseThrow(() -> new ResourceNotFoundException("Needy", "id", needyId));
         // Map each Request to a RequestWithItemDetails DTO and collect them into a list
@@ -43,5 +35,18 @@ public class NeedyServiceImp implements NeedyService {
                 .map(requestMapper::mapToRequestWithItemDetails)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<RequestWithItemDetails> getAllRequestDetailsForAllNeedies() {
+        List<Needy> allNeedies = needyRepo.findAll();
+
+        // Collect all requests from each needy and map them to RequestWithItemDetails DTOs
+        return allNeedies.stream()
+                .flatMap(needy -> needy.getRequests().stream()) // Flatten the list of lists of requests
+                .map(requestMapper::mapToRequestWithItemDetails)
+                .collect(Collectors.toList());
+    }
+
+
 
 }

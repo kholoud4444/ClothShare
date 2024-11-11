@@ -12,11 +12,9 @@ import java.util.stream.Collectors;
 @Component
 public class NeedyMapper {
     private final UserMapper userMapper;
-    private final RequestMapper requestMapper;
 
-    public NeedyMapper(UserMapper userMapper, RequestMapper requestMapper) {
+    public NeedyMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
-        this.requestMapper = requestMapper;
     }
 
     public Needy mapToEntity(NeedyDto needyDto) {
@@ -73,10 +71,10 @@ public class NeedyMapper {
         return needyInfo;
     }
 
-    public List<RequestDto> toRequestDtoList(Needy needy) {
-        // If there are requests related to the needy, map them to RequestDto
-        return needy.getRequests().stream()
-                .map(requestMapper::mapToRequestDto)
-                .collect(Collectors.toList());
-    }
+//    public List<RequestDto> toRequestDtoList(Needy needy) {
+//        // If there are requests related to the needy, map them to RequestDto
+//        return needy.getRequests().stream()
+//                .map(requestMapper::mapToRequestDto)
+//                .collect(Collectors.toList());
+//    }
 }
