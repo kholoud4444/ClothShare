@@ -36,23 +36,6 @@ export class LoginComponent implements OnInit {
 
     });
   }
-  // login(): void {
-  //   if (this.loginForm.valid) {
-  //     const loginData: Login = this.loginForm.value;
-  //     this.loginService.login(loginData).subscribe({
-  //       next: (response) => {
-  //         console.log('Needy login successfully:', response.token);
-  //         localStorage.setItem('authToken', response.token);
-  //         this.router.navigate(['/products']).then(r => "Error");
-  //         this.errorMessage = null; // Clear error message on success
-  //       },
-  //       error: (error) => {
-  //         console.error('Error login needy:', error);
-  //         this.errorMessage = 'البريد الإلكتروني أو كلمة المرور غير صحيحة'; // Set error message
-  //       }
-  //     });
-  //   }
-  // }
 
   login(): void {
     if (this.loginForm.valid) {
