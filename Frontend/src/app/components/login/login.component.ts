@@ -6,6 +6,7 @@ import {Needy} from '../model/needy';
 import {NgIf} from '@angular/common';
 import {Login} from '../model/login';
 import {NeedyService} from '../../services/needy.service';
+import {jwtDecode} from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -35,6 +36,24 @@ export class LoginComponent implements OnInit {
 
     });
   }
+  // login(): void {
+  //   if (this.loginForm.valid) {
+  //     const loginData: Login = this.loginForm.value;
+  //     this.loginService.login(loginData).subscribe({
+  //       next: (response) => {
+  //         console.log('Needy login successfully:', response.token);
+  //         localStorage.setItem('authToken', response.token);
+  //         this.router.navigate(['/products']).then(r => "Error");
+  //         this.errorMessage = null; // Clear error message on success
+  //       },
+  //       error: (error) => {
+  //         console.error('Error login needy:', error);
+  //         this.errorMessage = 'البريد الإلكتروني أو كلمة المرور غير صحيحة'; // Set error message
+  //       }
+  //     });
+  //   }
+  // }
+
   login(): void {
     if (this.loginForm.valid) {
       const loginData: Login = this.loginForm.value;
@@ -42,6 +61,11 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           console.log('Needy login successfully:', response.token);
           localStorage.setItem('authToken', response.token);
+
+          // Decode the token
+          const decodedToken = jwtDecode(response.token);
+          console.log('Decoded Token:', decodedToken);
+
           this.router.navigate(['/products']).then(r => "Error");
           this.errorMessage = null; // Clear error message on success
         },
@@ -52,5 +76,6 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+
 
 }
