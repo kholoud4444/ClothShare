@@ -50,7 +50,9 @@ public class ItemServiceImp implements ItemService {
         Volunteer volunteer = volunteerRepo.findById(itemDto.getVolunteerId())
                 .orElseThrow(() -> new ResourceNotFoundException("Volunteer", "id", itemDto.getVolunteerId()));
 
+
         Item item = itemMapper.mapToItemEntity(itemDto);
+
         volunteer.getItems().add(item);
         item.setVolunteer(volunteer);
         return itemRepo.save(item);

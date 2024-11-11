@@ -8,8 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/item")
@@ -17,12 +24,49 @@ public class ItemController {
 
     @Autowired
     private ItemServiceImp itemServiceImp;
+    private static final String UPLOAD_DIR = "uploads/";
+    @PostMapping("/image")
+    public ResponseEntity<String> uploadFile(@RequestPart("image") MultipartFile image) {
+            try {
+                // Ensure the directory exists or create it
+                File uploadDir = new File(UPLOAD_DIR);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
 
-    @PostMapping
-    public ResponseEntity<Item> addItem(@RequestBody ItemDto itemDto) {
-        Item savedItemDto = itemServiceImp.createItem(itemDto);
-        return new ResponseEntity<>(savedItemDto, HttpStatus.OK);
+                // Generate a unique file name to prevent overwriting existing files
+                String fileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+                Path filePath = Paths.get(UPLOAD_DIR, fileName);
+
+                // Save the file to the server
+                Files.copy(image.getInputStream(), filePath);
+
+                // Return success response
+                return ResponseEntity.ok("File uploaded successfully: " + filePath.toString());
+
+            } catch (IOException e) {
+                // Handle file upload failure
+                return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
+            }
+
     }
+    // API to save the item with provided data, including the image URL
+    @PostMapping("/save")
+    public ResponseEntity<Item> saveItem(@RequestBody ItemDto itemDto) {
+        try {
+            Item savedItem = itemServiceImp.createItem(itemDto);
+            return new ResponseEntity<>(savedItem, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+//    @PostMapping
+//    public ResponseEntity<Item> addItem(@RequestBody ItemDto itemDto) {
+//        Item savedItemDto = itemServiceImp.createItem(itemDto);
+//        return new ResponseEntity<>(savedItemDto, HttpStatus.OK);
+//    }
 
     @GetMapping("{id}")
     public ResponseEntity<Item>getItemById(@PathVariable("id") long id )
