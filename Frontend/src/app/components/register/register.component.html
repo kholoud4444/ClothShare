@@ -5,6 +5,7 @@
     <div class="card shadow-lg p-4 w-100" style="max-width: 500px;">
       <h3 class="text-center mb-4 text-primary fw-bold">إنشاء حساب جديد</h3>
       <form [formGroup]="registerForm" (ngSubmit)="register()">
+
         <!-- First and Last Name Row -->
         <div class="row g-3">
           <div class="col-md-6">
@@ -17,6 +18,9 @@
               placeholder="أدخل الاسم الأول"
               required
             />
+            <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="text-danger small">
+              الاسم الأول مطلوب
+            </div>
           </div>
           <div class="col-md-6">
             <label for="lastName" class="form-label">الاسم الأخير</label>
@@ -28,10 +32,13 @@
               placeholder="أدخل الاسم الأخير"
               required
             />
+            <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="text-danger small">
+              الاسم الأخير مطلوب
+            </div>
           </div>
         </div>
 
-        <!-- Email -->
+        <!-- Email Field -->
         <div class="mb-3 mt-3 text-end">
           <label for="email" class="form-label">البريد الإلكتروني</label>
           <input
@@ -42,9 +49,12 @@
             placeholder="أدخل بريدك الإلكتروني"
             required
           />
+          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-danger small">
+            البريد الإلكتروني غير صالح
+          </div>
         </div>
 
-        <!-- Password -->
+        <!-- Password Field -->
         <div class="mb-3 text-end">
           <label for="password" class="form-label">كلمة المرور</label>
           <input
@@ -55,9 +65,12 @@
             placeholder="أدخل كلمة المرور"
             required
           />
+          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-danger small">
+            كلمة المرور مطلوبة
+          </div>
         </div>
 
-        <!-- National ID -->
+        <!-- National ID Field -->
         <div class="mb-3 text-end">
           <label for="nationalId" class="form-label">الرقم القومي</label>
           <input
@@ -68,9 +81,12 @@
             placeholder="أدخل الرقم القومي"
             required
           />
+          <div *ngIf="registerForm.get('nationalId')?.invalid && registerForm.get('nationalId')?.touched" class="text-danger small">
+            الرقم القومي مطلوب
+          </div>
         </div>
 
-        <!-- Phone -->
+        <!-- Phone Field -->
         <div class="mb-3 text-end">
           <label for="phone" class="form-label">رقم الهاتف</label>
           <input
@@ -81,9 +97,12 @@
             placeholder="أدخل رقم الهاتف"
             required
           />
+          <div *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched" class="text-danger small">
+            رقم الهاتف مطلوب
+          </div>
         </div>
 
-        <!-- Location -->
+        <!-- Location Field -->
         <div class="mb-3 text-end">
           <label for="location" class="form-label">الموقع</label>
           <select id="location" class="form-select" formControlName="location" required>
@@ -93,9 +112,12 @@
             <option value="alex">اسكندرية</option>
             <option value="other">اخرى</option>
           </select>
+          <div *ngIf="registerForm.get('location')?.invalid && registerForm.get('location')?.touched" class="text-danger small">
+            الموقع مطلوب
+          </div>
         </div>
 
-        <!-- Gender -->
+        <!-- Gender Field -->
         <div class="mb-3 text-end">
           <label for="gender" class="form-label">النوع</label>
           <select id="gender" class="form-select" formControlName="gender" required>
@@ -103,9 +125,12 @@
             <option value="male">ذكر</option>
             <option value="female">أنثى</option>
           </select>
+          <div *ngIf="registerForm.get('gender')?.invalid && registerForm.get('gender')?.touched" class="text-danger small">
+            النوع مطلوب
+          </div>
         </div>
 
-        <!-- Birth Date -->
+        <!-- Birth Date Field -->
         <div class="mb-3 text-end">
           <label for="birthDate" class="form-label">تاريخ الميلاد</label>
           <input
@@ -115,17 +140,22 @@
             formControlName="birthDate"
             required
           />
+          <div *ngIf="registerForm.get('birthDate')?.invalid && registerForm.get('birthDate')?.touched" class="text-danger small">
+            تاريخ الميلاد مطلوب
+          </div>
         </div>
 
-        <!-- Role Selection -->
+        <!-- Role Selection Field -->
         <div class="mb-3 text-end">
           <label for="role" class="form-label">نوع المستخدم</label>
           <select id="role" class="form-select" formControlName="role" required>
             <option value="" disabled selected>اختر نوع المستخدم</option>
-
             <option value="needy">محتاج</option>
             <option value="volunteer">متطوع</option>
           </select>
+          <div *ngIf="registerForm.get('role')?.invalid && registerForm.get('role')?.touched" class="text-danger small">
+            نوع المستخدم مطلوب
+          </div>
         </div>
 
         <!-- Submit Button -->

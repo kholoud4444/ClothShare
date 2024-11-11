@@ -5,6 +5,7 @@ import {NeedyService} from '../../services/needy.service';
 import {Observable} from 'rxjs';
 import {Request} from '../model/request';
 import {Needy} from '../model/needy';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,8 @@ import {Needy} from '../model/needy';
   imports: [
     RouterLink,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIf
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
