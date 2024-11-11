@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ButtonDirective} from 'primeng/button';
-import {Ripple} from 'primeng/ripple';
 import {FormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {jwtDecode} from 'jwt-decode';
@@ -9,7 +8,6 @@ import {jwtDecode} from 'jwt-decode';
   standalone: true,
   imports: [
     ButtonDirective,
-    Ripple,
     FormsModule,
     NgIf
   ],
