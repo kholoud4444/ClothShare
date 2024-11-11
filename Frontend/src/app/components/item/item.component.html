@@ -4,13 +4,14 @@
     <p>
       بلوزة طويلة فضفاضة بتصميم عصري وأنيق، تتميز بقصّة مريحة وأكمام واسعة تضيف لمسة من الراحة والأناقة. مصنوعة من قماش ناعم وخفيف يسمح بتهوية جيدة، مما يجعلها مثالية للأيام الدافئة أو للتنسيق مع قطع أخرى في الأجواء الباردة.
     </p>
-    <p>:   الحجم</p>
+    <p>: الحجم</p>
     <p>: الحالة</p>
-    <p>:  الصنف</p>
-    <p>:  النوع</p>
+    <p>: الصنف</p>
+    <p>: النوع</p>
 
-    <!-- Request button -->
+    <!-- Show button only for needy users -->
     <button
+      *ngIf="isNeedyUser"
       pButton
       pRipple
       label="طلب الثوب"
@@ -25,9 +26,9 @@
         pButton
         pRipple
         label="إرسال الطلب"
-        class="p-button-primary mt-2' talabSawp "
+        class="p-button-primary mt-2 talabSawp"
         (click)="submitRequest()">
-      </button >
+      </button>
     </div>
   </div>
 

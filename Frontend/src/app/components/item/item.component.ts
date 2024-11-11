@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ButtonDirective} from 'primeng/button';
 import {Ripple} from 'primeng/ripple';
 import {FormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
-
+import {jwtDecode} from 'jwt-decode';
 @Component({
   selector: 'app-item',
   standalone: true,
@@ -16,9 +16,26 @@ import {NgIf} from '@angular/common';
   templateUrl: './item.component.html',
   styleUrl: './item.component.scss'
 })
-export class ItemComponent {
+export class ItemComponent implements OnInit {
   showRequestForm: boolean = false; // Toggle form visibility
-  requestText: string = ''; // Store request text input
+  requestText: string = '';
+  isNeedyUser: boolean = false; // Flag to track if the user is 'needy'
+
+  ngOnInit() {
+    this.checkUserRole();
+  }
+
+  checkUserRole() {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        this.isNeedyUser = decodedToken.role === 'needy';
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+  }// Store request text input
 
   submitRequest() {
     if (this.requestText.trim()) {
