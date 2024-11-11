@@ -1,8 +1,11 @@
 package com.ntg.backend.Mapper;
 
 import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.dto.responseDto.ItemDetailsWithVolunteerName;
 import com.ntg.backend.entity.Item;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ItemMapper {
@@ -30,6 +33,18 @@ public class ItemMapper {
         itemDto.setStatus(item.getStatus());
         itemDto.setVolunteerId(item.getVolunteer().getUserId());
         return itemDto;
+    }
+    public ItemDetailsWithVolunteerName mapToItemDetailsWithVolunteerName(Item item) {
+        ItemDto itemDto = mapToItemDto(item);
+
+        // Map fields to ItemDetailsWithVolunteerName
+        ItemDetailsWithVolunteerName itemDetails = new ItemDetailsWithVolunteerName();
+        itemDetails.setItem(itemDto);
+        itemDetails.setVolunteerName(item.getVolunteer().getFirstName() + " " + item.getVolunteer().getLastName());
+        itemDetails.setItemId(item.getItemId());
+
+        return itemDetails;
+
     }
 
     public void updateEntityFromDto(ItemDto itemDto, Item item) {

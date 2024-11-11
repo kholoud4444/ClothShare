@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @Entity
-@Table(name = "requests", uniqueConstraints = {
+@Table(name = "request", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"needy_id", "item_id"})
 })
 public class Request {

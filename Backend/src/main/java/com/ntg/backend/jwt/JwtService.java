@@ -53,9 +53,9 @@ public class JwtService {
         Map<String, Object> claims = new HashMap<>();
 
         String roleValue = userRepo.findByEmail(username).getRole();
-        Long UserId= userRepo.findByEmail(username).getUserId();
+        Long UserId = userRepo.findByEmail(username).getUserId();
         claims.put("role", roleValue);
-        claims.put("userId", UserId);
+        claims.put("UserId", UserId);
 
         return Jwts.builder()
                 .setClaims(claims)
