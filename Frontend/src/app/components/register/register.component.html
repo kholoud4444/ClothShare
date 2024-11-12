@@ -2,6 +2,9 @@
   <!-- Main Container -->
   <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center">
     <!-- Registration Card -->
+    <div *ngIf="errorMessage" class="alert alert-danger text-center">
+      {{ errorMessage }}
+    </div>
     <div class="card shadow-lg p-4 w-100" style="max-width: 500px;">
       <h3 class="text-center mb-4 text-primary fw-bold">إنشاء حساب جديد</h3>
       <form [formGroup]="registerForm" (ngSubmit)="register()">
@@ -50,7 +53,8 @@
             required
           />
           <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-danger small">
-            البريد الإلكتروني غير صالح
+            <span *ngIf="registerForm.get('email')?.errors?.['required']">البريد الإلكتروني مطلوب</span>
+            <span *ngIf="registerForm.get('email')?.errors?.['email']">البريد الإلكتروني غير صالح</span>
           </div>
         </div>
 
@@ -66,7 +70,10 @@
             required
           />
           <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-danger small">
-            كلمة المرور مطلوبة
+            <span *ngIf="registerForm.get('password')?.errors?.['required']">كلمة المرور مطلوبة</span>
+            <span *ngIf="registerForm.get('password')?.errors?.['minlength']">كلمة المرور يجب أن تحتوي على 8 أحرف على الأقل</span>
+
+
           </div>
         </div>
 

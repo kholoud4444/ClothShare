@@ -11,6 +11,7 @@ import {NeedyHistoryComponent} from './components/needy-history/needy-history.co
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {VolunteerHistoryComponent} from './components/volunteer-history/volunteer-history.component';
 import {AddProductComponent} from './components/add-product/add-product.component';
+import {HomeAdminComponent} from './components/admin/home/home-admin.component';
 
 export const routes: Routes = [
   {path: "login", component:LoginComponent},
@@ -22,7 +23,9 @@ export const routes: Routes = [
   {path:"products" , component:ProductsComponent},
   {path:"addProduct" , component:AddProductComponent},
   {path:"needy-history", component:NeedyHistoryComponent},
+  {path:'admin', component:HomeAdminComponent},
   {path:"volunteerHistory" , component:VolunteerHistoryComponent},
+
   {path:'page', component:PagesComponent,
     children:[
       {path:'home', component:HomeComponent},
