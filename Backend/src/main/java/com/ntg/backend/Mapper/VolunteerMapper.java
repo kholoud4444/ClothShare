@@ -1,9 +1,14 @@
 package com.ntg.backend.Mapper;
 
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.dto.requestDto.VolunteerDto;
+import com.ntg.backend.dto.responseDto.UserResponseDetails;
 import com.ntg.backend.dto.responseDto.VolunteerWithItemsDetails;
+import com.ntg.backend.entity.Item;
+import com.ntg.backend.entity.User;
 import com.ntg.backend.entity.Volunteer;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -53,5 +58,32 @@ public class VolunteerMapper {
                 .map(itemMapper::mapToItemDto) // Map each Item to ItemDto
                 .collect(Collectors.toList());
     }
-
+public PageDto<ItemDto> itemDtoPageDto(Page<Item> itemPage) {
+    List<ItemDto> itemDtos = itemPage.getContent().stream()
+            .map(itemMapper::mapToItemDto)
+            .collect(Collectors.toList());
+    // Return a new PageDto with the mapped content and pagination details
+    return new PageDto<>(
+            itemDtos,
+            itemPage.getTotalElements(),
+            itemPage.getTotalPages(),
+            itemPage.getNumber(),
+            itemPage.getSize(),
+            itemPage.isLast()
+    );
+}
+    public PageDto<VolunteerWithItemsDetails> VolunteerPageToDto(Page<Volunteer> volunteerPage) {
+        List<VolunteerWithItemsDetails> userResponseDetails = volunteerPage.getContent().stream()
+                .map(this::toVolunteerWithItemsDetails)
+                .collect(Collectors.toList());
+        // Return a new PageDto with the mapped content and pagination details
+        return new PageDto<>(
+                userResponseDetails,
+                volunteerPage.getTotalElements(),
+                volunteerPage.getTotalPages(),
+                volunteerPage.getNumber(),
+                volunteerPage.getSize(),
+                volunteerPage.isLast()
+        );
+    }
 }

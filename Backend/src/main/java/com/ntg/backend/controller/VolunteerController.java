@@ -1,5 +1,6 @@
 package com.ntg.backend.controller;
 
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.dto.responseDto.VolunteerWithItemsDetails;
 import com.ntg.backend.service.imp.VolunteerServiceImp;
@@ -33,19 +34,24 @@ public class VolunteerController {
     // get all Volunteers data with Items details
     @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
     @GetMapping("/all")
-    public ResponseEntity< List<VolunteerWithItemsDetails>>getAllVolunteerWithItemsDetails()
+    public ResponseEntity<PageDto<VolunteerWithItemsDetails>>getAllVolunteerWithItemsDetails  (
+            @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo
+            , @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
     {
-        List<VolunteerWithItemsDetails> volunteersWithItemsDetails = volunteerServiceImp.getAllVolunteersWithItems();
+        PageDto<VolunteerWithItemsDetails> volunteersWithItemsDetails = volunteerServiceImp
+                .getAllVolunteersWithItems(pageNo,pageSize);
         return new ResponseEntity<>(volunteersWithItemsDetails,HttpStatus.OK);
     }
 
     //get all Items details for specific Volunteer
     @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
     @GetMapping("/all/items/{id}")
-    public ResponseEntity<List<ItemDto>>getAllItemsByVolunteerId(@PathVariable("id") long volunteerId)
+    public ResponseEntity<PageDto<ItemDto>> getAllItemsByVolunteerId(@PathVariable("id") long volunteerId,
+                             @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
+                             @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
     {
-        List<ItemDto> itemsByVolunteerId = volunteerServiceImp.getAllItemsByVolunteerId(volunteerId);
-        return new ResponseEntity<>(itemsByVolunteerId,HttpStatus.OK);
+        PageDto<ItemDto> itemsPageByVolunteerId = volunteerServiceImp.getAllItemsByVolunteerId(volunteerId,pageNo,pageSize);
+        return new ResponseEntity<>(itemsPageByVolunteerId,HttpStatus.OK);
     }
 
 }

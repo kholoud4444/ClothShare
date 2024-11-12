@@ -35,14 +35,14 @@ public class Request {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private LocalDate date;
 
-    @NotNull(message = "Status is required")
-    @Enumerated(EnumType.STRING)
+//    @NotNull(message = "Status is required")
+//    @Enumerated(EnumType.STRING)
     private RequestStatus status;
-
-    @Size(max = 500, message = "Reason should not exceed 500 characters")
+//
+//    @Size(max = 500, message = "Reason should not exceed 500 characters")
     private String reason;
 
     @PrePersist

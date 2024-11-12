@@ -59,11 +59,7 @@ public class ItemController {
 
     }
 
-//    @PostMapping
-//    public ResponseEntity<Item> addItem(@RequestBody ItemDto itemDto) {
-//        Item savedItemDto = itemServiceImp.createItem(itemDto);
-//        return new ResponseEntity<>(savedItemDto, HttpStatus.OK);
-//    }
+
 
     @GetMapping("{id}")
     public ResponseEntity<Item>getItemById(@PathVariable("id") long id )
