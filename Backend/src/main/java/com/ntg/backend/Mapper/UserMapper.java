@@ -1,5 +1,6 @@
 package com.ntg.backend.Mapper;
 
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.RegistrationDto;
 import com.ntg.backend.dto.requestDto.VolunteerDto;
 import com.ntg.backend.dto.responseDto.UserResponseDetails;
@@ -7,7 +8,11 @@ import com.ntg.backend.entity.Needy;
 import com.ntg.backend.entity.Volunteer;
 
 import com.ntg.backend.entity.User;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
@@ -90,5 +95,18 @@ public class UserMapper {
             user.setBirthDate(userResponseDetails.getBirthDate());
         }
     }
-}
+    public PageDto<UserResponseDetails> userPageToDto(Page<User> userDetailsPage) {
+        List<UserResponseDetails> userResponseDetails = userDetailsPage.getContent().stream()
+                .map(user -> {
+                    UserResponseDetails userResponseDetails1 = new UserResponseDetails();
+                    this.mapToUserDto(user, userResponseDetails1); // Map each user to UserResponseDetails
+                    return userResponseDetails1;
+                })
+                .collect(Collectors.toList());
 
+        // Return a new PageDto with the mapped content and pagination details
+        return new PageDto<>(userResponseDetails,userDetailsPage.getTotalElements()
+                , userDetailsPage.getTotalPages(),userDetailsPage.getNumber(),
+                userDetailsPage.getSize(),userDetailsPage.isLast() );
+    };
+}

@@ -1,14 +1,10 @@
 package com.ntg.backend.controller;
-import com.ntg.backend.dto.requestDto.VolunteerDto;
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.responseDto.UserResponseDetails;
-import com.ntg.backend.entity.Volunteer;
-import com.ntg.backend.repository.UserRepo;
 import com.ntg.backend.service.imp.UserServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -35,10 +31,12 @@ public class UserController {
     }
 
     @GetMapping("/allUsers/{role}")
-    public ResponseEntity<List<UserResponseDetails>> getAllUsersByRole(@PathVariable("role") String role )
+    public ResponseEntity<PageDto<UserResponseDetails>> getAllUsersByRole(@PathVariable("role") String role
+            , @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo
+            , @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
     {
-        List<UserResponseDetails> userResponseDetails = userServiceImp.getAllUsersWithRole(role);
-        return new ResponseEntity<>(userResponseDetails, HttpStatus.OK);
+        PageDto<UserResponseDetails> userResponsePagination = userServiceImp.getAllUsersWithRole(role,pageNo,pageSize);
+        return new ResponseEntity<>(userResponsePagination, HttpStatus.OK);
     }
 
     @PutMapping("{id}")

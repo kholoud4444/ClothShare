@@ -1,6 +1,7 @@
 package com.ntg.backend.service.imp;
 
 import com.ntg.backend.Mapper.UserMapper;
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.RegistrationDto;
 import com.ntg.backend.dto.responseDto.UserResponseDetails;
 import com.ntg.backend.entity.User;
@@ -8,12 +9,14 @@ import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.UserRepo;
 import com.ntg.backend.service.UserService;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -64,19 +67,15 @@ public class UserServiceImp implements UserService {
         return userRepository.save(user);
     }
 
-    public List<UserResponseDetails> getAllUsersWithRole(String role) {
-        List<User> users = userRepository.findAll().stream()
-                .filter(user -> role.equals(user.getRole()))
-                .toList();
+    public PageDto<UserResponseDetails> getAllUsersWithRole(String role, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
 
-        List<UserResponseDetails> userResponseDetailsList = new ArrayList<>();
-        for (User user : users) {
-            UserResponseDetails userResponseDetails = new UserResponseDetails();
-            userMapper.mapToUserDto(user, userResponseDetails); // Map each user to UserResponseDetails
-            userResponseDetailsList.add(userResponseDetails); // Add to result list
-        }
+        Page<User> users = userRepository.findByRole(role, pageable);
+        PageDto<UserResponseDetails> userPageDto = userMapper.userPageToDto(users);
+        return userPageDto;
 
-        return userResponseDetailsList;
+
+
     }
 
     @Override

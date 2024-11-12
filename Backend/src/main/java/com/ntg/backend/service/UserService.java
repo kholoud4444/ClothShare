@@ -1,5 +1,6 @@
 package com.ntg.backend.service;
 
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.RegistrationDto;
 import com.ntg.backend.dto.responseDto.UserResponseDetails;
 import com.ntg.backend.entity.User;
@@ -11,7 +12,7 @@ public interface UserService {
     List<User> getAllUsers();
     UserResponseDetails getUserDetails(long id);
     void deleteUserById(long id);
-    List<UserResponseDetails> getAllUsersWithRole(String role);
+    PageDto<UserResponseDetails> getAllUsersWithRole(String role, int pageNo, int pageSize);
     UserResponseDetails UpdateUser(long id, UserResponseDetails user);
 
 }

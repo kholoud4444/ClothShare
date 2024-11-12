@@ -48,7 +48,7 @@ public class ItemServiceImp implements ItemService {
     @Override
     public Item createItem(ItemDto itemDto) {
         Volunteer volunteer = volunteerRepo.findById(itemDto.getVolunteerId())
-                .orElseThrow(() -> new ResourceNotFoundException("Volunteer", "id", itemDto.getVolunteerId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Volunteer not found with id : " + itemDto.getVolunteerId()));
 
 
         Item item = itemMapper.mapToItemEntity(itemDto);

@@ -27,39 +27,36 @@ public class ItemController {
     private static final String UPLOAD_DIR = "uploads/";
     @PostMapping("/image")
     public ResponseEntity<String> uploadFile(@RequestPart("image") MultipartFile image) {
-            try {
-                // Ensure the directory exists or create it
-                File uploadDir = new File(UPLOAD_DIR);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdirs();
-                }
-
-                // Generate a unique file name to prevent overwriting existing files
-                String fileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
-                Path filePath = Paths.get(UPLOAD_DIR, fileName);
-
-                // Save the file to the server
-                Files.copy(image.getInputStream(), filePath);
-
-                // Return success response
-                return ResponseEntity.ok("File uploaded successfully: " + filePath.toString());
-
-            } catch (IOException e) {
-                // Handle file upload failure
-                return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
+        try {
+            // Ensure the directory exists or create it
+            File uploadDir = new File(UPLOAD_DIR);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
             }
+
+            // Generate a unique file name to prevent overwriting existing files
+            String fileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+            Path filePath = Paths.get(UPLOAD_DIR, fileName);
+
+            // Save the file to the server
+            Files.copy(image.getInputStream(), filePath);
+
+            // Return success response
+            return ResponseEntity.ok("File uploaded successfully: " + filePath.toString());
+
+        } catch (IOException e) {
+            // Handle file upload failure
+            return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
+        }
 
     }
     // API to save the item with provided data, including the image URL
     @PostMapping("/save")
     public ResponseEntity<Item> saveItem(@RequestBody ItemDto itemDto) {
-        try {
+
             Item savedItem = itemServiceImp.createItem(itemDto);
             return new ResponseEntity<>(savedItem, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
     }
 
 //    @PostMapping
