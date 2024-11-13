@@ -3,6 +3,8 @@ import {ButtonDirective} from 'primeng/button';
 import {FormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {jwtDecode} from 'jwt-decode';
+import {ActivatedRoute} from '@angular/router';
+import {ProductService} from '../../services/product.service';
 @Component({
   selector: 'app-item',
   standalone: true,
@@ -19,7 +21,18 @@ export class ItemComponent implements OnInit {
   requestText: string = '';
   isNeedyUser: boolean = false; // Flag to track if the user is 'needy'
 
+  OneProduct:any ;
+  constructor(private _ActivatedRoute:ActivatedRoute, private _ProductService:ProductService) {
+  }
   ngOnInit() {
+    let id = this._ActivatedRoute.snapshot.paramMap.get("id")
+    this._ProductService.getOneProduct(id).subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.OneProduct = res ;
+      }
+    })
+
     this.checkUserRole();
   }
 

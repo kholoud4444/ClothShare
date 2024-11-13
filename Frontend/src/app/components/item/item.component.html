@@ -1,13 +1,11 @@
 <div class="item-container">
   <div class="item-details">
-    <h3>بلوزه طويله فضفاضه</h3>
-    <p>
-      بلوزة طويلة فضفاضة بتصميم عصري وأنيق، تتميز بقصّة مريحة وأكمام واسعة تضيف لمسة من الراحة والأناقة. مصنوعة من قماش ناعم وخفيف يسمح بتهوية جيدة، مما يجعلها مثالية للأيام الدافئة أو للتنسيق مع قطع أخرى في الأجواء الباردة.
-    </p>
-    <p>: الحجم</p>
-    <p>: الحالة</p>
-    <p>: الصنف</p>
-    <p>: النوع</p>
+    <h3>{{OneProduct.type}}</h3>
+    <p>{{OneProduct.description}}</p>
+    <p><span style="font-weight: bold;">الحجم: </span>{{OneProduct.size}}</p>
+    <p><span style="font-weight: bold;">حالة اللبس : </span>{{OneProduct.state}}</p>
+    <p><span style="font-weight: bold;">حالة الطلب: </span>{{OneProduct.status}}</p>
+    <p><span style="font-weight: bold;">نوع اللبس : </span>{{OneProduct.genderSuitability}}</p>
 
     <!-- Show button only for needy users -->
     <button

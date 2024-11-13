@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { PaginatorModule } from 'primeng/paginator';
+import {ProductService} from '../../services/product.service';
 
 @Component({
   selector: 'app-products',
@@ -58,9 +59,21 @@ export class ProductsComponent implements OnInit {
 
   itemsPerPage = 1;                // Number of products per page
   paginatedProducts: Array<IProduct> = [];  // Array to hold products for the current page
-
+  allProducts:any[]=[];
+  constructor(private _ProductService:ProductService) {
+  }
   ngOnInit() {
-    this.updatePaginatedProducts(0);  // Initialize paginated products for the first page
+    this.updatePaginatedProducts(0);
+    this._ProductService.getAllProduct().subscribe({
+      next:(res)=>{
+        this.allProducts = res;
+        console.log(res)
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+    // Initialize paginated products for the first page
   }
 
   paginate(event: any) {
@@ -73,6 +86,7 @@ export class ProductsComponent implements OnInit {
     const end = start + this.itemsPerPage;
     this.paginatedProducts = this.products.slice(start, end);
   }
+
 }
 
 

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {FormGroup} from '@angular/forms';
 
 export interface Product {
   name: string;
@@ -18,7 +17,7 @@ export interface Product {
 export class ProductService {
 
   //  private apiUrl = 'https://fakestoreapi.com/products'; // Replace with your fake API URL
-   private apiUrl = 'https://dummyjson.com/products'; // Replace with your fake API URL
+  private apiUrl = 'https://dummyjson.com/products'; // Replace with your fake API URL
 
   private baseUrl = 'http://localhost:8080'
 
@@ -36,7 +35,12 @@ export class ProductService {
 
     return this.http.post(this.baseUrl + '/api/item', formData);
   }
+
+  getAllProduct():Observable<any>{
+    return this.http.get("/api/item");
+  }
+
+  getOneProduct(id:any):Observable<any>{
+    return this.http.get(`/api/item/${id}`);
+  }
 }
-
-
-

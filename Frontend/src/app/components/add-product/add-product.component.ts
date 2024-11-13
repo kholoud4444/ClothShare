@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {PaginatorModule} from 'primeng/paginator';
 import {NgIf} from '@angular/common';
 import {ProductService} from '../../services/product.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -30,7 +31,7 @@ export class AddProductComponent {
   form: FormGroup;
   imageFile: any;
 
-  constructor(private fb: FormBuilder, private productService: ProductService) {
+  constructor(private fb: FormBuilder, private productService: ProductService,private router: Router) {
     this.form = this.fb.group({
       type: [''],
       state: [''],
@@ -54,6 +55,7 @@ export class AddProductComponent {
           debugger
           console.log('Image uploaded successfully:', response);
           this.form.reset();
+          this.router.navigate(['/page/home']);
         },
         (error) => {
           debugger

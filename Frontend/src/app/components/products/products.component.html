@@ -1,144 +1,36 @@
 <div class="p-4">
   <h1>منتجاتنا </h1>
   <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col" dir="rtl">
-      <div class="card h-100">
-        <!-- <p-tag [value]="in_stock"></p-tag> -->
-        <img src="https://primefaces.org/cdn/primeng/images/demo/product/green-t-shirt.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title text-end">بلوزه طويله فضفاضه</h5>
-          <p class="card-text text-end">
-            بلوزة طويلة فضفاضة بتصميم عصري وأنيق، تتميز بقصّة مريحة وأكمام واسعة تضيف لمسة من الراحة والأناقة. مصنوعة من قماش ناعم وخفيف يسمح بتهوية جيدة، مما يجعلها مثالية للأيام الدافئة أو للتنسيق مع قطع أخرى في الأجواء الباردة.
-          </p>
-          <div class="product-info d-flex justify-content-between align-items-center">
-            <div class="product-sub-info text-end">
-              <p><span style="font-weight: bold;">التصنيف: </span>رجالى</p>
-              <p><span style="font-weight: bold;">لنوع: </span>ساعة</p>
+    @for(product of allProducts; track product.itemId){
+      <div class="col-3" dir="rtl">
+        <div class="card h-100">
+          <!-- <p-tag [value]="in_stock"></p-tag> -->
+          <!--          <img [src]="product.imgUrl" class="card-img-top" alt="...">-->
+          <img src="assets/images/slide2.jpg" alt="Item Image" />
+          <div class="card-body">
+            <h5 class="card-title text-end">{{product.type}}</h5>
+            <p class="card-text text-end">
+              {{product.description}}
+            </p>
+            <div class="product-info d-flex justify-content-between align-items-center">
+              <div class="product-sub-info text-end">
+                <p><span style="font-weight: bold;">التصنيف: </span>{{product.type}}</p>
+                <p><span style="font-weight: bold;">الحجم : </span>{{product.size}}</p>
+                <p><span style="font-weight: bold;">حاله الملبس  : </span>{{ product.state }}</p>
+                <p><span style="font-weight: bold;">النوع : </span>{{ product.genderSuitability }}</p>
+                <p><span style="font-weight: bold;"> حاله الطلب: </span>{{ product.status }}</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card-footer text-end">
-          <button type="button" class="btn btn-primary" routerLink="/item" routerLinkActive="active">
-            <i class="pi pi-shopping-cart" ></i> عرض المنتج
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="col" dir="rtl">
-      <div class="card h-100">
-        <!-- <p-tag [value]="in_stock"></p-tag> -->
-        <img src="https://primefaces.org/cdn/primeng/images/demo/product/brown-purse.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title text-end">بلوزه طويله فضفاضه</h5>
-          <p class="card-text text-end">
-            بلوزة طويلة فضفاضة بتصميم عصري وأنيق، تتميز بقصّة مريحة وأكمام واسعة تضيف لمسة من الراحة والأناقة. مصنوعة من قماش ناعم وخفيف يسمح بتهوية جيدة، مما يجعلها مثالية للأيام الدافئة أو للتنسيق مع قطع أخرى في الأجواء الباردة.
-          </p>
-          <div class="product-info d-flex justify-content-between align-items-center">
-            <div class="product-sub-info text-end">
-              <p><span style="font-weight: bold;">التصنيف: </span>رجالى</p>
-              <p><span style="font-weight: bold;">بلوزه: </span>ساعة</p>
-            </div>
+          <div class="card-footer text-end">
+            <button type="button" class="btn btn-primary" [routerLink]="['/item',product.itemId]" routerLinkActive="active">
+              <i class="pi pi-shopping-cart" ></i> عرض المنتج
+            </button>
           </div>
         </div>
-        <div class="card-footer text-end">
-          <button type="button" class="btn btn-primary" routerLink="/item" routerLinkActive="active">
-            <i class="pi pi-shopping-cart"  ></i> عرض المنتج
-          </button>
-        </div>
       </div>
-    </div>
-    <div class="col" dir="rtl">
-      <div class="card h-100">
-        <!-- <p-tag [value]="in_stock"></p-tag> -->
-        <img src="https://primefaces.org/cdn/primeng/images/demo/product/grey-t-shirt.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title text-end">بلوزه طويله فضفاضه</h5>
-          <p class="card-text text-end">
-            بلوزة طويلة فضفاضة بتصميم عصري وأنيق، تتميز بقصّة مريحة وأكمام واسعة تضيف لمسة من الراحة والأناقة. مصنوعة من قماش ناعم وخفيف يسمح بتهوية جيدة، مما يجعلها مثالية للأيام الدافئة أو للتنسيق مع قطع أخرى في الأجواء الباردة.
-          </p>
-          <div class="product-info d-flex justify-content-between align-items-center">
-            <div class="product-sub-info text-end">
-              <p><span style="font-weight: bold;">التصنيف: </span>رجالى</p>
-              <p><span style="font-weight: bold;">بلوزه: </span>ساعة</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer text-end">
-          <button type="button" class="btn btn-primary" routerLink="/item" routerLinkActive="active">
-            <i class="pi pi-shopping-cart"  ></i> عرض المنتج
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="col" dir="rtl">
-      <div class="card h-100">
-        <!-- <p-tag [value]="in_stock"></p-tag> -->
-        <img src="https://primefaces.org/cdn/primeng/images/demo/product/pink-purse.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title text-end">بلوزه طويله فضفاضه</h5>
-          <p class="card-text text-end">
-            بلوزة طويلة فضفاضة بتصميم عصري وأنيق، تتميز بقصّة مريحة وأكمام واسعة تضيف لمسة من الراحة والأناقة. مصنوعة من قماش ناعم وخفيف يسمح بتهوية جيدة، مما يجعلها مثالية للأيام الدافئة أو للتنسيق مع قطع أخرى في الأجواء الباردة.
-          </p>
-          <div class="product-info d-flex justify-content-between align-items-center">
-            <div class="product-sub-info text-end">
-              <p><span style="font-weight: bold;">التصنيف: </span>رجالى</p>
-              <p><span style="font-weight: bold;">بلوزه: </span>ساعة</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer text-end">
-          <button type="button" class="btn btn-primary" routerLink="/item" routerLinkActive="active">
-            <i class="pi pi-shopping-cart"  ></i> عرض المنتج
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="col" dir="rtl">
-      <div class="card h-100">
-        <!-- <p-tag [value]="in_stock"></p-tag> -->
-        <img src="https://primefaces.org/cdn/primeng/images/demo/product/shoes.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title text-end">بلوزه طويله فضفاضه</h5>
-          <p class="card-text text-end">
-            بلوزة طويلة فضفاضة بتصميم عصري وأنيق، تتميز بقصّة مريحة وأكمام واسعة تضيف لمسة من الراحة والأناقة. مصنوعة من قماش ناعم وخفيف يسمح بتهوية جيدة، مما يجعلها مثالية للأيام الدافئة أو للتنسيق مع قطع أخرى في الأجواء الباردة.
-          </p>
-          <div class="product-info d-flex justify-content-between align-items-center">
-            <div class="product-sub-info text-end">
-              <p><span style="font-weight: bold;">التصنيف: </span>رجالى</p>
-              <p><span style="font-weight: bold;">بلوزه: </span>ساعة</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer text-end">
-          <button type="button" class="btn btn-primary" routerLink="/item" routerLinkActive="active">
-            <i class="pi pi-shopping-cart"  ></i> عرض المنتج
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="col" dir="rtl">
-      <div class="card h-100">
-        <!-- <p-tag [value]="in_stock"></p-tag> -->
-        <img src="https://primefaces.org/cdn/primeng/images/demo/product/sneakers.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title text-end">بلوزه طويله فضفاضه</h5>
-          <p class="card-text text-end">
-            بلوزة طويلة فضفاضة بتصميم عصري وأنيق، تتميز بقصّة مريحة وأكمام واسعة تضيف لمسة من الراحة والأناقة. مصنوعة من قماش ناعم وخفيف يسمح بتهوية جيدة، مما يجعلها مثالية للأيام الدافئة أو للتنسيق مع قطع أخرى في الأجواء الباردة.
-          </p>
-          <div class="product-info d-flex justify-content-between align-items-center">
-            <div class="product-sub-info text-end">
-              <p><span style="font-weight: bold;">التصنيف: </span>رجالى</p>
-              <p><span style="font-weight: bold;">بلوزه: </span>ساعة</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer text-end">
-          <button type="button" class="btn btn-primary" routerLink="/item" routerLinkActive="active">
-            <i class="pi pi-shopping-cart"  ></i> عرض المنتج
-          </button>
-        </div>
-      </div>
-    </div>
+
+    }
   </div>
 
   <p-paginator
@@ -147,5 +39,3 @@
     (onPageChange)="paginate($event)">
   </p-paginator>
 </div>
-
-
