@@ -2,9 +2,7 @@ package com.ntg.backend.controller;
 
 import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
-import com.ntg.backend.entity.Item;
 import com.ntg.backend.service.imp.ItemServiceImp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +20,13 @@ import java.util.UUID;
 @RequestMapping("/api/item")
 public class ItemController {
 
-    @Autowired
-    private ItemServiceImp itemServiceImp;
+    private final ItemServiceImp itemServiceImp;
     private static final String UPLOAD_DIR = "uploads/";
+
+    public ItemController(ItemServiceImp itemServiceImp) {
+        this.itemServiceImp = itemServiceImp;
+    }
+
     @PostMapping("/uploadImage")
     public ResponseEntity<String> uploadFile(@RequestPart("image") MultipartFile image) {
         try {
@@ -51,27 +53,24 @@ public class ItemController {
 
     }
     // API to save the item with provided data, including the image URL
-    @PostMapping("/saveImage")
-    public ResponseEntity<Item> saveItem(@RequestBody ItemDto itemDto) {
-
-        Item savedItem = itemServiceImp.createItem(itemDto);
+    @PostMapping("/saveItem")
+    public ResponseEntity<ItemDto> saveItem(@RequestBody ItemDto itemDto) {
+        ItemDto savedItem = itemServiceImp.createItem(itemDto);
         return new ResponseEntity<>(savedItem, HttpStatus.OK);
-
     }
 
 
-
     @GetMapping("{id}")
-    public ResponseEntity<Item>getItemById(@PathVariable("id") long id )
+    public ResponseEntity<ItemDto>getItemById(@PathVariable("id") long id )
     {
-        Item itemDto = itemServiceImp.getItemById(id);
+        ItemDto itemDto = itemServiceImp.getItemById(id);
         return new ResponseEntity<>(itemDto,HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Item>> getAllItems()
+    public ResponseEntity<List<ItemDto>> getAllItems()
     {
-        List<Item> ItemDTOs = itemServiceImp.getAllItems() ;
+        List<ItemDto> ItemDTOs = itemServiceImp.getAllItems() ;
         return new ResponseEntity<>(ItemDTOs,HttpStatus.OK);
     }
 
@@ -83,9 +82,9 @@ public class ItemController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Item> VolunteerDto(@RequestBody ItemDto itemDto,@PathVariable("id") long id)
+    public ResponseEntity<ItemDto> VolunteerDto(@RequestBody ItemDto itemDto,@PathVariable("id") long id)
     {
-        Item updatedItemDto = itemServiceImp.updateItem(itemDto,id);
+        ItemDto updatedItemDto = itemServiceImp.updateItem(itemDto,id);
         return new ResponseEntity<>(updatedItemDto,HttpStatus.OK);
     }
     @GetMapping("requestsWithNeedyDetails/{id}")
@@ -94,7 +93,5 @@ public class ItemController {
         List<RequestWithNeedyDetails> requestWithNeedyDetails = itemServiceImp.requestWithNeedyDetails(itemId);
         return new ResponseEntity<>(requestWithNeedyDetails, HttpStatus.OK);
     }
-
-
 
 }
