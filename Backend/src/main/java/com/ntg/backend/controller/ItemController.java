@@ -1,7 +1,5 @@
 package com.ntg.backend.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
 import com.ntg.backend.entity.Item;
@@ -26,52 +24,38 @@ public class ItemController {
 
     @Autowired
     private ItemServiceImp itemServiceImp;
-
-
     private static final String UPLOAD_DIR = "uploads/";
-
-
-//    @PostMapping("/image")
-    @PostMapping()
-    public ResponseEntity<Item> addItem(
-            @RequestParam("image") MultipartFile image,
-            @RequestParam("data") String dateJson // JSON string that we will parse
-    ) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        ItemDto itemDto = null;
+    @PostMapping("/uploadImage")
+    public ResponseEntity<String> uploadFile(@RequestPart("image") MultipartFile image) {
         try {
-            itemDto = objectMapper.readValue(dateJson, ItemDto.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            // Ensure the directory exists or create it
+            File uploadDir = new File(UPLOAD_DIR);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            // Generate a unique file name to prevent overwriting existing files
+            String fileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+            Path filePath = Paths.get(UPLOAD_DIR, fileName);
+
+            // Save the file to the server
+            Files.copy(image.getInputStream(), filePath);
+
+            // Return success response
+            return ResponseEntity.ok("File uploaded successfully: " + filePath.toString());
+
+        } catch (IOException e) {
+            // Handle file upload failure
+            return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
         }
 
-        File uploadDir = new File(UPLOAD_DIR);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs(); // Create the directory if it doesn't exist
-        }
-
-        String fileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
-        Path filePath = Paths.get(UPLOAD_DIR + fileName);
-
-        // Save the file to the specified location
-        Files.write(filePath, image.getBytes());
-
-        itemDto.setImageUrl(filePath.toString());
-
-        itemDto.setVolunteerId(1L);
-        itemDto.setGenderSuitability(Item.GenderSuitability.ذكر);
-        itemDto.setStatus(Item.ItemStatus.معلق);
-
-        Item savedItemDto = itemServiceImp.createItem(itemDto);
-        return new ResponseEntity<>(savedItemDto, HttpStatus.OK);
     }
-
     // API to save the item with provided data, including the image URL
-    @PostMapping("/save")
+    @PostMapping("/saveImage")
     public ResponseEntity<Item> saveItem(@RequestBody ItemDto itemDto) {
 
-            Item savedItem = itemServiceImp.createItem(itemDto);
-            return new ResponseEntity<>(savedItem, HttpStatus.OK);
+        Item savedItem = itemServiceImp.createItem(itemDto);
+        return new ResponseEntity<>(savedItem, HttpStatus.OK);
 
     }
 
