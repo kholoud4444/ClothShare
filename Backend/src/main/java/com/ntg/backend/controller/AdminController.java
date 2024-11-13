@@ -1,5 +1,6 @@
 package com.ntg.backend.controller;
 
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.responseDto.ItemDetailsWithVolunteerName;
 import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.service.AdminService;
@@ -21,9 +22,12 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @GetMapping("/pending-items")
-    public ResponseEntity< List<ItemDetailsWithVolunteerName>> getPendingItems() {
-        List<ItemDetailsWithVolunteerName> itemsDetailsWithVolunteerNameList = adminService.GetAllItemDetailsWithVolunteerNameList();
+    @GetMapping("/allitems")
+    public ResponseEntity<PageDto<ItemDetailsWithVolunteerName>> getAllItems
+            (@RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo
+            , @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize) {
+        PageDto<ItemDetailsWithVolunteerName> itemsDetailsWithVolunteerNameList
+                = adminService.GetAllItemDetailsWithVolunteerNameList(pageNo,pageSize);
         return new ResponseEntity<>(itemsDetailsWithVolunteerNameList, HttpStatus.OK);
     }
 

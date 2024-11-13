@@ -1,9 +1,12 @@
 package com.ntg.backend.Mapper;
 
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.NeedyDto;
 import com.ntg.backend.dto.requestDto.RequestDto;
 import com.ntg.backend.dto.responseDto.NeedyInfo;
+import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.entity.Needy;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,8 +16,11 @@ import java.util.stream.Collectors;
 public class NeedyMapper {
     private final UserMapper userMapper;
 
+
+
     public NeedyMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
+
     }
 
     public Needy mapToEntity(NeedyDto needyDto) {
@@ -71,10 +77,14 @@ public class NeedyMapper {
         return needyInfo;
     }
 
+
+    }
+
+
 //    public List<RequestDto> toRequestDtoList(Needy needy) {
 //        // If there are requests related to the needy, map them to RequestDto
 //        return needy.getRequests().stream()
 //                .map(requestMapper::mapToRequestDto)
 //                .collect(Collectors.toList());
 //    }
-}
+

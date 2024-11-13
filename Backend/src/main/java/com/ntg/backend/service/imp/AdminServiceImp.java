@@ -1,11 +1,15 @@
 package com.ntg.backend.service.imp;
 
 import com.ntg.backend.Mapper.ItemMapper;
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.responseDto.ItemDetailsWithVolunteerName;
 import com.ntg.backend.entity.Item;
 import com.ntg.backend.repository.AdminRepo;
 import com.ntg.backend.repository.ItemRepo;
 import com.ntg.backend.service.AdminService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,14 +28,23 @@ public class AdminServiceImp implements AdminService {
     }
 
     @Override
-    public List<ItemDetailsWithVolunteerName> GetAllItemDetailsWithVolunteerNameList() {
-        List<Item> items = itemRepo.findAll();
+    public PageDto<ItemDetailsWithVolunteerName> GetAllItemDetailsWithVolunteerNameList(int PageNo,int PageSize) {
+        Pageable pageable = PageRequest.of(PageNo, PageSize);
+        Page<Item> itemsPage = itemRepo.findAll(pageable);
+        List<ItemDetailsWithVolunteerName> itemDetails = itemsPage.getContent().stream()
+                .map(itemMapper::mapToItemDetailsWithVolunteerName)
+                .collect(Collectors.toList());
 
-            return items.stream()
-                    .map(itemMapper::mapToItemDetailsWithVolunteerName) // Convert each Item to ItemDetailsWithVolunteerName
-                    .collect(Collectors.toList()); // Collect them into a list
-        }
-
+        // Create and return a PageDto with the mapped content and pagination details
+        return new PageDto<>(
+                itemDetails,
+                itemsPage.getTotalElements(),
+                itemsPage.getTotalPages(),
+                itemsPage.getNumber(),
+                itemsPage.getSize(),
+                itemsPage.isLast()
+        );
+    }
     @Override
     public void ApproveItem(Long itemId) {
         Item item = itemRepo.findById(itemId)

@@ -1,5 +1,6 @@
 package com.ntg.backend.controller;
 
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.service.imp.NeedyServiceImp;
 import org.springframework.http.HttpStatus;
@@ -22,17 +23,19 @@ public class NeedyController {
     //get all Requests with Item details for specific Needy
     @PreAuthorize("hasRole('ROLE_NEEDY')")
     @GetMapping("allRequestsDetails/{id}")
-    public ResponseEntity<List<RequestWithItemDetails>> getAllRequestsDetailsByNeedyId(@PathVariable("id") long needyId)
+    public ResponseEntity<PageDto<RequestWithItemDetails>> getAllRequestsDetailsByNeedyId
+    (@PathVariable("id") long needyId,int pageNo, int pageSize)
     {
-        List<RequestWithItemDetails> requestsWithItemDetailsByNeedyId = needyServiceImp.getAllRequestDetailsByNeedyId(needyId) ;
+        PageDto<RequestWithItemDetails> requestsWithItemDetailsByNeedyId = needyServiceImp
+                .getAllRequestDetailsByNeedyId(needyId,pageNo,pageSize) ;
         return new ResponseEntity<>(requestsWithItemDetailsByNeedyId,HttpStatus.OK);
     }
 
     //get all Requests with Item details for all Needies
     @PreAuthorize("hasRole('ROLE_NEEDY')")
     @GetMapping("allRequestsDetails")
-    public ResponseEntity<List<RequestWithItemDetails>> getAllRequestDetailsForAllNeedies() {
-        List<RequestWithItemDetails> requests = needyServiceImp.getAllRequestDetailsForAllNeedies();
+    public ResponseEntity<PageDto<RequestWithItemDetails>> getAllRequestDetailsForAllNeedies(int pageNo, int pageSize) {
+        PageDto<RequestWithItemDetails> requests = needyServiceImp.getAllRequestDetailsForAllNeedies(pageNo, pageSize);
         return ResponseEntity.ok(requests);
     }
 
