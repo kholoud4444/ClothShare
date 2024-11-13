@@ -2,14 +2,20 @@ package com.ntg.backend.service.imp;
 
 import com.ntg.backend.Mapper.ItemMapper;
 import com.ntg.backend.Mapper.RequestMapper;
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
+import com.ntg.backend.dto.responseDto.VolunteerWithItemsDetails;
 import com.ntg.backend.entity.Item;
+import com.ntg.backend.entity.Volunteer;
 import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.ItemRepo;
 import com.ntg.backend.repository.RequestRepo;
 import com.ntg.backend.repository.VolunteerRepo;
 import com.ntg.backend.service.ItemService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,8 +57,10 @@ public class ItemServiceImp implements ItemService {
     }
 
     @Override
-    public List<ItemDto> getAllItems() {
-        return itemRepo.findAll().stream().map(itemMapper::mapToItemDto).collect(Collectors.toList());
+    public PageDto<ItemDto> getAllItems(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Item> items = itemRepo.findAll(pageable);
+        return itemMapper.itemDtoPageDto(items);
     }
 
     @Override

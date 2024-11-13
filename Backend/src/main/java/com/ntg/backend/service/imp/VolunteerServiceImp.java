@@ -1,5 +1,6 @@
 package com.ntg.backend.service.imp;
 
+import com.ntg.backend.Mapper.ItemMapper;
 import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.Mapper.VolunteerMapper;
@@ -26,12 +27,14 @@ public class VolunteerServiceImp implements VolunteerService {
     private final VolunteerRepo volunteerRepo;
     private final VolunteerMapper volunteerMapper;
     private final ItemRepo itemRepo;
+    private final ItemMapper itemMapper;
 
     @Autowired
-    public VolunteerServiceImp(VolunteerRepo volunteerRepo, VolunteerMapper volunteerMapper, ItemRepo itemRepo) {
+    public VolunteerServiceImp(VolunteerRepo volunteerRepo, VolunteerMapper volunteerMapper, ItemRepo itemRepo, ItemMapper itemMapper) {
         this.volunteerRepo = volunteerRepo;
         this.volunteerMapper = volunteerMapper;
         this.itemRepo = itemRepo;
+        this.itemMapper = itemMapper;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class VolunteerServiceImp implements VolunteerService {
     public PageDto<VolunteerWithItemsDetails> getAllVolunteersWithItems(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<Volunteer> volunteers = volunteerRepo.findAll(pageable);
-        return volunteerMapper.VolunteerPageToDto(volunteers);
+        return volunteerMapper.volunteerPageToDto(volunteers);
 
     }
 
@@ -56,6 +59,6 @@ public class VolunteerServiceImp implements VolunteerService {
                new ResourceNotFoundException("Volunteer", "id", volunteerId));
         Page<Item> itemPage = itemRepo.findByVolunteer(volunteer, pageable);
 
-        return volunteerMapper.itemDtoPageDto(itemPage);
+        return itemMapper.itemDtoPageDto(itemPage);
     }
 }

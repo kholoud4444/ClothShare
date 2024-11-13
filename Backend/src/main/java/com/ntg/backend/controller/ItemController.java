@@ -1,5 +1,6 @@
 package com.ntg.backend.controller;
 
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
 import com.ntg.backend.service.imp.ItemServiceImp;
@@ -52,13 +53,13 @@ public class ItemController {
         }
 
     }
+
     // API to save the item with provided data, including the image URL
     @PostMapping("/saveItem")
     public ResponseEntity<ItemDto> saveItem(@RequestBody ItemDto itemDto) {
         ItemDto savedItem = itemServiceImp.createItem(itemDto);
         return new ResponseEntity<>(savedItem, HttpStatus.OK);
     }
-
 
     @GetMapping("{id}")
     public ResponseEntity<ItemDto>getItemById(@PathVariable("id") long id )
@@ -68,10 +69,11 @@ public class ItemController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ItemDto>> getAllItems()
+    public ResponseEntity<PageDto<ItemDto>> getAllItems(@RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
+                                                     @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
     {
-        List<ItemDto> ItemDTOs = itemServiceImp.getAllItems() ;
-        return new ResponseEntity<>(ItemDTOs,HttpStatus.OK);
+        PageDto<ItemDto> itemsPageDto = itemServiceImp.getAllItems(pageNo,pageSize);
+        return new ResponseEntity<>(itemsPageDto,HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
@@ -87,6 +89,7 @@ public class ItemController {
         ItemDto updatedItemDto = itemServiceImp.updateItem(itemDto,id);
         return new ResponseEntity<>(updatedItemDto,HttpStatus.OK);
     }
+
     @GetMapping("requestsWithNeedyDetails/{id}")
     public ResponseEntity<List<RequestWithNeedyDetails>> getAllRequestsNeedyDetails(@PathVariable("id") long itemId)
     {

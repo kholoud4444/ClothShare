@@ -1,11 +1,14 @@
 package com.ntg.backend.Mapper;
 
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.dto.responseDto.ItemDetailsWithVolunteerName;
 import com.ntg.backend.entity.Item;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ItemMapper {
@@ -34,6 +37,23 @@ public class ItemMapper {
         itemDto.setVolunteerId(item.getVolunteer().getUserId());
         return itemDto;
     }
+
+    public PageDto<ItemDto> itemDtoPageDto(Page<Item> itemPage) {
+        List<ItemDto> itemDtos = itemPage.getContent().stream()
+                .map(this::mapToItemDto)
+                .collect(Collectors.toList());
+        // Return a new PageDto with the mapped content and pagination details
+        return new PageDto<>(
+                itemDtos,
+                itemPage.getTotalElements(),
+                itemPage.getTotalPages(),
+                itemPage.getNumber(),
+                itemPage.getSize(),
+                itemPage.isLast()
+        );
+    }
+
+
     public ItemDetailsWithVolunteerName mapToItemDetailsWithVolunteerName(Item item) {
         ItemDto itemDto = mapToItemDto(item);
 
