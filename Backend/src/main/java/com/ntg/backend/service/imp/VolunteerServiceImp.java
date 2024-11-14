@@ -15,11 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class VolunteerServiceImp implements VolunteerService {
@@ -49,7 +46,6 @@ public class VolunteerServiceImp implements VolunteerService {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<Volunteer> volunteers = volunteerRepo.findAll(pageable);
         return volunteerMapper.volunteerPageToDto(volunteers);
-
     }
 
     @Override
@@ -58,7 +54,6 @@ public class VolunteerServiceImp implements VolunteerService {
        Volunteer volunteer = volunteerRepo.findById(volunteerId).orElseThrow(() ->
                new ResourceNotFoundException("Volunteer", "id", volunteerId));
         Page<Item> itemPage = itemRepo.findByVolunteer(volunteer, pageable);
-
         return itemMapper.itemDtoPageDto(itemPage);
     }
 }

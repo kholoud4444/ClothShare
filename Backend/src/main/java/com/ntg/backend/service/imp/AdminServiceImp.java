@@ -4,7 +4,6 @@ import com.ntg.backend.Mapper.ItemMapper;
 import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.responseDto.ItemDetailsWithVolunteerName;
 import com.ntg.backend.entity.Item;
-import com.ntg.backend.repository.AdminRepo;
 import com.ntg.backend.repository.ItemRepo;
 import com.ntg.backend.service.AdminService;
 import org.springframework.data.domain.Page;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,20 +43,5 @@ public class AdminServiceImp implements AdminService {
                 itemsPage.isLast()
         );
     }
-    @Override
-    public void ApproveItem(Long itemId) {
-        Item item = itemRepo.findById(itemId)
-                .orElseThrow(() -> new RuntimeException("Item not found"));
-        item.setStatus(Item.ItemStatus.تم_الموافقه);
-        itemRepo.save(item);
 
-    }
-
-    @Override
-    public void RejectItem(Long itemId) {
-        Item item = itemRepo.findById(itemId)
-                .orElseThrow(() -> new RuntimeException("Item not found"));
-        item.setStatus(Item.ItemStatus.معلق);
-        itemRepo.save(item);
-    }
 }

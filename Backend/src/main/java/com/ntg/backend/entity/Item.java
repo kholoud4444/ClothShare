@@ -94,8 +94,8 @@ public class Item {
 
     @Getter
     public enum ItemStatus {
+        مرفوض,
         معلق,
-        قيد_المراجعه,
         تم_الموافقه
     }
 }
