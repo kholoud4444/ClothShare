@@ -3,9 +3,8 @@ package com.ntg.backend.service;
 import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
 
-import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
+import com.ntg.backend.dto.requestDto.MessageDto;
 import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
-import com.ntg.backend.entity.Item;
 
 import java.util.List;
 
@@ -16,4 +15,5 @@ public interface ItemService {
     ItemDto getItemById(long id);
     void deleteItem(long id);
     List<RequestWithNeedyDetails> requestWithNeedyDetails(long itemId);
+    MessageDto<ItemDto> changeItemStatus(ItemDto itemDto, long id);
 }

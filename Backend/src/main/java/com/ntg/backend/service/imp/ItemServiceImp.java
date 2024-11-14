@@ -4,6 +4,7 @@ import com.ntg.backend.Mapper.ItemMapper;
 import com.ntg.backend.Mapper.RequestMapper;
 import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.dto.requestDto.MessageDto;
 import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
 import com.ntg.backend.entity.Item;
 import com.ntg.backend.exception.ResourceNotFoundException;
@@ -78,5 +79,25 @@ public class ItemServiceImp implements ItemService {
         return requestRepo.findByItem(item).stream()
                 .map(requestMapper::mapRequestToRequestWithNeedyDetails)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public MessageDto<ItemDto> changeItemStatus(ItemDto itemDto, long id) {
+        Item existingItem = itemRepo.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Item", "id", id));
+
+        // Check if the status from the DTO is different from the existing status
+        if (itemDto.getStatus() != existingItem.getStatus()) {
+            // Update the status if different and save to database
+            existingItem.setStatus(itemDto.getStatus());
+            itemRepo.save(existingItem);
+            ItemDto currentItem= itemMapper.mapToItemDto(existingItem);// Save the updated item status
+            String message = "Item status updated successfully to " + existingItem.getStatus();
+            return new MessageDto<>(message, currentItem);
+        } else {
+            ItemDto currentItem= itemMapper.mapToItemDto(existingItem);
+            String message = "Item status is already " + existingItem.getStatus() + "; no changes made.";
+            return new MessageDto<>(message, currentItem);
+        }
     }
 }

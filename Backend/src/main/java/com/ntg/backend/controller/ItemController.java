@@ -2,6 +2,8 @@ package com.ntg.backend.controller;
 
 import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.dto.requestDto.MessageDto;
+import com.ntg.backend.dto.responseDto.ImageUrl;
 import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
 import com.ntg.backend.service.imp.ItemServiceImp;
 import org.springframework.http.HttpStatus;
@@ -29,7 +31,7 @@ public class ItemController {
     }
 
     @PostMapping("/uploadImage")
-    public ResponseEntity<String> uploadFile(@RequestPart("image") MultipartFile image) {
+    public ResponseEntity<MessageDto<ImageUrl>> uploadFile(@RequestPart("image") MultipartFile image) {
         try {
             // Ensure the directory exists or create it
             File uploadDir = new File(UPLOAD_DIR);
@@ -44,15 +46,24 @@ public class ItemController {
             // Save the file to the server
             Files.copy(image.getInputStream(), filePath);
 
-            // Return success response
-            return ResponseEntity.ok("File uploaded successfully: " + filePath.toString());
+            // Create ImageUrl object with the file path
+            ImageUrl imageUrl = new ImageUrl(filePath.toString());
+
+            // Wrap ImageUrl in MessageDto with a success message
+            MessageDto<ImageUrl> response = new MessageDto<>("File uploaded successfully", imageUrl);
+
+            // Return the response with HttpStatus.OK
+            return new ResponseEntity<>(response, HttpStatus.OK);
 
         } catch (IOException e) {
-            // Handle file upload failure
-            return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
-        }
+            // Create MessageDto with an error message and null object
+            MessageDto<ImageUrl> response = new MessageDto<>("File upload failed: " + e.getMessage(), null);
 
+            // Return the error response with HttpStatus.INTERNAL_SERVER_ERROR
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     // API to save the item with provided data, including the image URL
     @PostMapping("/saveItem")
