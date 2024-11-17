@@ -91,3 +91,33 @@
 .page-item.disabled .page-link {
   cursor: not-allowed;
 }
+.btn-spacing {
+  margin-left: 8px; /* Adjust spacing as needed */
+}
+
+.btn-danger {
+  margin-left: 0; /* Ensure no extra space after the last button */
+}
+.filter-container {
+  display: flex; // تنظيم العناصر أفقياً
+  align-items: center; // محاذاة العناصر رأسياً في نفس الخط
+
+  label {
+    margin-right: 0.5rem; // إضافة مسافة بين التسمية والقائمة
+  }
+
+  .form-select {
+    position: relative; // ضبط الموضع النسبي
+    padding-right: 2rem; // إضافة مسافة داخلية لليمين لإبعاد النص عن السهم
+    text-align: right; // محاذاة النص داخل القائمة لليمين
+    direction: rtl; // ضمان عرض النصوص بشكل صحيح في اللغات العربية
+  }
+
+  select {
+    padding-right: 1.5rem; // مساحة داخلية للنص
+    text-align: center; // يمكن تغيير المحاذاة حسب المطلوب
+  }
+}
+
+
+

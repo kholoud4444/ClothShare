@@ -28,8 +28,12 @@ export class ItemComponent implements OnInit {
     let id = this._ActivatedRoute.snapshot.paramMap.get("id")
     this._ProductService.getOneProduct(id).subscribe({
       next:(res)=>{
+        debugger
         console.log(res);
         this.OneProduct = res ;
+      },
+      error:(err)=>{
+        console.log(err);
       }
     })
 
