@@ -36,8 +36,8 @@ export class ProductService {
     return this.http.post(this.baseUrl + '/api/item', formData);
   }
 
-  getAllProduct():Observable<any>{
-    return this.http.get("/api/item");
+  getAllProduct(page: number, size: number):Observable<any>{
+    return this.http.get(`/api/item?pageNo=${page}&pageSize=${size}`);
   }
 
   getOneProduct(id:any):Observable<any>{

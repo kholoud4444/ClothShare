@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct, ProductInventoryStatus } from './iproducts';
-import { CurrencyPipe, UpperCasePipe } from '@angular/common';
+import {CurrencyPipe, NgForOf, UpperCasePipe} from '@angular/common';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { PaginatorModule } from 'primeng/paginator';
 import {ProductService} from '../../services/product.service';
+import {RequestVolunteerHistory} from '../model/request-volunteer-history';
 
 @Component({
   selector: 'app-products',
@@ -19,7 +20,8 @@ import {ProductService} from '../../services/product.service';
     CurrencyPipe,
     RouterLink,
     RouterLinkActive,
-    PaginatorModule
+    PaginatorModule,
+    NgForOf
   ],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']  // Updated to `styleUrls` (plural) to avoid error
@@ -30,43 +32,30 @@ export class ProductsComponent implements OnInit {
   // @ts-ignore
   products: Array<IProduct> = [
     // Sample product data for demonstration; replace with actual data
-    {
-      id: 1,
-      name: 'Product 1',
-      description: 'Description 1',
-      category: 'Category 1',
-      price: 100,
-      inventoryStatus: ProductInventoryStatus.IN_STOCK,
-      code: '',
-      image: '',
-      quantity: 0,
-      rating: 0
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      description: 'Description 2',
-      category: 'Category 2',
-      price: 150,
-      inventoryStatus: ProductInventoryStatus.OUT_OF_STOCK,
-      code: '',
-      image: '',
-      quantity: 0,
-      rating: 0
-    },
-    // Add more products as needed
-  ];
 
-  itemsPerPage = 1;                // Number of products per page
+  ]
+  items: any[] = []; // Current page items
+  filteredItems: any[] = []; // Items after filtering
+
+
+
+  currentPage: number = 0;
+  itemsPerPage: number = 4;
+  totalItems: number = 0;
+  totalPages: number = 0;
+
   paginatedProducts: Array<IProduct> = [];  // Array to hold products for the current page
   allProducts:any[]=[];
   constructor(private _ProductService:ProductService) {
   }
   ngOnInit() {
-    this.updatePaginatedProducts(0);
-    this._ProductService.getAllProduct().subscribe({
+    debugger
+    // this.updatePaginatedProducts(0);
+    this._ProductService.getAllProduct(0, 1000).subscribe({
       next:(res)=>{
-        this.allProducts = res;
+        debugger
+        this.allProducts = res.content;
+        this.applyFilter(); // Initialize with unfiltered items
         console.log(res)
       },
       error:(err)=>{
@@ -74,6 +63,11 @@ export class ProductsComponent implements OnInit {
       }
     })
     // Initialize paginated products for the first page
+  }
+
+  applyFilter() {
+    this.filteredItems = [...this.allProducts]; // Start with all items
+    this.updatePagination();
   }
 
   paginate(event: any) {
@@ -85,6 +79,43 @@ export class ProductsComponent implements OnInit {
     const start = page * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     this.paginatedProducts = this.products.slice(start, end);
+  }
+
+
+  // Navigate to the next page
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
+
+  // Navigate to the previous page
+  previousPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.updatePagination();
+    }
+  }
+
+  // Navigate to a specific page
+  goToPage(pageIndex: number) {
+    if (pageIndex >= 0 && pageIndex < this.totalPages) {
+      this.currentPage = pageIndex;
+      this.updatePagination();
+    }
+  }
+
+  updatePagination() {
+    debugger
+    this.totalItems = this.allProducts.length;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+
+    const startIndex = this.currentPage * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.items = this.allProducts.slice(startIndex, endIndex);
+    debugger
+    // Paginate filtered items
   }
 
 }
