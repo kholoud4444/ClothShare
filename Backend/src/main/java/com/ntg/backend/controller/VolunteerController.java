@@ -24,7 +24,7 @@ public class VolunteerController {
 
     // get specific Volunteer data with Items details
     @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
-    @GetMapping("/details/{id}")
+    @GetMapping("/itemDetails/{id}")
     public ResponseEntity<VolunteerWithItemsDetails>getVolunteerWithItemsDetails(@PathVariable("id") long id )
     {
         VolunteerWithItemsDetails volunteerWithItemsDetails = volunteerServiceImp.getVolunteerWithItemsDetails(id);
@@ -33,10 +33,10 @@ public class VolunteerController {
 
     // get all Volunteers data with Items details
     @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
-    @GetMapping("/all")
+    @GetMapping("/allItemsDetails")
     public ResponseEntity<PageDto<VolunteerWithItemsDetails>>getAllVolunteerWithItemsDetails  (
-            @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo
-            , @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
+                @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo
+                , @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
     {
         PageDto<VolunteerWithItemsDetails> volunteersWithItemsDetails = volunteerServiceImp
                 .getAllVolunteersWithItems(pageNo,pageSize);
@@ -45,7 +45,7 @@ public class VolunteerController {
 
     //get all Items details for specific Volunteer
     @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
-    @GetMapping("/all/items/{id}")
+    @GetMapping("/allItemsDetails/{id}")
     public ResponseEntity<PageDto<ItemDto>> getAllItemsByVolunteerId(@PathVariable("id") long volunteerId,
                              @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
                              @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)

@@ -2,7 +2,7 @@ package com.ntg.backend.service.imp;
 
 import com.ntg.backend.Mapper.UserMapper;
 import com.ntg.backend.dto.ResponsePagination.PageDto;
-import com.ntg.backend.dto.requestDto.RegistrationDto;
+import com.ntg.backend.dto.requestDto.RegisterDto;
 import com.ntg.backend.dto.responseDto.UserResponseDetails;
 import com.ntg.backend.entity.User;
 import com.ntg.backend.exception.ResourceNotFoundException;
@@ -56,7 +56,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Transactional
-    public User createUser(RegistrationDto registrationDto) {
+    public User createUser(RegisterDto registrationDto) {
         // Map DTO to the appropriate User subclass (Volunteer or Needy)
         User user = userMapper.toUser(registrationDto);
 

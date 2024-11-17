@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-//@EnableMet hodSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     @Autowired
     private UserDetailsService userDetailsService;
