@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IProduct, ProductInventoryStatus } from './iproducts';
-import {CurrencyPipe, NgForOf, UpperCasePipe} from '@angular/common';
+import { IProduct, ProductInventoryStatus } from '../../interfaces/iproducts';
+import {CurrencyPipe, NgForOf, NgOptimizedImage, UpperCasePipe} from '@angular/common';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
@@ -21,7 +21,8 @@ import {RequestVolunteerHistory} from '../model/request-volunteer-history';
     RouterLink,
     RouterLinkActive,
     PaginatorModule,
-    NgForOf
+    NgForOf,
+    NgOptimizedImage
   ],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']  // Updated to `styleUrls` (plural) to avoid error
@@ -152,7 +153,7 @@ export class ProductsComponent implements OnInit {
 //   products: Array<IProduct> = [
 //     {
 //       id: 1,
-//       name: 'Product 1',
+//       name: 'VolunteerHistoryInterface 1',
 //       description: 'Description 1',
 //       category: 'Category 1',
 //       price: 100,
@@ -164,7 +165,7 @@ export class ProductsComponent implements OnInit {
 //     },
 //     {
 //       id: 2,
-//       name: 'Product 2',
+//       name: 'VolunteerHistoryInterface 2',
 //       description: 'Description 2',
 //       category: 'Category 2',
 //       price: 150,

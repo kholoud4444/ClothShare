@@ -33,11 +33,11 @@ export class ProductService {
     formData.append('image', imageFile);
     formData.append('data', JSON.stringify(form));
 
-    return this.http.post(this.baseUrl + '/api/item', formData);
+    return this.http.post(this.baseUrl + '/api/item/uploadImage', formData);
   }
 
   getAllProduct(page: number, size: number):Observable<any>{
-    return this.http.get(`/api/item?pageNo=${page}&pageSize=${size}`);
+    return this.http.get(`/api/admin/allItems?pageNo=${page}&pageSize=${size}`);
   }
 
   getOneProduct(id:any):Observable<any>{
