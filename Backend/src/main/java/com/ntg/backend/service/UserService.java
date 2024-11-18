@@ -1,14 +1,14 @@
 package com.ntg.backend.service;
 
 import com.ntg.backend.dto.ResponsePagination.PageDto;
-import com.ntg.backend.dto.requestDto.RegistrationDto;
+import com.ntg.backend.dto.requestDto.RegisterDto;
 import com.ntg.backend.dto.responseDto.UserResponseDetails;
 import com.ntg.backend.entity.User;
 
 import java.util.List;
 
 public interface UserService {
-    User createUser(RegistrationDto user);
+    User createUser(RegisterDto user);
     List<User> getAllUsers();
     UserResponseDetails getUserDetails(long id);
     void deleteUserById(long id);

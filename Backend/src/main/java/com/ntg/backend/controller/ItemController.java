@@ -5,14 +5,19 @@ import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.dto.requestDto.MessageDto;
 import com.ntg.backend.dto.responseDto.ImageUrl;
 import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
+import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.service.imp.ItemServiceImp;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -50,7 +55,7 @@ public class ItemController {
             ImageUrl imageUrl = new ImageUrl(filePath.toString());
 
             // Wrap ImageUrl in MessageDto with a success message
-            MessageDto<ImageUrl> response = new MessageDto<>("File uploaded successfully", imageUrl);
+            MessageDto<ImageUrl> response = new MessageDto<>(fileName,null );
 
             // Return the response with HttpStatus.OK
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -71,6 +76,23 @@ public class ItemController {
         ItemDto savedItem = itemServiceImp.createItem(itemDto);
         return new ResponseEntity<>(savedItem, HttpStatus.OK);
     }
+    @GetMapping("/photo/{fileName}")
+    public ResponseEntity<Resource> getPhoto(@PathVariable String fileName) throws MalformedURLException {
+        // Construct the file path
+        Path filePath = Paths.get(UPLOAD_DIR, fileName);
+
+        // Check if the file exists, otherwise throw exception
+//        if (!Files.exists(filePath)) {
+//            throw new ResourceNotFoundException("Photo", "fileName", fileName);
+//        }
+
+        // Create a resource for the file
+        Resource resource = new UrlResource(filePath.toUri());
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG) // Adjust based on file type
+                .body(resource);
+    }
+
 
     @GetMapping("{id}")
     public ResponseEntity<ItemDto>getItemById(@PathVariable("id") long id )

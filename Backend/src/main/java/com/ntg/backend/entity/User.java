@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -73,6 +74,15 @@ public abstract class User implements UserDetails {
 //    @NotBlank(message = "Location is required")
 //    @Column(nullable = false)
     private String location;
+    // New fields for email verification
+    private boolean emailVerified = false;
+    private String emailVerificationToken;
+    private LocalDateTime emailVerificationTokenExpiryDate;
+
+
+    // New fields for password reset
+    private String passwordResetToken;
+    private LocalDateTime passwordResetTokenExpiryDate;
 
 //    public void setPhone(String phone) {
 //        if (phone != null && !phone.startsWith("+20")) {

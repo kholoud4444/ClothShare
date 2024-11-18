@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Setter
 @Getter
-public class RegistrationDto {
+public class RegisterDto {
     private String firstName;
     private String lastName;
     private String password;

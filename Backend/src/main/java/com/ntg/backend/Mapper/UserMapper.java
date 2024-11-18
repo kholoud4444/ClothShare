@@ -1,8 +1,7 @@
 package com.ntg.backend.Mapper;
 
 import com.ntg.backend.dto.ResponsePagination.PageDto;
-import com.ntg.backend.dto.requestDto.RegistrationDto;
-import com.ntg.backend.dto.requestDto.VolunteerDto;
+import com.ntg.backend.dto.requestDto.RegisterDto;
 import com.ntg.backend.dto.responseDto.UserResponseDetails;
 import com.ntg.backend.entity.Needy;
 import com.ntg.backend.entity.Volunteer;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 @Component
 public class UserMapper {
 
-    public User toUser(RegistrationDto registrationDto) {
+    public User toUser(RegisterDto registrationDto) {
         User user;
         if ("volunteer".equalsIgnoreCase(registrationDto.getRole())) {
             user = new Volunteer();
