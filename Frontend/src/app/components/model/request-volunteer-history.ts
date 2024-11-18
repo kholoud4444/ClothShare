@@ -26,10 +26,9 @@ export enum GenderSuitability {
 }
 
 export enum ItemStatus {
-  AVAILABLE = 'AVAILABLE',
-  RESERVED = 'RESERVED',
-  DONATED = 'DONATED',
-  // add other statuses here
+  PENDING = 'معلق',
+  APPROVED = 'تم_الموافقه',
+  REJECTED = 'مرفوض'
 }
 
 
