@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/volunteer")
+@RequestMapping("/volunteer")
 public class VolunteerController {
 
     private final VolunteerServiceImp volunteerServiceImp;
@@ -22,21 +22,21 @@ public class VolunteerController {
         this.volunteerServiceImp = volunteerServiceImp;
     }
 
-    // get specific Volunteer data with Items details
-    @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
-    @GetMapping("/itemDetails/{id}")
-    public ResponseEntity<VolunteerWithItemsDetails>getVolunteerWithItemsDetails(@PathVariable("id") long id )
-    {
-        VolunteerWithItemsDetails volunteerWithItemsDetails = volunteerServiceImp.getVolunteerWithItemsDetails(id);
-        return new ResponseEntity<>(volunteerWithItemsDetails,HttpStatus.OK);
-    }
+//    // get specific Volunteer data with Items details
+//    @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
+//    @GetMapping("/itemDetails/{id}")
+//    public ResponseEntity<VolunteerWithItemsDetails>getVolunteerWithItemsDetails(@PathVariable("id") long id )
+//    {
+//        VolunteerWithItemsDetails volunteerWithItemsDetails = volunteerServiceImp.getVolunteerWithItemsDetails(id);
+//        return new ResponseEntity<>(volunteerWithItemsDetails,HttpStatus.OK);
+//    }
 
     // get all Volunteers data with Items details
-    @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
+//    @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
     @GetMapping("/allItemsDetails")
     public ResponseEntity<PageDto<VolunteerWithItemsDetails>>getAllVolunteerWithItemsDetails  (
                 @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo
-                , @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
+                , @RequestParam (value = "pageSize",defaultValue = "5",required = false) int pageSize)
     {
         PageDto<VolunteerWithItemsDetails> volunteersWithItemsDetails = volunteerServiceImp
                 .getAllVolunteersWithItems(pageNo,pageSize);
@@ -44,8 +44,8 @@ public class VolunteerController {
     }
 
     //get all Items details for specific Volunteer
-    @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
-    @GetMapping("/allItemsDetails/{id}")
+//    @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
+    @GetMapping("/allItemsDetailsById/{id}")
     public ResponseEntity<PageDto<ItemDto>> getAllItemsByVolunteerId(@PathVariable("id") long volunteerId,
                              @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
                              @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)

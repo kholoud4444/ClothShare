@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/authentication")
+@RequestMapping("/authentication")
 public class AuthenticationController {
     private final AuthenticationService authenticationUserService;
 
@@ -40,25 +40,25 @@ public class AuthenticationController {
 //        return user;
 //    }
 
-    @PutMapping("/validate-email-verification-token")
-    public  ResponseEntity<MessageDto<String>> verifyEmail(@RequestParam String token, @RequestAttribute("authenticatedUser") User user) {
-        authenticationUserService.validateEmailVerificationToken(token, user.getEmail());
+    @PutMapping("/validateEmailVerificationToken")
+    public  ResponseEntity<MessageDto<String>> verifyEmail(@RequestParam String token, @RequestParam String email) {
+        authenticationUserService.validateEmailVerificationToken(token,email);
         return new ResponseEntity<>(new MessageDto<>("Email verified successfully", null), HttpStatus.OK);
     }
 
-    @PostMapping("/send-email-verification-token")
-    public ResponseEntity<MessageDto<String>>  sendEmailVerificationToken(@RequestAttribute("authenticatedUser") User user) {
-        authenticationUserService.sendEmailVerificationToken(user.getEmail());
+    @PostMapping("/sendEmailVerificationToken")
+    public ResponseEntity<MessageDto<String>>  sendEmailVerificationToken(@RequestParam String email) {
+        authenticationUserService.sendEmailVerificationToken(email);
         return new ResponseEntity<>(new MessageDto<>("Email verification token sent successfully", null), HttpStatus.OK);
     }
 
-    @PutMapping("/send-password-reset-token")
+    @PutMapping("/sendPasswordResetToken")
     public  ResponseEntity<MessageDto<String>> sendPasswordResetToken(@RequestParam String email) {
         authenticationUserService.sendPasswordResetToken(email);
         return new ResponseEntity<>(new MessageDto<>("Password reset token sent successfully.", null), HttpStatus.OK);
     }
 
-    @PutMapping("/reset-password")
+    @PutMapping("/resetPassword")
     public ResponseEntity<MessageDto<String>> resetPassword(@RequestParam String newPassword, @RequestParam String token, @RequestParam String email) {
         authenticationUserService.resetPassword(email, newPassword, token);
         return new ResponseEntity<>(new MessageDto<>("Password Reset Successfully", null), HttpStatus.OK);

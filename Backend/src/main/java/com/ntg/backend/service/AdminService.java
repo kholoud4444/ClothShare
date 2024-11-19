@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface AdminService {
     PageDto<ItemDetailsWithVolunteerName> GetAllItemDetailsWithVolunteerNameList(int PageNo,int PageSize);
+    void CreateAdmin();
 }

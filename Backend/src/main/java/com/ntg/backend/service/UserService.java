@@ -15,4 +15,5 @@ public interface UserService {
     PageDto<UserResponseDetails> getAllUsersWithRole(String role, int pageNo, int pageSize);
     UserResponseDetails UpdateUser(long id, UserResponseDetails user);
 
+
 }
