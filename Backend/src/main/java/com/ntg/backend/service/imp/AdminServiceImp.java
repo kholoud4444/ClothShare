@@ -67,7 +67,7 @@ public class AdminServiceImp implements AdminService {
             admin.setBirthDate(birthday);
             admin.setGender("Male");
             admin.setEmailVerified(true);
-            admin.setPassword(bCryptPasswordEncoder.encode("123456")); // Encrypt password
+            admin.setPassword(bCryptPasswordEncoder.encode("12345678")); // Encrypt password
             admin.setRole("admin");
             admin.setLocation("cairo");
             admin.setNationalId("29990112880596");
