@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
     'assets/images/bg3.jpg',
     'assets/images/bg5.jpg',
     'assets/images/bg2.jpg',
+    // 'assets/images/bg6.jpg'
   ];
   currentImageIndex = 0;
   ngOnInit(): void {

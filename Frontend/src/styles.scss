@@ -10,13 +10,4 @@ body {
   font-family: $font-family;
   background-color: #fafafa;
 
-
-  // Example of nesting
-  h1 {
-    font-size: 2em;
-    margin-bottom: $base-padding;
   }
-  p {
-    //font-size:22px !important;
-  }
-}

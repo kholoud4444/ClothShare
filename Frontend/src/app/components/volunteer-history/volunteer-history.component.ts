@@ -7,7 +7,7 @@ import {RatingModule} from 'primeng/rating';
 import {FormsModule} from '@angular/forms';
 import {PaginatorModule} from 'primeng/paginator';
 import {TagModule} from 'primeng/tag';
-import {Product} from './product';
+import {VolunteerHistoryInterface} from '../../interfaces/VolunteerHistoryInterface';
 import { PrimeIcons } from 'primeng/api';
 
 
@@ -30,7 +30,7 @@ import { PrimeIcons } from 'primeng/api';
   styleUrl: './volunteer-history.component.scss'
 })
 export class VolunteerHistoryComponent  implements OnInit {
-  products: Product[] = [];
+  products: VolunteerHistoryInterface[] = [];
 
   constructor(private productService: ProductService) {}
 
@@ -67,17 +67,17 @@ export class VolunteerHistoryComponent  implements OnInit {
   getStars(rating: number): any[] {
     return Array(Math.round(rating));
   }
-  onNewProduct(product: Product): void {
+  onNewProduct(product: VolunteerHistoryInterface): void {
     console.log('New product clicked:', product);
     // Add functionality for "New" action
   }
 
-  onDeleteProduct(product: Product): void {
+  onDeleteProduct(product: VolunteerHistoryInterface): void {
     console.log('Delete product clicked:', product);
     // Add functionality for "Delete" action
   }
 
-  onEditProduct(product: Product): void {
+  onEditProduct(product: VolunteerHistoryInterface): void {
     console.log('Edit product clicked:', product);
     // Add functionality for "edit" action
   }
