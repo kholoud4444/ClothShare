@@ -30,24 +30,29 @@ export class NeedyHistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log( this.authService.getUserId())
     this.loadRequests();
   }
 
   loadRequests(): void {
-    this.requests = this.requestService.getAllRequests(  this.authService.getUserId());
-
+    this.requests = this.requestService.getAllRequests(this.authService.getUserId());
   }
 
-  // handleDeleteRequest(n: Request) {
-  //   let conf = confirm("Are you sure?");
-  //   if (!conf) return;
-  //   this.requestService.deleteRequestById(n.requestId).subscribe({
-  //     next: () => {
-  //       this.loadRequests(); // Reload requests after deletion
-  //     },
-  //     error: err => {
-  //       console.log(err);
-  //     }
-  //   });
-  // }
+  handleDeleteRequest(requestId: number): void {
+    const conf = confirm("Are you sure you want to delete this request?");
+    if (!conf) return;
+
+    this.requestService.deleteRequestById(requestId).subscribe({
+      next: (response) => {
+        console.log(`Response from server: ${response}`); // Should log "Deleted"
+        this.loadRequests(); // Reload the list of requests
+      },
+      error: (err) => {
+        console.error("Error while deleting request:", err);
+        this.errorMessage = "Failed to delete the request. Please try again.";
+      },
+    });
+  }
+
+
 }
