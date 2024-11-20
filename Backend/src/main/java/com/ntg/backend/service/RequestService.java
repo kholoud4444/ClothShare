@@ -1,5 +1,7 @@
 package com.ntg.backend.service;
 
+import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.dto.requestDto.MessageDto;
 import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.dto.requestDto.RequestDto;
 import com.ntg.backend.entity.Request;
@@ -14,4 +16,7 @@ public interface RequestService {
     void deleteRequest(long id);
     List<Request> getAllRequestsByNeedyId(long NEEDED_ID);
     RequestWithItemDetails getRequestWithItemDetails(long requestId);
+
+    MessageDto<RequestDto> changeRequestStatus(RequestDto requestDto, long id);
+
 }

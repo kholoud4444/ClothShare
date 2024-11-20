@@ -16,4 +16,5 @@ public class RequestWithNeedyDetails {
     private String reason;
     private LocalDate date;
     private NeedyInfo needyInfo;
+    private Long requestId;
 }

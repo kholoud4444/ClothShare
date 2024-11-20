@@ -2,8 +2,12 @@ package com.ntg.backend.controller;
 
 import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.dto.requestDto.MessageDto;
+import com.ntg.backend.dto.requestDto.RequestDto;
 import com.ntg.backend.dto.responseDto.VolunteerWithItemsDetails;
+import com.ntg.backend.service.imp.RequestServiceImp;
 import com.ntg.backend.service.imp.VolunteerServiceImp;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,10 +20,12 @@ import java.util.List;
 public class VolunteerController {
 
     private final VolunteerServiceImp volunteerServiceImp;
+    private final RequestServiceImp requestServiceImp;
 
-    public VolunteerController(VolunteerServiceImp volunteerServiceImp)
+    public VolunteerController(VolunteerServiceImp volunteerServiceImp, RequestServiceImp requestServiceImp)
     {
         this.volunteerServiceImp = volunteerServiceImp;
+        this.requestServiceImp = requestServiceImp;
     }
 
 //    // get specific Volunteer data with Items details
@@ -53,6 +59,12 @@ public class VolunteerController {
     {
         PageDto<ItemDto> itemsPageByVolunteerId = volunteerServiceImp.getAllItemsByVolunteerId(volunteerId,pageNo,pageSize);
         return new ResponseEntity<>(itemsPageByVolunteerId,HttpStatus.OK);
+    }
+    @PutMapping("/changeRequestStatus/{requestId}")
+    public  ResponseEntity<MessageDto<RequestDto>> changeItemRequest(@PathVariable("requestId") long requestId, @RequestBody RequestDto ItemDto)
+    {
+        MessageDto<RequestDto> updateRequestDto = requestServiceImp.changeRequestStatus(ItemDto, requestId);
+        return new ResponseEntity<>(updateRequestDto,HttpStatus.OK);
     }
 
 }
