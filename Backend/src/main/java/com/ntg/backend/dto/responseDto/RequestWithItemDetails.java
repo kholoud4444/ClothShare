@@ -17,4 +17,6 @@ public class RequestWithItemDetails {
     private String  reason;
     private LocalDate date;
     private ItemDto itemData;
+    private Long NeedyId;
+    private Long RequestId;
 }

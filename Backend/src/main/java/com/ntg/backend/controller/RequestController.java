@@ -65,4 +65,10 @@ public class RequestController {
         RequestWithItemDetails requestWithItemDetails = requestServiceImp.getRequestWithItemDetails(id);
         return new ResponseEntity<>(requestWithItemDetails,HttpStatus.OK);
     }
+    @GetMapping("/AllRequestsByItemId/{id}")
+    public ResponseEntity<List<RequestWithItemDetails>>getRequestWithItemsDetailsByItemId(@PathVariable("id") long id )
+    {
+       List <RequestWithItemDetails> requestWithItemDetails = requestServiceImp.getRequestsByItemId(id);
+        return new ResponseEntity<>(requestWithItemDetails,HttpStatus.OK);
+    }
 }

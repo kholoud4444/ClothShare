@@ -19,4 +19,6 @@ public interface RequestRepo extends JpaRepository<Request, Long> {
     List<Request> findByItem(Item item);
 
     Page<Request> findByNeedy(Needy needyUser, Pageable pageable);
+    List<Request> findByItem_ItemId(Long itemId);
+
 }

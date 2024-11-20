@@ -1,5 +1,7 @@
 package com.ntg.backend.service.imp;
 
+import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.dto.requestDto.MessageDto;
 import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.Mapper.RequestMapper;
 import com.ntg.backend.dto.requestDto.RequestDto;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RequestServiceImp implements RequestService {
@@ -116,4 +119,40 @@ public class RequestServiceImp implements RequestService {
 
         return requestMapper.mapToRequestWithItemDetails(request);
     }
+
+    @Override
+    public MessageDto<RequestDto> changeRequestStatus(RequestDto requestDto, long id) {
+        Request existingRequest = requestRepo.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("request", "id", id));
+
+        // Check if the status from the DTO is different from the existing status
+        if (requestDto.getStatus() != existingRequest.getStatus()) {
+            // Update the status if different and save to database
+            existingRequest.setStatus(requestDto.getStatus());
+            requestRepo.save(existingRequest);
+            RequestDto currentRequest= requestMapper.mapToRequestDto(existingRequest);// Save the updated item status
+            String message = "Request status updated successfully to " + existingRequest.getStatus();
+            return new MessageDto<>(message, currentRequest);
+        } else {
+            RequestDto currentRequest= requestMapper.mapToRequestDto(existingRequest);// Save the updated item status
+            String message = "Item status is already " + existingRequest.getStatus() + "; no changes made.";
+            return new MessageDto<>(message, currentRequest);
+        }
+    }
+
+    public List<RequestWithItemDetails> getRequestsByItemId(Long itemId) {
+        // Fetch all requests for the specified itemId
+        List<Request> requests = requestRepo.findByItem_ItemId(itemId);
+
+        if (requests.isEmpty()) {
+            throw new ResourceNotFoundException("Request", "Item id", itemId);
+        }
+
+        // Map each Request entity to RequestWithItemDetails DTO
+        return requests.stream()
+                .map(requestMapper::mapToRequestWithItemDetails)
+                .collect(Collectors.toList());
+    }
+
+
 }

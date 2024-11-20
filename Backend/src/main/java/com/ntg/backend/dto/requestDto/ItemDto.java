@@ -20,5 +20,6 @@ public class ItemDto {
     private String description;
     private Item.ItemStatus status;
     private Long volunteerId; // Optional: include volunteer ID if needed
+    private Long itemId;
 
 }
