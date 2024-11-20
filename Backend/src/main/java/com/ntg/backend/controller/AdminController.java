@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @RestController
 
-@RequestMapping("/api/admin")
+@RequestMapping("/admin")
 public class AdminController {
 
 
@@ -23,7 +23,7 @@ public class AdminController {
         this.itemServiceImp = itemService;
     }
 
-    @GetMapping("/allItems")
+    @GetMapping("/allItemsWithVolunteerName")
     public ResponseEntity<PageDto<ItemDetailsWithVolunteerName>> getAllItems
             (@RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
              @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)

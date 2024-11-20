@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/request")
+@RequestMapping("/request")
 public class RequestController {
 
     @Autowired
@@ -53,16 +53,22 @@ public class RequestController {
         Request updatedRequest = requestServiceImp.updateRequest(requestDto, id);
         return ResponseEntity.ok(updatedRequest);
     }
-    @GetMapping("needy/{id}")
+    @GetMapping("allRequestsByNeedyId/{id}")
     public ResponseEntity<List<Request>> getRequestByNeedyId(@PathVariable("id") Long id)
     {
         List<Request> Request = requestServiceImp.getAllRequestsByNeedyId(id) ;
         return new ResponseEntity<>(Request,HttpStatus.OK);
     }
-    @GetMapping("/details/{id}")
+    @GetMapping("/requestWithItemDetails/{id}")
     public ResponseEntity<RequestWithItemDetails>getRequestWithItemsDetails(@PathVariable("id") long id )
     {
         RequestWithItemDetails requestWithItemDetails = requestServiceImp.getRequestWithItemDetails(id);
+        return new ResponseEntity<>(requestWithItemDetails,HttpStatus.OK);
+    }
+    @GetMapping("/AllRequestsByItemId/{id}")
+    public ResponseEntity<List<RequestWithItemDetails>>getRequestWithItemsDetailsByItemId(@PathVariable("id") long id )
+    {
+       List <RequestWithItemDetails> requestWithItemDetails = requestServiceImp.getRequestsByItemId(id);
         return new ResponseEntity<>(requestWithItemDetails,HttpStatus.OK);
     }
 }

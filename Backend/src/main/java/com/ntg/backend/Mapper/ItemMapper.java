@@ -35,6 +35,7 @@ public class ItemMapper {
         itemDto.setImageUrl(item.getImageUrl());
         itemDto.setStatus(item.getStatus());
         itemDto.setVolunteerId(item.getVolunteer().getUserId());
+        itemDto.setItemId(item.getItemId());
         return itemDto;
     }
 

@@ -1,0 +1,37 @@
+<div class="item-container">
+  <div class="item-details">
+    <h3>{{OneProduct.type}}</h3>
+    <p>{{OneProduct.description}}</p>
+    <p><span style="font-weight: bold;">الحجم: </span>{{OneProduct.size}}</p>
+    <p><span style="font-weight: bold;">حالة اللبس : </span>{{OneProduct.state}}</p>
+    <p><span style="font-weight: bold;">حالة الطلب: </span>{{OneProduct.status}}</p>
+    <p><span style="font-weight: bold;">نوع اللبس : </span>{{OneProduct.genderSuitability}}</p>
+
+    <!-- Show button only for needy users -->
+    <button
+      *ngIf="isNeedyUser"
+      pButton
+      pRipple
+      label="طلب الثوب"
+      class="p-button-success"
+      (click)="showRequestForm = !showRequestForm">
+    </button>
+
+    <!-- Conditionally displayed request form -->
+    <div *ngIf="showRequestForm" class="request-form d-flex">
+      <input type="text" placeholder="أدخل طلبك هنا" [(ngModel)]="requestText" class="form-control" />
+      <button
+        pButton
+        pRipple
+        label="إرسال الطلب"
+        class="p-button-primary mt-2 talabSawp"
+        (click)="submitRequest()">
+      </button>
+    </div>
+  </div>
+
+  <!-- Item image -->
+  <div class="item-image">
+    <img src="../../../../assets/images/slide2.jpg" alt="Item Image" />
+  </div>
+</div>

@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 public class UserController {
     private final UserServiceImp userServiceImp;
 
@@ -30,14 +30,14 @@ public class UserController {
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
     }
 
-    @GetMapping("/allUsers/{role}")
-    public ResponseEntity<PageDto<UserResponseDetails>> getAllUsersByRole(@PathVariable("role") String role
-            , @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo
-            , @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
-    {
-        PageDto<UserResponseDetails> userResponsePagination = userServiceImp.getAllUsersWithRole(role,pageNo,pageSize);
-        return new ResponseEntity<>(userResponsePagination, HttpStatus.OK);
-    }
+        @GetMapping("/getAllByRole/{role}")
+        public ResponseEntity<PageDto<UserResponseDetails>> getAllUsersByRole(@PathVariable("role") String role
+                , @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo
+                , @RequestParam (value = "pageSize",defaultValue = "5",required = false) int pageSize)
+        {
+            PageDto<UserResponseDetails> userResponsePagination = userServiceImp.getAllUsersWithRole(role,pageNo,pageSize);
+            return new ResponseEntity<>(userResponsePagination, HttpStatus.OK);
+        }
 
     @PutMapping("{id}")
     public ResponseEntity<UserResponseDetails> updateUser(@RequestBody UserResponseDetails userResponseDetails, @PathVariable("id") long id)

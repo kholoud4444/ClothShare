@@ -4,8 +4,10 @@ import com.ntg.backend.Mapper.UserMapper;
 import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.RegisterDto;
 import com.ntg.backend.dto.responseDto.UserResponseDetails;
+import com.ntg.backend.entity.Admin;
 import com.ntg.backend.entity.User;
 import com.ntg.backend.exception.ResourceNotFoundException;
+import com.ntg.backend.repository.AdminRepo;
 import com.ntg.backend.repository.UserRepo;
 import com.ntg.backend.service.UserService;
 import jakarta.transaction.Transactional;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -25,11 +28,13 @@ public class UserServiceImp implements UserService {
     private final UserMapper userMapper; // Repository for Volunteer
     private final UserRepo userRepo;
 
-    public UserServiceImp(UserRepo userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,UserMapper userMapper, UserRepo userRepo) {
+
+    public UserServiceImp(UserRepo userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserMapper userMapper, UserRepo userRepo) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userMapper = userMapper;
         this.userRepo = userRepo;
+
     }
 
 
@@ -71,8 +76,7 @@ public class UserServiceImp implements UserService {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
 
         Page<User> users = userRepository.findByRole(role, pageable);
-        PageDto<UserResponseDetails> userPageDto = userMapper.userPageToDto(users);
-        return userPageDto;
+        return userMapper.userPageToDto(users);
 
 
 
@@ -88,6 +92,10 @@ public class UserServiceImp implements UserService {
         userMapper.mapToUserDto(user, savedUserResponseDetails);
         return savedUserResponseDetails;
     }
+
+
+
+
 }
 
 

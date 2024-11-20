@@ -28,6 +28,7 @@ public class RequestMapper {
         requestDto.setDate(request.getDate());
         requestDto.setStatus(request.getStatus());
         requestDto.setReason(request.getReason());
+        requestDto.setNeedyId(request.getNeedy().getUserId());
         return requestDto;
     }
 
@@ -46,6 +47,7 @@ public class RequestMapper {
 
         Item item = new Item();
         item.setItemId(requestDto.getItemId());
+        request.setRequestId(requestDto.getRequestId());
 
         request.setNeedy(needy);
         request.setItem(item);
@@ -62,6 +64,8 @@ public class RequestMapper {
         requestWithItemDetails.setRequestStatus(request.getStatus().name()); // Mapping enum to string
         requestWithItemDetails.setReason(request.getReason());
         requestWithItemDetails.setDate(request.getDate());
+        requestWithItemDetails.setRequestId(request.getRequestId());
+        requestWithItemDetails.setNeedyId(request.getNeedy().getUserId());
 
         requestWithItemDetails.setItemData(itemMapper.mapToItemDto(request.getItem()));
         return requestWithItemDetails;
@@ -79,6 +83,7 @@ public class RequestMapper {
         requestWithNeedyDetails.setReason(request.getReason());
         requestWithNeedyDetails.setDate(request.getDate());
         requestWithNeedyDetails.setNeedyInfo(needyInfo);
+        requestWithNeedyDetails.setRequestId(request.getRequestId());
 
         return requestWithNeedyDetails;
     }

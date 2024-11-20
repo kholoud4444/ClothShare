@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/needy")
+@RequestMapping("/needy")
 public class NeedyController {
 
     private final NeedyServiceImp needyServiceImp;
@@ -21,10 +21,11 @@ public class NeedyController {
     }
 
     //get all Requests with Item details for specific Needy
-    @PreAuthorize("hasRole('ROLE_NEEDY')")
-    @GetMapping("allRequestsDetails/{id}")
+//    @PreAuthorize("hasRole('ROLE_NEEDY')")
+    @GetMapping("/RequestsWithItemDetails/{id}")
     public ResponseEntity<PageDto<RequestWithItemDetails>> getAllRequestsDetailsByNeedyId
-    (@PathVariable("id") long needyId,int pageNo, int pageSize)
+    (@PathVariable("id") long needyId,  @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
+     @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
     {
         PageDto<RequestWithItemDetails> requestsWithItemDetailsByNeedyId = needyServiceImp
                 .getAllRequestDetailsByNeedyId(needyId,pageNo,pageSize) ;
@@ -32,9 +33,13 @@ public class NeedyController {
     }
 
     //get all Requests with Item details for all Needies
-    @PreAuthorize("hasRole('ROLE_NEEDY')")
-    @GetMapping("allRequestsDetails")
-    public ResponseEntity<PageDto<RequestWithItemDetails>> getAllRequestDetailsForAllNeedies(int pageNo, int pageSize) {
+//    @PreAuthorize("hasRole('ROLE_NEEDY')")
+    @GetMapping("/allRequestsDetailsWithItemDetails")
+    public ResponseEntity<PageDto<RequestWithItemDetails>> getAllRequestDetailsForAllNeedies(
+            @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
+
+            @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
+    {
         PageDto<RequestWithItemDetails> requests = needyServiceImp.getAllRequestDetailsForAllNeedies(pageNo, pageSize);
         return ResponseEntity.ok(requests);
     }

@@ -101,7 +101,8 @@ public abstract class User implements UserDetails {
         }
 
         // Map the role string to a SimpleGrantedAuthority with the "ROLE_" prefix
-        String roleName = "ROLE_" + role.toUpperCase();
+//        String roleName = "ROLE_" + role.toUpperCase();
+        String roleName =  role;
         return Collections.singletonList(new SimpleGrantedAuthority(roleName));
     }
 

@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/item")
+@RequestMapping("/item")
 public class ItemController {
 
     private final ItemServiceImp itemServiceImp;
@@ -71,12 +71,12 @@ public class ItemController {
 
 
     // API to save the item with provided data, including the image URL
-    @PostMapping("/saveItem")
+    @PostMapping("/createItem")
     public ResponseEntity<ItemDto> saveItem(@RequestBody ItemDto itemDto) {
         ItemDto savedItem = itemServiceImp.createItem(itemDto);
         return new ResponseEntity<>(savedItem, HttpStatus.OK);
     }
-    @GetMapping("/photo/{fileName}")
+    @GetMapping("/getPhoto/{fileName}")
     public ResponseEntity<Resource> getPhoto(@PathVariable String fileName) throws MalformedURLException {
         // Construct the file path
         Path filePath = Paths.get(UPLOAD_DIR, fileName);
@@ -94,14 +94,14 @@ public class ItemController {
     }
 
 
-    @GetMapping("{id}")
+    @GetMapping("/byId/{id}")
     public ResponseEntity<ItemDto>getItemById(@PathVariable("id") long id )
     {
         ItemDto itemDto = itemServiceImp.getItemById(id);
         return new ResponseEntity<>(itemDto,HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<PageDto<ItemDto>> getAllItems(@RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
                                                      @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
     {
@@ -123,7 +123,7 @@ public class ItemController {
         return new ResponseEntity<>(updatedItemDto,HttpStatus.OK);
     }
 
-    @GetMapping("requestsWithNeedyDetails/{id}")
+    @GetMapping("/requestsWithNeedyDetailsByItemId/{id}")
     public ResponseEntity<List<RequestWithNeedyDetails>> getAllRequestsNeedyDetails(@PathVariable("id") long itemId)
     {
         List<RequestWithNeedyDetails> requestWithNeedyDetails = itemServiceImp.requestWithNeedyDetails(itemId);
