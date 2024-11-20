@@ -9,21 +9,28 @@
             <th>حذف</th>
             <th>السبب</th>
             <th>الحاله</th>
+            <th>الصورة</th>
             <th>التاريخ</th>
-            <th>الاسم</th>
+            <th>نوع العنصر</th>
+            <th>الحجم</th>
+
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let n of listRequests">
             <td>
-              <button  class="btn btn-danger">حذف
+              <button class="btn btn-danger" (click)="handleDeleteRequest(n.requestId)" >حذف
                 <i class="bi bi-trash"></i>
               </button>
             </td>
             <td>{{ n.reason }}</td>
-            <td>{{ n.status }}</td>
+            <td>{{ n.requestStatus }}</td>
+            <td>
+              <img [src]="n.itemData.imageUrl" alt="Item Image" width="100">
+            </td>
             <td>{{ n.date }}</td>
-            <td>الاسم</td>
+            <td>{{ n.itemData.type }}</td>
+            <td>{{ n.itemData.size }}</td>
 
           </tr>
           </tbody>
@@ -39,7 +46,6 @@
     </ng-container>
     <ng-template #loading>
       Loading .....
-
     </ng-template>
   </ng-template>
 </div>
