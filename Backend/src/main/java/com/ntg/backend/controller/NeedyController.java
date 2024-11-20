@@ -20,6 +20,7 @@ public class NeedyController {
         this.needyServiceImp = needyServiceImp;
     }
 
+
     //get all Requests with Item details for specific Needy
 //    @PreAuthorize("hasRole('ROLE_NEEDY')")
     @GetMapping("/RequestsWithItemDetails/{id}")
@@ -37,12 +38,10 @@ public class NeedyController {
     @GetMapping("/allRequestsDetailsWithItemDetails")
     public ResponseEntity<PageDto<RequestWithItemDetails>> getAllRequestDetailsForAllNeedies(
             @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
-
             @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
     {
         PageDto<RequestWithItemDetails> requests = needyServiceImp.getAllRequestDetailsForAllNeedies(pageNo, pageSize);
         return ResponseEntity.ok(requests);
     }
-
 
 }

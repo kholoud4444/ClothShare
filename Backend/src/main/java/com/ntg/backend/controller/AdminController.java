@@ -8,6 +8,7 @@ import com.ntg.backend.service.AdminService;
 import com.ntg.backend.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 @RestController
 
@@ -23,6 +24,7 @@ public class AdminController {
         this.itemServiceImp = itemService;
     }
 
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/allItemsWithVolunteerName")
     public ResponseEntity<PageDto<ItemDetailsWithVolunteerName>> getAllItems
             (@RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
@@ -33,12 +35,7 @@ public class AdminController {
         return new ResponseEntity<>(itemsDetailsWithVolunteerNameList, HttpStatus.OK);
     }
 
-//    @PutMapping("/changeItemStatus/{itemId}")
-//    public  ResponseEntity<ItemDto> changeItemRequest(@PathVariable("itemId") long itemId, @RequestBody ItemDto itemDto)
-//    {
-//        ItemDto updatedItemDto = itemServiceImp.updateItem(itemDto, itemId);
-//        return new ResponseEntity<>(updatedItemDto,HttpStatus.OK);
-//    }
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/changeItemStatus/{itemId}")
     public  ResponseEntity<MessageDto<ItemDto>> changeItemRequest(@PathVariable("itemId") long itemId, @RequestBody ItemDto ItemDto)
     {

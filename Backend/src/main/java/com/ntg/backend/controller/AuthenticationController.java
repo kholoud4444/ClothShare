@@ -23,7 +23,6 @@ public class AuthenticationController {
         this.authenticationUserService = authenticationUserService;
     }
 
-
     @PostMapping("/login")
     public AuthenticationResponseBody loginPage(@Valid @RequestBody AuthenticationRequestBody loginRequestBody) {
         return authenticationUserService.login(loginRequestBody);
@@ -34,11 +33,6 @@ public class AuthenticationController {
         return authenticationUserService.register(registerRequestBody);
 
     }
-
-//    @GetMapping("/user")
-//    public User getUser(@RequestAttribute("authenticatedUser") User user) {
-//        return user;
-//    }
 
     @PutMapping("/validateEmailVerificationToken")
     public  ResponseEntity<MessageDto<String>> verifyEmail(@RequestParam String token, @RequestParam String email) {

@@ -14,6 +14,5 @@ public interface ItemService {
     PageDto<ItemDto> getAllItems(int pageNo, int pageSize);
     ItemDto getItemById(long id);
     void deleteItem(long id);
-    List<RequestWithNeedyDetails> requestWithNeedyDetails(long itemId);
     MessageDto<ItemDto> changeItemStatus(ItemDto itemDto, long id);
 }

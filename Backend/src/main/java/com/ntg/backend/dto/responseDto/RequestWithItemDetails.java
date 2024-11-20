@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -17,6 +17,6 @@ public class RequestWithItemDetails {
     private String  reason;
     private LocalDate date;
     private ItemDto itemData;
-    private Long NeedyId;
-    private Long RequestId;
+    private long needyId;
+    private long requestId;
 }

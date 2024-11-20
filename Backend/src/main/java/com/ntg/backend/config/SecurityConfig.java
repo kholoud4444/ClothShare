@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+//@EnableMethodSecurity
 public class SecurityConfig {
     @Autowired
     private UserDetailsService userDetailsService;
@@ -51,10 +51,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf(AbstractHttpConfigurer::disable);
-        http.authorizeHttpRequests(requests -> requests.requestMatchers("authentication/register"
+       /* http.authorizeHttpRequests(requests -> requests.requestMatchers("authentication/register"
                         ,"swagger-ui/**","authentication/login").permitAll()
-                .anyRequest().authenticated());
-      //  http.authorizeHttpRequests(requests -> requests.anyRequest().permitAll());
+                .anyRequest().authenticated());*/
+        http.authorizeHttpRequests(requests -> requests.anyRequest().permitAll());
         http.httpBasic(Customizer.withDefaults());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); //stateless session

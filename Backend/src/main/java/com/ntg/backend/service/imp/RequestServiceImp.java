@@ -1,10 +1,11 @@
 package com.ntg.backend.service.imp;
 
-import com.ntg.backend.dto.requestDto.ItemDto;
+import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.MessageDto;
 import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.Mapper.RequestMapper;
 import com.ntg.backend.dto.requestDto.RequestDto;
+import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
 import com.ntg.backend.entity.Item;
 import com.ntg.backend.entity.Needy;
 import com.ntg.backend.entity.Request;
@@ -15,6 +16,9 @@ import com.ntg.backend.repository.RequestRepo;
 import com.ntg.backend.service.RequestService;
 import com.sun.jdi.request.DuplicateRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,7 +56,7 @@ public class RequestServiceImp implements RequestService {
             throw new DuplicateRequestException("A request for this item by the same needy user already exists.");
         }
 
-        Request request = requestMapper.mapRequestToEntity(requestDto);
+        Request request = requestMapper.mapToRequestEntity(requestDto);
         request.setNeedy(needyUser);
         request.setItem(item);
 
@@ -61,69 +65,67 @@ public class RequestServiceImp implements RequestService {
     }
 
     @Override
-    public Request updateRequest(RequestDto requestDto, long id) {
-        Request request = requestRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Request", "id", id));
-
-        // Use mapper to update fields from DTO
-//        requestMapper.updateEntityFromDto(requestDto, request);
-
-        return requestRepo.save(request);
+    public RequestDto getRequestById(long id) {
+        Request request = requestRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Request", "id", id));
+        return requestMapper.mapToRequestDto(request);
     }
 
     @Override
-    public List<Request> getAllRequests() {
-        return requestRepo.findAll();
+    public RequestDto updateRequest(RequestDto requestDto, long id) {
+        Request request = requestRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Request", "id", id));
+        requestMapper.updateEntityFromDto(requestDto, request);
+        return requestMapper.mapToRequestDto(requestRepo.save(request));
     }
 
     @Override
-    public Request getRequestById(long id) {
-        return requestRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Request", "id", id));
+    public PageDto<RequestDto> getAllRequests(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Request> requests = requestRepo.findAll(pageable);
+        return requestMapper.requestDtoPageDto(requests);
     }
 
+    @Override
+    public PageDto<RequestWithItemDetails> getRequestsByItemId(Long itemId, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+        // Fetch paginated requests for the specified itemId
+        Page<Request> requestsPage = requestRepo.findByItem_ItemId(itemId, pageable);
+
+        if (requestsPage.isEmpty()) {
+            throw new ResourceNotFoundException("Request", "Item id", itemId);
+        }
+
+        // Map each Request entity to RequestWithItemDetails DTO
+        List<RequestWithItemDetails> requestWithItemDetailsList = requestsPage.getContent().stream()
+                .map(requestMapper::mapToRequestWithItemDetails)
+                .collect(Collectors.toList());
+
+        // Return a new PageDto with the mapped content and pagination details
+        return new PageDto<>(
+                requestWithItemDetailsList,
+                requestsPage.getTotalElements(),
+                requestsPage.getTotalPages(),
+                requestsPage.getNumber(),
+                requestsPage.getSize(),
+                requestsPage.isLast()
+        );
+    }
 
     @Override
     public void deleteRequest(long id) {
-        Request request = requestRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Request", "id", id));
+        Request request = requestRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Request", "id", id));
         requestRepo.delete(request);
     }
 
     @Override
-    public List<Request> getAllRequestsByNeedyId(long needyId) {
-        // Fetch the Needy user by ID
-        Needy needy = needyRepo.findById(needyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Needy", "id", needyId));
-
-        // Fetch all requests associated with the needy user
-        List<Request> requests = needy.getRequests();
-
-
-        // Check if there are no requests found
-        if (requests == null || requests.isEmpty()) {
-            throw new ResourceNotFoundException("No requests found for Needy with ID: " + needyId);
-        }
-
-
-        // Map each Request entity to RequestDto
-     // Collect results to a list
-
-        return requests;
-    }
-
-    @Override
     public RequestWithItemDetails getRequestWithItemDetails(long requestId) {
-        Request request = requestRepo.findById(requestId) .orElseThrow(() ->
-                new ResourceNotFoundException("request", "id", requestId));
-
+        Request request = requestRepo.findById(requestId).orElseThrow(() -> new ResourceNotFoundException("request", "id", requestId));
         return requestMapper.mapToRequestWithItemDetails(request);
     }
 
     @Override
     public MessageDto<RequestDto> changeRequestStatus(RequestDto requestDto, long id) {
-        Request existingRequest = requestRepo.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("request", "id", id));
+        Request existingRequest = requestRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("request", "id", id));
 
         // Check if the status from the DTO is different from the existing status
         if (requestDto.getStatus() != existingRequest.getStatus()) {
@@ -140,19 +142,30 @@ public class RequestServiceImp implements RequestService {
         }
     }
 
-    public List<RequestWithItemDetails> getRequestsByItemId(Long itemId) {
-        // Fetch all requests for the specified itemId
-        List<Request> requests = requestRepo.findByItem_ItemId(itemId);
 
-        if (requests.isEmpty()) {
-            throw new ResourceNotFoundException("Request", "Item id", itemId);
-        }
+    @Override
+    public PageDto<RequestWithNeedyDetails> requestsWithNeedyDetails(long itemId, int pageNo, int pageSize) {
+        // Check if the item exists
+        Item item = itemRepo.findById(itemId).orElseThrow(() -> new ResourceNotFoundException("Item", "id", itemId));
 
-        // Map each Request entity to RequestWithItemDetails DTO
-        return requests.stream()
-                .map(requestMapper::mapToRequestWithItemDetails)
+        // Fetch paginated requests for the given item
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Request> requestsPage = requestRepo.findByItem(item, pageable);
+
+        // Map the paginated requests to RequestWithNeedyDetails DTOs
+        List<RequestWithNeedyDetails> requestWithNeedyDetailsList = requestsPage.getContent().stream()
+                .map(requestMapper::mapRequestToRequestWithNeedyDetails)
                 .collect(Collectors.toList());
-    }
 
+        // Construct and return the paginated DTO
+        return new PageDto<>(
+                requestWithNeedyDetailsList,
+                requestsPage.getTotalElements(),
+                requestsPage.getTotalPages(),
+                requestsPage.getNumber(),
+                requestsPage.getSize(),
+                requestsPage.isLast()
+        );
+    }
 
 }

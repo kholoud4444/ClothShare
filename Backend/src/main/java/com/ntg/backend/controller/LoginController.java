@@ -31,7 +31,6 @@ public class LoginController {
         this.jwtService = jwtService;
     }
 
-
     @PostMapping("/api/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody LoginDto user) {
         Authentication authentication = authenticationManager.authenticate(
@@ -48,7 +47,6 @@ public class LoginController {
                     .body(Map.of("error", "Invalid credentials"));
         }
     }
-
 
     @GetMapping("/users")
     public List<User> getAllUsers() {

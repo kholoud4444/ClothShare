@@ -14,13 +14,10 @@ import java.time.LocalDate;
 @Setter
 @Getter
 public class RequestDto {
-//    private Long requestId;
     private Long requestId;
     private LocalDate date;
     private Request.RequestStatus status;
     private String reason;
     private Long needyId;    // Add needyId
     private Long itemId;     // Add itemId
-
-
 }

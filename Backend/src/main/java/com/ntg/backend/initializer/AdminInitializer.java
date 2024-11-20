@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AdminInitializer {
 
-    private  final AdminServiceImp adminService;
+    private final AdminServiceImp adminService;
 
     public AdminInitializer(AdminServiceImp adminService) {
         this.adminService = adminService;

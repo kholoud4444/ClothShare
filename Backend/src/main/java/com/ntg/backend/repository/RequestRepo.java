@@ -15,10 +15,8 @@ import java.util.Optional;
 public interface RequestRepo extends JpaRepository<Request, Long> {
     Optional<Request> findByNeedyAndItem(Needy needy, Item item);
 
-
-    List<Request> findByItem(Item item);
-
     Page<Request> findByNeedy(Needy needyUser, Pageable pageable);
-    List<Request> findByItem_ItemId(Long itemId);
+    Page<Request> findByItem_ItemId(Long itemId, Pageable pageable);
+    Page<Request> findByItem(Item item, Pageable pageable);
 
 }

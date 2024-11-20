@@ -1,15 +1,12 @@
 package com.ntg.backend.service.imp;
 
 import com.ntg.backend.Mapper.ItemMapper;
-import com.ntg.backend.Mapper.RequestMapper;
 import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.dto.requestDto.MessageDto;
-import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
 import com.ntg.backend.entity.Item;
 import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.repository.ItemRepo;
-import com.ntg.backend.repository.RequestRepo;
 import com.ntg.backend.repository.VolunteerRepo;
 import com.ntg.backend.service.ItemService;
 import org.springframework.data.domain.Page;
@@ -17,24 +14,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class ItemServiceImp implements ItemService {
 
     private final ItemRepo itemRepo;
     private final VolunteerRepo volunteerRepo;
     private final ItemMapper itemMapper;
-    private final RequestRepo requestRepo;
-    private final RequestMapper requestMapper;
 
-    public ItemServiceImp(ItemRepo itemRepo, VolunteerRepo volunteerRepo, ItemMapper itemMapper, RequestRepo requestRepo, RequestMapper requestMapper) {
+    public ItemServiceImp(ItemRepo itemRepo, VolunteerRepo volunteerRepo, ItemMapper itemMapper) {
         this.itemRepo = itemRepo;
         this.volunteerRepo = volunteerRepo;
         this.itemMapper = itemMapper;
-        this.requestRepo = requestRepo;
-        this.requestMapper = requestMapper;
     }
 
     @Override
@@ -71,14 +61,6 @@ public class ItemServiceImp implements ItemService {
     public void deleteItem(long id) {
         itemRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Item", "id", id));
         itemRepo.deleteById(id);
-    }
-
-    @Override
-    public List<RequestWithNeedyDetails> requestWithNeedyDetails(long itemId) {
-        Item item = itemRepo.findById(itemId).orElseThrow(() -> new ResourceNotFoundException("Item", "id", itemId));
-        return requestRepo.findByItem(item).stream()
-                .map(requestMapper::mapRequestToRequestWithNeedyDetails)
-                .collect(Collectors.toList());
     }
 
     @Override

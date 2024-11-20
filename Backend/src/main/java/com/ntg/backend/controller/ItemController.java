@@ -76,6 +76,7 @@ public class ItemController {
         ItemDto savedItem = itemServiceImp.createItem(itemDto);
         return new ResponseEntity<>(savedItem, HttpStatus.OK);
     }
+
     @GetMapping("/getPhoto/{fileName}")
     public ResponseEntity<Resource> getPhoto(@PathVariable String fileName) throws MalformedURLException {
         // Construct the file path
@@ -94,7 +95,7 @@ public class ItemController {
     }
 
 
-    @GetMapping("/byId/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<ItemDto>getItemById(@PathVariable("id") long id )
     {
         ItemDto itemDto = itemServiceImp.getItemById(id);
@@ -105,15 +106,15 @@ public class ItemController {
     public ResponseEntity<PageDto<ItemDto>> getAllItems(@RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
                                                      @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
     {
-        PageDto<ItemDto> itemsPageDto = itemServiceImp.getAllItems(pageNo,pageSize);
+        PageDto<ItemDto> itemsPageDto = itemServiceImp.getAllItems(pageNo, pageSize);
         return new ResponseEntity<>(itemsPageDto,HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteItemById(@PathVariable("id") Long id)
+    public ResponseEntity<MessageDto<String>> deleteItemById(@PathVariable("id") Long id)
     {
         itemServiceImp.deleteItem(id);
-        return new ResponseEntity<>("Deleted",HttpStatus.OK);
+        return new ResponseEntity<>(new MessageDto<>("Item Deleted Successfully", null),HttpStatus.OK);
     }
 
     @PutMapping("{id}")
@@ -121,13 +122,6 @@ public class ItemController {
     {
         ItemDto updatedItemDto = itemServiceImp.updateItem(itemDto,id);
         return new ResponseEntity<>(updatedItemDto,HttpStatus.OK);
-    }
-
-    @GetMapping("/requestsWithNeedyDetailsByItemId/{id}")
-    public ResponseEntity<List<RequestWithNeedyDetails>> getAllRequestsNeedyDetails(@PathVariable("id") long itemId)
-    {
-        List<RequestWithNeedyDetails> requestWithNeedyDetails = itemServiceImp.requestWithNeedyDetails(itemId);
-        return new ResponseEntity<>(requestWithNeedyDetails, HttpStatus.OK);
     }
 
 }
