@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {LoginComponent} from './components/login/login.component';
-import {RegisterComponent} from './components/register/register.component';
-import {NavComponent} from './components/nav/nav.component';
-import {HeaderComponent} from './components/header/header.component';
-import {AboutUsComponent} from './components/about-us/about-us.component';
-import {FooterComponent} from './components/footer/footer.component';
-import {ContactUsComponent} from './components/contact-us/contact-us.component';
-import {ItemComponent} from './components/item/item.component';
-import {ProductsComponent} from './components/products/products.component';
+import {LoginComponent} from './components/auth/login/login.component';
+import {RegisterComponent} from './components/auth/register/register.component';
+import {NavComponent} from './components/commen/nav/nav.component';
+import {HeaderComponent} from './components/pages/header/header.component';
+import {AboutUsComponent} from './components/pages/about-us/about-us.component';
+import {FooterComponent} from './components/commen/footer/footer.component';
+import {ContactUsComponent} from './components/pages/contact-us/contact-us.component';
+import {ItemComponent} from './components/commen/item/item.component';
+import {ProductsComponent} from './components/commen/products/products.component';
 
 
 

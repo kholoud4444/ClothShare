@@ -71,7 +71,7 @@ public class ItemController {
 
 
     // API to save the item with provided data, including the image URL
-    @PostMapping("/CreateItem")
+    @PostMapping("/createItem")
     public ResponseEntity<ItemDto> saveItem(@RequestBody ItemDto itemDto) {
         ItemDto savedItem = itemServiceImp.createItem(itemDto);
         return new ResponseEntity<>(savedItem, HttpStatus.OK);

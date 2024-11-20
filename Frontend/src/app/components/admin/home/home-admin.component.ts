@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
-import {AdminService} from '../../../services/admin.service';
-import {ApiResponse, RequestVolunteerHistory} from '../../model/request-volunteer-history';
+import {AdminService} from '../../services/admin.service';
+import {ApiResponse, RequestVolunteerHistory} from '../../interfaces/request-volunteer-history';
 
 @Component({
   selector: 'app-home',
@@ -40,7 +40,7 @@ export class HomeAdminComponent implements OnInit {
         this.allItems = response.content; // Store all items
         this.applyFilter(); // Initialize with unfiltered items
       },
-      error: (error) => {
+      error: err => {
         this.errorMessage = 'Error fetching data';
       },
     });

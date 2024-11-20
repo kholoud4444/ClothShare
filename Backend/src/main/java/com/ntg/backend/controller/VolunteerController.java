@@ -45,6 +45,7 @@ public class VolunteerController {
 
     //get all Items details for specific Volunteer
 //    @PreAuthorize("hasRole('ROLE_VOLUNTEER')")
+//    @PreAuthorize("hasRole('volunteer')")
     @GetMapping("/allItemsDetailsById/{id}")
     public ResponseEntity<PageDto<ItemDto>> getAllItemsByVolunteerId(@PathVariable("id") long volunteerId,
                              @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,

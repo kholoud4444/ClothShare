@@ -1,0 +1,61 @@
+<div class="bg-container" dir="rtl">
+  <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+    <div class="text-center mb-4">
+      <img
+        loading="lazy"
+        class="login-logo img-fluid"
+        src="../../../assets/images/login-bg.jpg"
+        alt="Logo"
+      />
+    </div>
+    <h3 class="text-center mb-4 text-primary fw-bold">تسجيل الدخول</h3>
+
+    <!-- Angular FormGroup and FormControl binding with error message display -->
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="text-end">
+      <!-- Error message display if login fails -->
+      <div *ngIf="errorMessage" class="alert alert-danger text-center">
+        {{ errorMessage }}
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">البريد الإلكتروني</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control"
+          placeholder="أدخل بريدك الإلكتروني"
+          required
+        />
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger small">
+          البريد الإلكتروني غير صالح
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">كلمة المرور</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control"
+          placeholder="أدخل كلمة المرور"
+          required
+        />
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger small">
+          كلمة المرور مطلوبة
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg w-100 mt-3" [disabled]="loginForm.invalid">
+        تسجيل الدخول
+      </button>
+
+      <div class="text-center mt-3">
+        <a class="text-muted text-decoration-none small" routerLink="/register">
+          هل انت عضو جديد؟
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
