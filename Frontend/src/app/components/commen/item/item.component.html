@@ -1,37 +1,51 @@
-<div class="item-container">
-  <div class="item-details">
-    <h3>{{OneProduct.type}}</h3>
-    <p>{{OneProduct.description}}</p>
-    <p><span style="font-weight: bold;">الحجم: </span>{{OneProduct.size}}</p>
-    <p><span style="font-weight: bold;">حالة اللبس : </span>{{OneProduct.state}}</p>
-    <p><span style="font-weight: bold;">حالة الطلب: </span>{{OneProduct.status}}</p>
-    <p><span style="font-weight: bold;">نوع اللبس : </span>{{OneProduct.genderSuitability}}</p>
+<div class="p-4" dir="rtl">
+  <h1>منتجاتنا</h1>
 
-    <!-- Show button only for needy users -->
-    <button
-      *ngIf="isNeedyUser"
-      pButton
-      pRipple
-      label="طلب الثوب"
-      class="p-button-success"
-      (click)="showRequestForm = !showRequestForm">
-    </button>
+  <!-- Products Display -->
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div *ngFor="let itemPhoto of itemsWithPhotos" class="col-3">
+      <div class="card h-100">
+        <!-- Optimized Product Image using ngSrc -->
+        <img
+          [ngSrc]="itemPhoto.photoUrl"
+          alt="Item Image"
+          class="card-img-top"
+          width="100%"
+          height="auto"
+          loading="lazy"
+        />
 
-    <!-- Conditionally displayed request form -->
-    <div *ngIf="showRequestForm" class="request-form d-flex">
-      <input type="text" placeholder="أدخل طلبك هنا" [(ngModel)]="requestText" class="form-control" />
-      <button
-        pButton
-        pRipple
-        label="إرسال الطلب"
-        class="p-button-primary mt-2 talabSawp"
-        (click)="submitRequest()">
-      </button>
+        <!-- Product Details -->
+        <div class="card-body text-end">
+          <h5 class="card-title">{{ itemPhoto.item.type }}</h5>
+          <p class="card-text">{{ itemPhoto.item.description }}</p>
+          <div>
+            <p><strong>التصنيف: </strong>{{ itemPhoto.item.type }}</p>
+            <p><strong>الحجم: </strong>{{ itemPhoto.item.size }}</p>
+            <p><strong>الحالة: </strong>{{ itemPhoto.item.state }}</p>
+            <p><strong>النوع: </strong>{{ itemPhoto.item.genderSuitability }}</p>
+            <p><strong>حالة الطلب: </strong>{{ itemPhoto.item.status }}</p>
+          </div>
+        </div>
+
+        <!-- Card Footer with Button -->
+        <div class="card-footer text-end">
+          <button class="btn btn-primary" [routerLink]="['/item', itemPhoto.item.volunteerId]">
+            <i class="pi pi-shopping-cart"></i> عرض المنتج
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Item image -->
-  <div class="item-image">
-    <img src="../../../../assets/images/slide2.jpg" alt="Item Image" />
+  <!-- Pagination -->
+  <div class="d-flex justify-content-center mt-4">
+    <button class="btn btn-outline-primary me-2" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 0">
+      السابق
+    </button>
+    <span>الصفحة {{ currentPage + 1 }}</span>
+    <button class="btn btn-outline-primary ms-2" (click)="goToPage(currentPage + 1)">
+      التالي
+    </button>
   </div>
 </div>

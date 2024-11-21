@@ -3,51 +3,59 @@
     <!-- Header -->
     <h2 class="text-center">إضافة منتج</h2>
 
-
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div>
-        <label for="image">Upload Image:</label>
-        <input type="file" id="image" (change)="onImageSelected($event)" />
-      </div>
-
-
-      <!-- Type Selector Dropdown -->
+    <!-- Image Upload Form -->
+    <form>
       <div class="form-group">
-        <label for="type" class="text-end">النوع</label>
-        <select id="type" class="form-control" formControlName="type"  name="type" required>
-          <option value="فستان">فستان</option>
-          <option value="قميص">قميص</option>
-          <option value="بنطلون">بنطلون</option>
-          <option value="جاكيت">جاكيت</option>
-        </select>
+        <label for="image">رفع صورة:</label>
+        <input type="file" id="image" (change)="onImageSelected($event)" class="form-control" />
       </div>
-
-      <!-- Condition Selector Dropdown -->
-      <div class="form-group">
-        <label for="condition" class="text-end">الحالة</label>
-        <select id="condition" class="form-control" formControlName="state"  name="state" required>
-          <option value="جديد">جديد</option>
-          <option value="مستعمل">مستعمل</option>
-        </select>
-      </div>
-
-      <!-- Size Selector Dropdown -->
-      <div class="form-group">
-        <label for="size" class="text-end">المقاس</label>
-        <select id="size" class="form-control" formControlName="size"  name="size" required>
-          <option value="صغير">صغير</option>
-          <option value="متوسط">متوسط</option>
-          <option value="كبير">كبير</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="description">Description:</label>
-        <input type="text" id="description" formControlName="description" />
-      </div>
-      <button type="submit">إضافة</button>
+      <button type="button" (click)="onImageUpload()" class="btn btn-primary btn-block" [disabled]="!selectedFile">تحميل</button>
     </form>
 
-  </div>
+    <hr />
 
+    <!-- Product Details Form -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- Type -->
+      <div class="form-group">
+        <label for="type" class="text-end">النوع</label>
+        <select id="type" class="form-control" formControlName="type" name="type" required>
+          <option *ngFor="let type of ClothingType | keyvalue" [value]="type.value">{{ type.value }}</option>
+        </select>
+      </div>
+
+      <!-- Condition -->
+      <div class="form-group">
+        <label for="state" class="text-end">الحالة</label>
+        <select id="state" class="form-control" formControlName="state" name="state" required>
+          <option *ngFor="let state of ItemState | keyvalue" [value]="state.value">{{ state.value }}</option>
+        </select>
+      </div>
+
+      <!-- Size -->
+      <div class="form-group">
+        <label for="size" class="text-end">المقاس</label>
+        <select id="size" class="form-control" formControlName="size" name="size" required>
+          <option *ngFor="let size of ClothingSize | keyvalue" [value]="size.value">{{ size.value }}</option>
+        </select>
+      </div>
+
+      <!-- Gender Suitability -->
+      <div class="form-group">
+        <label for="genderSuitability" class="text-end">الملائمة الجنسية</label>
+        <select id="genderSuitability" class="form-control" formControlName="genderSuitability" name="genderSuitability" required>
+          <option *ngFor="let gender of GenderSuitability | keyvalue" [value]="gender.value">{{ gender.value }}</option>
+        </select>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">الوصف:</label>
+        <textarea id="description" class="form-control" formControlName="description" placeholder="أدخل وصف المنتج هنا" maxlength="500"></textarea>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-success btn-block" [disabled]="form.invalid || !selectedFile">إضافة</button>
+    </form>
+  </div>
 </div>

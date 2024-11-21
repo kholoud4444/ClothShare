@@ -1,59 +1,59 @@
 <table class="table">
-  <thead class="text-end">
-  <tr>
-    <th>الإعدادات </th>
-    <th>الحالة</th>
-    <th>المراجعات</th>
-    <th>الفئة</th>
-    <th>السعر</th>
-    <th>الصورة</th>
-    <th>الاسم</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let product of products" class="text-end">
-    <td>
+<!--  <thead class="text-end">-->
+<!--  <tr>-->
+<!--    <th>الإعدادات </th>-->
+<!--    <th>الحالة</th>-->
+<!--    <th>المراجعات</th>-->
+<!--    <th>الفئة</th>-->
+<!--    <th>السعر</th>-->
+<!--    <th>الصورة</th>-->
+<!--    <th>الاسم</th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--  <tr *ngFor="let product of products" class="text-end">-->
+<!--    <td>-->
+<!--&lt;!&ndash;      <p-button&ndash;&gt;-->
+<!--&lt;!&ndash;        icon="pi pi-plus"&ndash;&gt;-->
+<!--&lt;!&ndash;        styleClass="p-button-text p-button-rounded p-button-success"&ndash;&gt;-->
+<!--&lt;!&ndash;        label="New"&ndash;&gt;-->
+<!--&lt;!&ndash;        (click)="onNewProduct(product)"&ndash;&gt;-->
+<!--&lt;!&ndash;      ></p-button>&ndash;&gt;-->
 <!--      <p-button-->
-<!--        icon="pi pi-plus"-->
-<!--        styleClass="p-button-text p-button-rounded p-button-success"-->
-<!--        label="New"-->
-<!--        (click)="onNewProduct(product)"-->
+<!--        icon="pi pi-trash"-->
+<!--        styleClass="p-button-text p-button-rounded p-button-danger"-->
+<!--        label="Delete"-->
+<!--        (click)="onDeleteProduct(product)"-->
 <!--      ></p-button>-->
-      <p-button
-        icon="pi pi-trash"
-        styleClass="p-button-text p-button-rounded p-button-danger"
-        label="Delete"
-        (click)="onDeleteProduct(product)"
-      ></p-button>
 
-      <p-button
-        icon="pi pi-pencil"
-        styleClass="p-button-text p-button-rounded p-button-success"
-        label="Edit"
-        (click)="onEditProduct(product)"
-      ></p-button>
-    </td>
-    <td>
-      <p-tag [value]="product.availabilityStatus" [severity]="getSeverity(product.availabilityStatus)" *ngIf="product.availabilityStatus"></p-tag>
-    </td>
-    <td>
-      <ng-container *ngFor="let star of getStars(product.rating)">
-        <span class="star">&#9733;</span>
-      </ng-container>
-    </td>
-    <td>{{ product.category }}</td>
-    <td>{{ product.price | currency }}</td>
-    <td>
-      <img
-        [ngSrc]="product.thumbnail || 'https://via.placeholder.com/100'"
-        [alt]="product.title || 'لا توجد صورة'"
-        width="100"
-        height="100"
-        class="shadow-4"
-        loading="lazy"
-      />
-    </td>
-    <td>{{ product.title }}</td>
-  </tr>
-  </tbody>
+<!--      <p-button-->
+<!--        icon="pi pi-pencil"-->
+<!--        styleClass="p-button-text p-button-rounded p-button-success"-->
+<!--        label="Edit"-->
+<!--        (click)="onEditProduct(product)"-->
+<!--      ></p-button>-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <p-tag [value]="product.availabilityStatus" [severity]="getSeverity(product.availabilityStatus)" *ngIf="product.availabilityStatus"></p-tag>-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <ng-container *ngFor="let star of getStars(product.rating)">-->
+<!--        <span class="star">&#9733;</span>-->
+<!--      </ng-container>-->
+<!--    </td>-->
+<!--    <td>{{ product.category }}</td>-->
+<!--    <td>{{ product.price | currency }}</td>-->
+<!--    <td>-->
+<!--      <img-->
+<!--        [ngSrc]="product.thumbnail || 'https://via.placeholder.com/100'"-->
+<!--        [alt]="product.title || 'لا توجد صورة'"-->
+<!--        width="100"-->
+<!--        height="100"-->
+<!--        class="shadow-4"-->
+<!--        loading="lazy"-->
+<!--      />-->
+<!--    </td>-->
+<!--    <td>{{ product.title }}</td>-->
+<!--  </tr>-->
+<!--  </tbody>-->
 </table>

@@ -1,64 +1,70 @@
 import {Component, OnInit} from '@angular/core';
 import {ButtonDirective} from 'primeng/button';
 import {FormsModule} from '@angular/forms';
-import {NgIf} from '@angular/common';
+import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {jwtDecode} from 'jwt-decode';
-import {ActivatedRoute} from '@angular/router';
-import {ProductService} from '../../services/product.service';
+import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ItemService} from '../../services/item.service';
+import {ItemDto} from '../../interfaces/item-dto';
 @Component({
   selector: 'app-item',
   standalone: true,
   imports: [
     ButtonDirective,
     FormsModule,
-    NgIf
+    NgIf,
+    NgForOf,
+    NgOptimizedImage,
+    RouterLink
   ],
   templateUrl: './item.component.html',
   styleUrl: './item.component.scss'
 })
 export class ItemComponent implements OnInit {
-  showRequestForm: boolean = false; // Toggle form visibility
-  requestText: string = '';
-  isNeedyUser: boolean = false; // Flag to track if the user is 'needy'
 
-  OneProduct:any ;
-  constructor(private _ActivatedRoute:ActivatedRoute, private _ProductService:ProductService) {
-  }
+  items: ItemDto[] = []; // Holds raw item data
+  itemsWithPhotos: Array<{ item: ItemDto; photoUrl: string }> = []; // Combines items and photos
+  currentPage = 0;
+  itemsPerPage = 4;
+  totalPages = 0;
+
+  constructor(private itemService: ItemService) {}
+
   ngOnInit() {
-    let id = this._ActivatedRoute.snapshot.paramMap.get("id")
-    this._ProductService.getOneProduct(id).subscribe({
-      next:(res)=>{
-        debugger
-        console.log(res);
-        this.OneProduct = res ;
-      },
-      error:(err)=>{
-        console.log(err);
-      }
-    })
-
-    this.checkUserRole();
+    this.fetchItems();
   }
 
-  checkUserRole() {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      try {
-        const decodedToken: any = jwtDecode(token);
-        this.isNeedyUser = decodedToken.role === 'needy';
-      } catch (error) {
-        console.error('Error decoding token:', error);
-      }
-    }
-  }// Store request text input
+  // Fetch items with pagination
+  fetchItems() {
+    this.itemService.getAllItems(this.currentPage, this.itemsPerPage).subscribe({
+      next: (response) => {
+        this.items = response.content; // Assuming the response includes 'items'
+        this.totalPages = response.totalElements; // Assuming the response includes 'totalPages'
 
-  submitRequest() {
-    if (this.requestText.trim()) {
-      console.log('Request Submitted:', this.requestText);
-      // You can replace the console.log with any further actions (e.g., API call)
-      alert('تم إرسال الطلب بنجاح!');
-      this.showRequestForm = false; // Hide the form after submission
-      this.requestText = ''; // Clear the input field
+        // Clear previous photos and fetch new ones
+        this.itemsWithPhotos = [];
+        this.items.forEach((item) => {
+          this.itemService.getPhoto(item.imageUrl).subscribe({
+            next: (photoUrl) => {
+              this.itemsWithPhotos.push({ item, photoUrl });
+            },
+            error: (err) => {
+              console.error(`Failed to fetch photo for ${item.imageUrl}`, err);
+            },
+          });
+        });
+      },
+      error: (err) => {
+        console.error('Failed to fetch items', err);
+      },
+    });
+  }
+
+  // Handle pagination
+  goToPage(pageIndex: number) {
+    if (pageIndex >= 0 && pageIndex < this.totalPages) {
+      this.currentPage = pageIndex;
+      this.fetchItems();
     }
   }
 }

@@ -1,56 +1,31 @@
-<div class="p-4"  dir="rtl">
-  <h1>منتجاتنا </h1>
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    @for(product of items; track product.itemId){
-      <div class="col-3" dir="rtl">
-        <div class="card h-100">
-          <!-- <p-tag [value]="in_stock"></p-tag> -->
-          <!--          <img [src]="product.imgUrl" class="card-img-top" alt="...">-->
-          <img src="../../../../assets/images/slide2.jpg" alt="Item Image" />
-          <div class="card-body">
-            <h5 class="card-title text-end">{{product.type}}</h5>
-            <p class="card-text text-end">
-              {{product.description}}
-            </p>
-            <div class="product-info d-flex justify-content-between align-items-center">
-              <div class="product-sub-info text-end">
-                <p><span style="font-weight: bold;">التصنيف: </span>{{product.type}}</p>
-                <p><span style="font-weight: bold;">الحجم : </span>{{product.size}}</p>
-                <p><span style="font-weight: bold;">حاله الملبس  : </span>{{ product.state }}</p>
-                <p><span style="font-weight: bold;">النوع : </span>{{ product.genderSuitability }}</p>
-                <p><span style="font-weight: bold;"> حاله الطلب: </span>{{ product.status }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer text-end">
-            <button type="button" class="btn btn-primary" [routerLink]="['/item',product.id]" routerLinkActive="active">
-              <i class="pi pi-shopping-cart" ></i> عرض المنتج
-            </button>
-          </div>
-        </div>
+<div *ngFor="let item of items" class="col-3">
+  <div class="card h-100">
+    <!-- Optimized Product Image -->
+    <img
+      [ngSrc]="item.imageUrl"
+      alt="Item Image"
+      class="card-img-top"
+      width="100%"
+      height="auto"
+      loading="lazy"
+    />
+    <!-- Product Details -->
+    <div class="card-body text-end">
+      <h5 class="card-title">{{ item.type }}</h5>
+      <p class="card-text">{{ item.description }}</p>
+      <div>
+        <p><strong>التصنيف: </strong>{{ item.type }}</p>
+        <p><strong>الحجم: </strong>{{ item.size }}</p>
+        <p><strong>الحالة: </strong>{{ item.state }}</p>
+        <p><strong>النوع: </strong>{{ item.genderSuitability }}</p>
+        <p><strong>حالة الطلب: </strong>{{ item.status }}</p>
       </div>
-
-    }
+    </div>
+    <!-- Card Footer with Button -->
+    <div class="card-footer text-end">
+      <button class="btn btn-primary" [routerLink]="['/item', item.volunteerId]">
+        <i class="pi pi-shopping-cart"></i> عرض المنتج
+      </button>
+    </div>
   </div>
-
-  <nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center">
-      <li class="page-item" [class.disabled]="currentPage === 0">
-        <button class="page-link" (click)="previousPage()">السابق</button>
-      </li>
-      <li
-        class="page-item"
-        *ngFor="let page of [].constructor(totalPages); let pageIndex = index"
-        [class.active]="pageIndex === currentPage"
-      >
-        <button class="page-link" (click)="goToPage(pageIndex)">
-          {{ pageIndex + 1 }}
-        </button>
-      </li>
-      <li class="page-item" [class.disabled]="currentPage >= totalPages - 1">
-        <button class="page-link" (click)="nextPage()">التالي</button>
-      </li>
-    </ul>
-  </nav>
-
 </div>

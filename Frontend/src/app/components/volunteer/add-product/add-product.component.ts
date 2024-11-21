@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {PaginatorModule} from 'primeng/paginator';
-import {NgIf} from '@angular/common';
-import {ProductService} from '../../services/product.service';
+import {KeyValuePipe, NgForOf, NgIf} from '@angular/common';
 import {Router} from '@angular/router';
-
+import { ItemDto, ClothingType, ClothingSize, ItemState, GenderSuitability, ItemStatus } from '../../interfaces/item-dto';
+import {AddProductService} from '../../services/add-product.service';
 @Component({
   selector: 'app-add-product',
   standalone: true,
@@ -12,75 +12,91 @@ import {Router} from '@angular/router';
     FormsModule,
     PaginatorModule,
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    KeyValuePipe,
+    NgForOf
   ],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.scss'
 })
 export class AddProductComponent {
 
-  product = {
-    image: '',
-    type: '',
-    state: '',
-    size: '',
-    description: ''
-  };
-
-  message: string = '';
   form: FormGroup;
-  imageFile: any;
+  selectedFile: File | null = null;
+  imageUrl: string | null = null;
+  message: string | null = null;
 
-  constructor(private fb: FormBuilder, private productService: ProductService,private router: Router) {
+  ClothingType = ClothingType;
+  ItemState = ItemState;
+  ClothingSize = ClothingSize;
+  GenderSuitability = GenderSuitability;
+  ItemStatus = ItemStatus;
+
+  constructor(
+    private fb: FormBuilder,
+    private addProductService: AddProductService,
+    private router: Router
+  ) {
     this.form = this.fb.group({
-      type: [''],
-      state: [''],
-      description: [''],
-      size: [''],
+      type: ['', Validators.required],
+      state: ['', Validators.required],
+      size: ['', Validators.required],
+      genderSuitability: ['', Validators.required],
+      description: ['', Validators.required],
     });
   }
-  onImageSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      this.imageFile = file;
+
+  onImageSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
     }
   }
 
-  onSubmit() {
-    debugger
-    if (this.form.valid && this.imageFile) {
-      const description = this.form.get('description')?.value;
-      this.productService.uploadImage(this.imageFile, this.form.value).subscribe(
-        (response) => {
-          debugger
-          console.log('Image uploaded successfully:', response);
-          this.form.reset();
-          this.router.navigate(['/page/home']);
-        },
-        (error) => {
-          debugger
-          console.error('Error uploading image:', error);
-        }
-      );
+  onImageUpload(): void {
+    if (!this.selectedFile) {
+      alert('Please select an image first.');
+      return;
     }
+
+    this.addProductService.uploadImage(this.selectedFile).subscribe({
+      next: (response) => {
+        this.imageUrl = response.object.imageUrl;
+        alert('Image uploaded successfully!');
+      },
+      error: (error) => {
+        console.error('Image upload failed:', error);
+        alert('Failed to upload image.');
+      },
+    });
   }
 
-  onSubmi() {
-    // You can replace this with an actual API call for saving the product
-    console.log(this.product); // Logs product data for testing
-    // After form submission, show the success message
-    this.message = 'تم الإضافة بنجاح، في انتظار تأكيد الأدمن';
+  onSubmit(): void {
+    if (!this.imageUrl) {
+      alert('Please upload an image before creating the item.');
+      return;
+    }
 
-    // Optional: Reset form (if you want to clear the form after submitting)
-    this.product = {
-      image: '',
-      type: '',
-      state: '',
-      size: '',
-      description: ''
+    const itemData: ItemDto = {
+
+      type: this.form.value.type,
+      size: this.form.value.size,
+      state: this.form.value.state,
+      genderSuitability: this.form.value.genderSuitability,
+      imageUrl: this.imageUrl,
+      description: this.form.value.description,
+      status: ItemStatus.PENDING,  // Default status as Pending
+      volunteerId: 2,  // Optional, adjust as needed
     };
 
-    // You could also display an alert for immediate feedback
-    // alert('تم الإضافة بنجاح، في انتظار تأكيد الأدمن');
+    this.addProductService.createItem(itemData).subscribe({
+      next: (response) => {
+        alert('Item created successfully!');
+        console.log(response);
+      },
+      error: (error) => {
+        console.error('Item creation failed:', error);
+      },
+    });
   }
 }

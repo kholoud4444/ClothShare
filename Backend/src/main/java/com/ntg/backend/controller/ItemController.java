@@ -93,6 +93,7 @@ public class ItemController {
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG) // Adjust based on file type
                 .body(resource);
+
     }
 
 
