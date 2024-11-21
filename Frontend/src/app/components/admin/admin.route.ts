@@ -6,5 +6,6 @@ import {ProductsComponent} from '../commen/products/products.component';
 export  const adminRoutes: Routes = [
   { path: '', component: HomeAdminComponent },
   {path:"item/:id" , component:ItemComponent},
-  {path:"products" , component:ProductsComponent}
+  {path:"products" , component:ProductsComponent},
+
 ];

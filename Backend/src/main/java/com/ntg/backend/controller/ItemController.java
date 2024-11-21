@@ -53,9 +53,10 @@ public class ItemController {
 
             // Create ImageUrl object with the file path
             ImageUrl imageUrl = new ImageUrl(filePath.toString());
+            ImageUrl imageUrl2 = new ImageUrl(fileName);
 
             // Wrap ImageUrl in MessageDto with a success message
-            MessageDto<ImageUrl> response = new MessageDto<>(fileName,null );
+            MessageDto<ImageUrl> response = new MessageDto<>("image uploaded succesffully",imageUrl2 );
 
             // Return the response with HttpStatus.OK
             return new ResponseEntity<>(response, HttpStatus.OK);

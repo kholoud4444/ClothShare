@@ -51,9 +51,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf(AbstractHttpConfigurer::disable);
-       /* http.authorizeHttpRequests(requests -> requests.requestMatchers("authentication/register"
-                        ,"swagger-ui/**","authentication/login").permitAll()
-                .anyRequest().authenticated());*/
+//        http.authorizeHttpRequests(requests -> requests.requestMatchers("api/v1/authentication/login","api/v1/authentication/register",
+//                       " api/v1/authentication/validate-email-verification-token").permitAll()
+//                .anyRequest().authenticated());
         http.authorizeHttpRequests(requests -> requests.anyRequest().permitAll());
         http.httpBasic(Customizer.withDefaults());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
