@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {LoginComponent} from './components/auth/login/login.component';
 import {RegisterComponent} from './components/auth/register/register.component';
-import {NavComponent} from './components/commen/nav/nav.component';
+import {NavComponent} from './components/commen/navbar/nav.component';
 import {HeaderComponent} from './components/pages/header/header.component';
 import {AboutUsComponent} from './components/pages/about-us/about-us.component';
 import {FooterComponent} from './components/commen/footer/footer.component';

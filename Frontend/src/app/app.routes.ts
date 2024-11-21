@@ -16,8 +16,9 @@ import {NeedyGuard} from './components/gaurds/needy.guard';
 import {HomeComponent} from './components/pages/home.component';
 
 export const routes: Routes = [
-  {path: "", redirectTo:"home", pathMatch:"full"},
-  {path: "home", component:HomeComponent},
+  {path: "", redirectTo:"home", pathMatch:"full" },
+  {path: "home", component:HomeComponent },
+  { path: 'about', redirectTo: '/home#about', pathMatch: 'full' },
   {path: "register", component:RegisterComponent},
   {path: "login", component:LoginComponent},
   {path: "products", component:ProductsComponent},
