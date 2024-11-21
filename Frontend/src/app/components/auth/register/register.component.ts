@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {NeedyService} from '../../services/needy.service';
+import {RegisterService} from '../../services/register.service';
 import {Observable} from 'rxjs';
 import {Request} from '../../interfaces/request';
 import {Needy} from '../../interfaces/needy';
@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   errorMessage: string | null = null;
   constructor(
     private fb: FormBuilder,
-    private needyService: NeedyService,
+    private needyService: RegisterService,
     private router: Router
 ) {}
 

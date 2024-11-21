@@ -6,7 +6,7 @@ import {HeaderComponent} from './header/header.component';
 import {AboutUsComponent} from './about-us/about-us.component';
 import {ProductsComponent} from '../commen/products/products.component';
 import {ContactUsComponent} from './contact-us/contact-us.component';
-import {VolunteerComponent} from '../admin/volunteer/volunteer.component';
+//import {VolunteerComponent} from '../admin/volunteer/volunteer.component';
 
 @Component({
   selector: 'app-pages',
@@ -19,7 +19,6 @@ import {VolunteerComponent} from '../admin/volunteer/volunteer.component';
     AboutUsComponent,
     ProductsComponent,
     ContactUsComponent,
-    VolunteerComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

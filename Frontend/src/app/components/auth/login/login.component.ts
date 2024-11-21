@@ -5,7 +5,7 @@ import {LoginService} from '../../services/login.service';
 import {Needy} from '../../interfaces/needy';
 import {NgIf} from '@angular/common';
 import {Login} from '../../interfaces/login';
-import {NeedyService} from '../../services/needy.service';
+import {RegisterService} from '../../services/register.service';
 import {jwtDecode} from 'jwt-decode';
 import {AuthService} from '../../services/auth.service';
 
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       this.loginService.login(loginData).subscribe({
         next: (response) => {
           console.log('Needy login successfully:', response.token);
-          //localStorage.setItem('authToken', response.token);
+          localStorage.setItem('authToken', response.token);
 
           // Decode the token
           const decodedToken = jwtDecode(response.token);

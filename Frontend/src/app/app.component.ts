@@ -9,13 +9,14 @@ import {FooterComponent} from './components/commen/footer/footer.component';
 import {ContactUsComponent} from './components/pages/contact-us/contact-us.component';
 import {ItemComponent} from './components/commen/item/item.component';
 import {ProductsComponent} from './components/commen/products/products.component';
+import {NeedyHistoryComponent} from './components/needy/needy-history/needy-history.component';
 
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoginComponent, RegisterComponent, NavComponent, HeaderComponent, AboutUsComponent, FooterComponent, ContactUsComponent, ItemComponent, ProductsComponent],
+  imports: [RouterOutlet, LoginComponent, RegisterComponent, NavComponent, HeaderComponent, AboutUsComponent, FooterComponent, ContactUsComponent, ItemComponent, ProductsComponent, NeedyHistoryComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

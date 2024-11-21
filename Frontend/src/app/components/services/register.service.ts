@@ -8,11 +8,11 @@ import {Needy} from '../interfaces/needy';
 @Injectable({
   providedIn: 'root'
 })
-export class NeedyService {
+export class RegisterService {
   constructor(private http:HttpClient) { }
 
   public addNeedy(needy: Needy):Observable<Needy>{
-    return this.http.post<Needy>("http://localhost:8080/authentication/register",needy);
+    return this.http.post<Needy>("authentication/register",needy);
   }
 
 }

@@ -9,16 +9,12 @@ import {Request} from '../interfaces/request';
 })
 export class RequestService {
   constructor(private http:HttpClient) { }
-  public getAllRequests(needyId: number): Observable<Array<Request>> {
+  public getAllRequests(needyId: number, page: number, size: number): Observable<{ content: Array<Request>, totalElements: number }> {
     return this.http
-      .get<{ content: Array<Request> }>(`needy/RequestsWithItemDetails/${needyId}`)
-      .pipe(map(response => response.content)); // Extract the content array
+      .get<{ content: Array<Request>, totalElements: number }>(
+        `needy/RequestsWithItemDetails/${needyId}?page=${page}&size=${size}`
+      );
   }
-
-
-  /*public searchCustomers(keyword : string):Observable<Array<Request>>{
-    return this.http.get<Array<Request>>(environment.backendHost+"/customers/search?keyword="+keyword)
-  }*/
   public addrequest(request: Request):Observable<Request>{
     return this.http.post<Request>("/api/registration",request);
   }

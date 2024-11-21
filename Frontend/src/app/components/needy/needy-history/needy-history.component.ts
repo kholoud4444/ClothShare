@@ -3,9 +3,10 @@ import { FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Request } from '../../interfaces/request';
 import { RequestService } from '../../services/request.service';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import {AsyncPipe, DatePipe, NgForOf, NgIf} from '@angular/common';
 import { map, Observable } from 'rxjs';
 import {AuthService} from '../../services/auth.service';
+import {PaginatorModule} from 'primeng/paginator';
 
 @Component({
   selector: 'app-needy-history',
@@ -15,12 +16,17 @@ import {AuthService} from '../../services/auth.service';
   imports: [
     NgForOf,
     AsyncPipe,
-    NgIf
+    NgIf,
+    DatePipe,
+    PaginatorModule
   ]
 })
 export class NeedyHistoryComponent implements OnInit {
-  requests!: Observable<Array<Request>>;
-  errorMessage!: string;
+  requests: Request[] = [];
+  totalRecords: number = 0; // Total number of requests
+  pageSize: number = 5; // Items per page
+  currentPage: number = 0; // Current page index
+  errorMessage: string = '';
 
   constructor(
     private requestService: RequestService,
@@ -33,9 +39,24 @@ export class NeedyHistoryComponent implements OnInit {
     console.log( this.authService.getUserId())
     this.loadRequests();
   }
-
   loadRequests(): void {
-    this.requests = this.requestService.getAllRequests(this.authService.getUserId());
+    const needyId = this.authService.getUserId();
+    this.requestService.getAllRequests(needyId, this.currentPage, this.pageSize).subscribe({
+      next: (data) => {
+        this.requests = data.content;
+        this.totalRecords = data.totalElements;
+      },
+      error: (err) => {
+        console.error('Error loading requests:', err);
+        this.errorMessage = 'Failed to load requests. Please try again later.';
+      },
+    });
+  }
+
+  onPageChange(event: any): void {
+    this.currentPage = event.page;
+    this.pageSize = event.rows;
+    this.loadRequests();
   }
 
   handleDeleteRequest(requestId: number): void {
