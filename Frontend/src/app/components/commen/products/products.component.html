@@ -1,31 +1,39 @@
-<div *ngFor="let item of items" class="col-3">
-  <div class="card h-100">
-    <!-- Optimized Product Image -->
-    <img
-      [ngSrc]="item.imageUrl"
-      alt="Item Image"
-      class="card-img-top"
-      width="100%"
-      height="auto"
-      loading="lazy"
-    />
-    <!-- Product Details -->
-    <div class="card-body text-end">
-      <h5 class="card-title">{{ item.type }}</h5>
-      <p class="card-text">{{ item.description }}</p>
-      <div>
-        <p><strong>التصنيف: </strong>{{ item.type }}</p>
-        <p><strong>الحجم: </strong>{{ item.size }}</p>
-        <p><strong>الحالة: </strong>{{ item.state }}</p>
-        <p><strong>النوع: </strong>{{ item.genderSuitability }}</p>
-        <p><strong>حالة الطلب: </strong>{{ item.status }}</p>
+<div class="p-4">
+  <h1>منتجاتنا </h1>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <!-- Angular *ngFor to loop over items -->
+    <div *ngFor="let product of items; trackBy: trackByItemId" class="col-3" dir="rtl">
+      <div class="card h-100">
+        <!-- Image section (use dynamic imgUrl if available) -->
+        <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="Item Image" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title text-end">{{ product.type }}</h5>
+          <p class="card-text text-end">
+            {{ product.description }}
+          </p>
+          <div class="product-info d-flex justify-content-between align-items-center">
+            <div class="product-sub-info text-end">
+              <p><span style="font-weight: bold;">التصنيف: </span>{{ product.type }}</p>
+              <p><span style="font-weight: bold;">الحجم : </span>{{ product.size }}</p>
+              <p><span style="font-weight: bold;">حاله الملبس  : </span>{{ product.state }}</p>
+              <p><span style="font-weight: bold;">النوع : </span>{{ product.genderSuitability }}</p>
+              <p><span style="font-weight: bold;"> حاله الطلب: </span>{{ product.status }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-end">
+          <button type="button" class="btn btn-primary" [routerLink]="['/item', product.itemId]" routerLinkActive="active">
+            <i class="pi pi-shopping-cart"></i> عرض المنتج
+          </button>
+        </div>
       </div>
     </div>
-    <!-- Card Footer with Button -->
-    <div class="card-footer text-end">
-      <button class="btn btn-primary" [routerLink]="['/item', item.volunteerId]">
-        <i class="pi pi-shopping-cart"></i> عرض المنتج
-      </button>
-    </div>
   </div>
+
+  <!-- Pagination component -->
+  <p-paginator
+    [rows]="pageSize"
+    [totalRecords]="totalRecords"
+    (onPageChange)="onPageChange($event)">
+  </p-paginator>
 </div>

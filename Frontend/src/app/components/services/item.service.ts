@@ -4,6 +4,7 @@ import {map, Observable} from 'rxjs';
 import {ItemDto} from '../interfaces/item-dto';
 import {PageDto} from '../admin/volunteer/volunteer';
 import {ApiResponse2} from '../admin/volunteer/volunteer.component';
+import {ItemDtoForProduct} from '../interfaces/item-dto-for-product';
 
 export interface Product {
   name: string;
@@ -24,9 +25,9 @@ export class ItemService {
   }
 
   // Fetch all items
-  getAllItems(pageNo: number, pageSize: number): Observable<PageDto<ItemDto>> {
+  getAllItems(pageNo: number, pageSize: number): Observable<PageDto<ItemDtoForProduct>> {
 
-    return this.http.get<PageDto<ItemDto>>(`item/all`, {params: {pageNo: pageNo, pageSize: pageSize}})
+    return this.http.get<PageDto<ItemDtoForProduct>>(`item/all`, {params: {pageNo: pageNo, pageSize: pageSize}})
   }
   getPhoto(fileName: string): Observable<string> {
     return this.http

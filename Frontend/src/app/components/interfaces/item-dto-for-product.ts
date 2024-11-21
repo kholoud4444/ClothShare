@@ -1,5 +1,5 @@
-export interface ItemDto {
-
+export interface ItemDtoForProduct {
+  itemId: number;
   type: ClothingType;
   size: ClothingSize;
   state: ItemState;
@@ -39,3 +39,4 @@ export enum ItemStatus {
   PENDING = 'معلق',
   APPROVED = 'تم_الموافقه'
 }
+
