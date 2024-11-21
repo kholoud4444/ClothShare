@@ -16,11 +16,11 @@ import {NeedyGuard} from './components/gaurds/needy.guard';
 import {HomeComponent} from './components/pages/home.component';
 
 export const routes: Routes = [
+  {path: "", redirectTo:"home", pathMatch:"full"},
+  {path: "home", component:HomeComponent},
+  {path: "register", component:RegisterComponent},
   {path: "login", component:LoginComponent},
-  {path:"",redirectTo:"/home",pathMatch:"full"},
-  {path: "register" , component:RegisterComponent},
-  {path: "home" , component:HomeComponent},
-  {path:"products" , component:ProductsComponent},
+  {path: "products", component:ProductsComponent},
   { path: 'addproduct', component: AddProductComponent },
 
   {
@@ -36,6 +36,7 @@ export const routes: Routes = [
     canActivate: [VolunteerGuard],
     data: { roles: ['volunteer'] },
   },
+
   {
     path: 'needy',
     loadChildren: () => import('./components/needy/needy.route').then(m => m.needyRoutes),
