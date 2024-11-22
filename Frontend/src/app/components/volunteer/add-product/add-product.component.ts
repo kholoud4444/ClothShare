@@ -5,6 +5,7 @@ import {KeyValuePipe, NgForOf, NgIf} from '@angular/common';
 import {Router} from '@angular/router';
 import { ItemDto, ClothingType, ClothingSize, ItemState, GenderSuitability, ItemStatus } from '../../interfaces/item-dto';
 import {AddProductService} from '../../../services/add-product.service';
+import {AuthService} from '../../../services/auth.service';
 @Component({
   selector: 'app-add-product',
   standalone: true,
@@ -35,7 +36,8 @@ export class AddProductComponent {
   constructor(
     private fb: FormBuilder,
     private addProductService: AddProductService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.form = this.fb.group({
       type: ['', Validators.required],
@@ -86,7 +88,7 @@ export class AddProductComponent {
       imageUrl: this.imageUrl,
       description: this.form.value.description,
       status: ItemStatus.PENDING,  // Default status as Pending
-      volunteerId: 2,  // Optional, adjust as needed
+      volunteerId: this.authService.getUserId(),  // Optional, adjust as needed
     };
 
     this.addProductService.createItem(itemData).subscribe({

@@ -1,338 +1,65 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
-    <!-- Toggle button for mobile view -->
+    <!-- Dropdown toggle button -->
     <button
       class="navbar-toggler"
       type="button"
       (click)="toggleNavbar()"
       aria-controls="navbarNav"
-      aria-expanded="isNavbarCollapsed ? 'true' : 'false'"
+      [attr.aria-expanded]="!isNavbarCollapsed"
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Logo -->
-    <a class="navbar-brand order-lg-last ms-auto" routerLink="/home">
-      <img src="/assets/images/Logo.png" alt="Logo" class="logo-img" />
-    </a>
-
-    <!-- Navbar links and dropdowns -->
-    <div class="collapse navbar-collapse" [ngClass]="{'show': !isNavbarCollapsed}" id="navbarNav">
-      <a class="nav-link text-white login-link" routerLink="/login" routerLinkActive="active bg-dark">تسجيل الدخول</a>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
+    <div [ngClass]="{'collapse': isNavbarCollapsed, 'navbar-collapse': true}" id="navbarNav">
+      <a *ngIf="userRole==null" class="nav-link text-white" routerLink="/login" routerLinkActive="active">تسجيل الدخول</a>
+      <a *ngIf="userRole!=null" class="nav-link text-white" routerLink="/login" routerLinkActive="active" (click)="logout()">تسجيل خروج</a>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-end">
         <!-- Admin Dropdown -->
-        @if (decodedToken?.role === 'admin') {
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" routerLink="/admin" id="AdminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              الأدمن
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="AdminDropdown">
-              <li><a class="dropdown-item" routerLink="volunteerRequests">طلبات المتطوع</a></li>
-              <li><a class="dropdown-item" routerLink="addItemVolunteer">تقارير</a></li>
-            </ul>
-          </li>
-        }
+        <li *ngIf="userRole === 'admin'" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="AdminDropdown" role="button" aria-expanded="false">
+            الأدمن
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="AdminDropdown">
+            <li><a class="dropdown-item" routerLink="/admin/volunteer">المتطوعين</a></li>
+            <li><a class="dropdown-item" routerLink="/admin">طلبات المتطوع</a></li>
+            <li><a class="dropdown-item" routerLink="/admin/needy">المحتاجين</a></li>
+          </ul>
+        </li>
 
         <!-- Needy Dropdown -->
-        @if (decodedToken?.role === 'needy') {
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="NeedyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              المستفيد
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="NeedyDropdown">
-              <li><a class="dropdown-item" routerLink="/volunteerHistory">طلباتى</a></li>
-              <li><a class="dropdown-item" routerLink="/">طلب منتج</a></li>
-            </ul>
-          </li>
-        }
+        <li *ngIf="userRole === 'needy'" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="NeedyDropdown" role="button" aria-expanded="false">
+            المستفيد
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="NeedyDropdown">
+            <li><a class="dropdown-item" routerLink="/needy/products">المنتجات</a></li>
+            <li><a class="dropdown-item" routerLink="/needy"> طلباتى</a></li>
+          </ul>
+        </li>
 
         <!-- Volunteer Dropdown -->
-        @if (decodedToken?.role === 'volunteer') {
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="VolunteerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              المتطوع
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="VolunteerDropdown">
-              <li><a class="dropdown-item" routerLink="/volunteerHistory">منتجاتى</a></li>
-              <li><a class="dropdown-item" routerLink="/addProduct">اضافة منتج</a></li>
-            </ul>
-          </li>
-        }
+        <li *ngIf="userRole === 'volunteer'" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="VolunteerDropdown" role="button" aria-expanded="false">
+            المتطوع
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="VolunteerDropdown">
+            <li><a class="dropdown-item" routerLink="/volunteerHistory">منتجاتى</a></li>
+            <li><a class="dropdown-item" routerLink="/addProduct">اضافة منتج</a></li>
+          </ul>
+        </li>
 
         <!-- Additional Links -->
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/products" routerLinkActive="active">الملابس</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/contactUs" routerLinkActive="active">تواصل معنا</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#about" routerLinkActive="active">نبذة عنا</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/home" routerLinkActive="active">الرئيسية</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!-- Spacer to prevent content from hiding behind fixed navbar --><!--
-<div class="navbar-spacer"></div>-->
-<!--
-
-<style>
-  /* Minimal CSS enhancements */
-  .navbar {
-    background-color: #2c3e50;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .navbar-spacer {
-    height: 60px; /* Adjust based on your navbar height */
-  }
-
-  .logo-img {
-    width: 100px;
-    height: auto;
-    margin-left: 20px;
-    transition: transform 0.3s ease;
-  }
-
-  .logo-img:hover {
-    transform: scale(1.05);
-  }
-
-  .nav-item:hover {
-    background-color: #355575;
-    border-radius: 5px;
-  }
-
-  .nav-link {
-    color: #ffffff;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
-  }
-
-  .dropdown-menu {
-    background-color: #ffffff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  .dropdown-item:hover {
-    background-color: #f8f9fa;
-    color: #2c3e50;
-  }
-
-  .login-link {
-    margin-right: auto;
-  }
-
-</style>
--->
-
-
-
-<!-- HTML -->
-<!--<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-  <div class="container">
-    &lt;!&ndash; Move the toggle button to the left &ndash;&gt;
-    <button
-      class="navbar-toggler order-0"
-      type="button"
-      (click)="toggleNavbar()"
-      aria-controls="navbarNav"
-      [attr.aria-expanded]="!isNavbarCollapsed"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div [ngClass]="{'collapse': isNavbarCollapsed, 'navbar-collapse': true}" id="navbarNav">
-      <a class="nav-link text-white login-link" routerLink="/login" routerLinkActive="active">تسجيل الدخول</a>
-      <ul class="navbar-nav w-100 justify-content-end mb-2 mb-lg-0 text-end">
-
-        &lt;!&ndash; Admin Dropdown &ndash;&gt;
-        @if (decodedToken?.role === 'admin') {
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle text-white"
-              href="#"
-              id="AdminDropdown"
-              role="button"
-              aria-expanded="false"
-            >
-              الأدمن
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="AdminDropdown">
-              <li><a class="dropdown-item" routerLink="/volunteerHistory">طلبات المتطوع</a></li>
-              <li><a class="dropdown-item" routerLink="/addItemVolunteer">تقارير</a></li>
-            </ul>
-          </li>
-        }
-
-         &lt;!&ndash; Needy Dropdown &ndash;&gt;
-        @if (decodedToken?.role === 'needy') {
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle text-white"
-              href="#"
-              id="NeedyDropdown"
-              role="button"
-              aria-expanded="false"
-            >
-              المستفيد
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="NeedyDropdown">
-              <li><a class="dropdown-item" routerLink="/volunteerHistory">طلباتى</a></li>
-              <li><a class="dropdown-item" routerLink="/">طلب منتج</a></li>
-            </ul>
-          </li>
-        }
-
-        &lt;!&ndash; Volunteer Dropdown &ndash;&gt;
-        @if (decodedToken?.role === 'volunteer') {
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle text-white"
-              href="#"
-              id="VolunteerDropdown"
-              role="button"
-              aria-expanded="false"
-            >
-              المتطوع
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="VolunteerDropdown">
-              <li><a class="dropdown-item" routerLink="/volunteerHistory">منتجاتى</a></li>
-              <li><a class="dropdown-item" routerLink="/addProduct">اضافة منتج</a></li>
-            </ul>
-          </li>
-        }
-
-        &lt;!&ndash; Additional Links &ndash;&gt;
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/products" routerLinkActive="active">المنتجات</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#about" routerLinkActive="active">من نحن</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/contactUs" routerLinkActive="active">تواصل معنا</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link text-white mainItem" routerLink="/home" routerLinkActive="active">الرئيسية</a>
         </li>
       </ul>
-    </div>
 
-    &lt;!&ndash; Logo moved to the right using order-lg-last &ndash;&gt;
-    <a class="navbar-brand order-lg-last ms-auto ms-lg-0" routerLink="/home" routerLinkActive="active">
-      <img src="/assets/images/Logo.png" alt="Logo" class="logo-img" />
-    </a>
+      <!-- Logo moved to the right -->
+      <a class="navbar-brand ms-auto" routerLink="/home" routerLinkActive="active">
+        <img src="/assets/images/Logo.png" alt="Logo" class="logo-img" />
+      </a>
+    </div>
   </div>
 </nav>
-
-&lt;!&ndash; Add a spacer div to prevent content from hiding behind fixed navbar &ndash;&gt;
-<div class="navbar-spacer"></div>-->
-
-
-<!--<nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container">
-    &lt;!&ndash; Logo must be on the Right &ndash;&gt;
-    <a class="navbar-brand" routerLink="/home" routerLinkActive="active">
-      <img src="/assets/images/Logo.png" alt="Logo" class="logo-img" />
-    </a>
-
-    &lt;!&ndash; Dropdown toggle button &ndash;&gt;
-    <button
-      class="navbar-toggler"
-      type="button"
-      (click)="toggleNavbar()"
-      aria-controls="navbarNav"
-      [attr.aria-expanded]="!isNavbarCollapsed"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div [ngClass]="{'collapse': isNavbarCollapsed, 'navbar-collapse': true}" id="navbarNav">
-      <a class="nav-link text-white" routerLink="/login" routerLinkActive="active">تسجيل الدخول</a>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-end">
-        &lt;!&ndash; Admin Dropdown &ndash;&gt;
-        @if (decodedToken?.role === 'admin') {
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle text-white"
-              href="#"
-              id="AdminDropdown"
-              role="button"
-              aria-expanded="false"
-            >
-              الأدمن
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="AdminDropdown">
-              <li><a class="dropdown-item" routerLink="/volunteerHistory">طلبات المتطوع</a></li>
-              <li><a class="dropdown-item" routerLink="/addItemVolunteer">تقارير</a></li>
-            </ul>
-          </li>
-          }
-
-        &lt;!&ndash; Needy Dropdown &ndash;&gt;
-        @if (decodedToken?.role === 'needy') {
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle text-white"
-              href="#"
-              id="NeedyDropdown"
-              role="button"
-              aria-expanded="false"
-            >
-              المستفيد
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="NeedyDropdown">
-              <li><a class="dropdown-item" routerLink="/volunteerHistory">طلباتى</a></li>
-              <li><a class="dropdown-item" routerLink="/">طلب منتج</a></li>
-            </ul>
-          </li>
-        }
-
-        &lt;!&ndash; Volunteer Dropdown &ndash;&gt;
-        @if (decodedToken?.role === 'volunteer') {
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle text-white"
-              href="#"
-              id="VolunteerDropdown"
-              role="button"
-              aria-expanded="false"
-            >
-              المتطوع
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="VolunteerDropdown">
-              <li><a class="dropdown-item" routerLink="/volunteerHistory">منتجاتى</a></li>
-              <li><a class="dropdown-item" routerLink="/addProduct">اضافة منتج</a></li>
-            </ul>
-          </li>
-        }
-
-
-        &lt;!&ndash; Additional Links &ndash;&gt;
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/products" routerLinkActive="active">المنتجات</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#about" routerLinkActive="active">من نحن</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/contactUs" routerLinkActive="active">تواصل معنا</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white mainItem" routerLink="/home" routerLinkActive="active">الرئيسية</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>-->

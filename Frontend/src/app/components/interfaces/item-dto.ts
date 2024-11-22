@@ -1,5 +1,4 @@
 export interface ItemDto {
-
   type: ClothingType;
   size: ClothingSize;
   state: ItemState;

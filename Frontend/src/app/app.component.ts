@@ -7,8 +7,8 @@ import {HeaderComponent} from './components/pages/header/header.component';
 import {AboutUsComponent} from './components/Shared/about-us/about-us.component';
 import {FooterComponent} from './components/Shared/footer/footer.component';
 import {ContactUsComponent} from './components/Shared/contact-us/contact-us.component';
-import {ItemComponent} from './components/commen/item/item.component';
-import {ProductsComponent} from './components/commen/products/products.component';
+import {ItemComponent} from './components/Shared/item/item.component';
+import {ProductsComponent} from './components/Shared/products/products.component';
 import {NeedyHistoryComponent} from './components/needy/needy-history/needy-history.component';
 
 

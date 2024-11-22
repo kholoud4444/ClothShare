@@ -3,7 +3,7 @@ body, html {
   direction: rtl; /* النص من اليمين إلى اليسار */
 }
 .bg-container {
-  background-image: url("/src/assets/images/bg2.jpg");
+  background-image: url("/assets/images/bg2.jpg");
   background-size: cover;
   background-position: center;
   padding: 20px; /* لضمان تنسيق جيد على الشاشات الصغيرة */

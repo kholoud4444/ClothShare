@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from "@angular/forms";
-import { Router } from "@angular/router";
 import { Request } from '../../interfaces/request';
-import { RequestService } from '../../../services/request.service';
+
 import {AsyncPipe, DatePipe, NgForOf, NgIf} from '@angular/common';
-import { map, Observable } from 'rxjs';
-import {AuthService} from '../../../services/auth.service';
+
 import {PaginatorModule} from 'primeng/paginator';
+import {TableModule} from 'primeng/table';
+import {RequestService} from '../../../services/request.service';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-needy-history',
@@ -18,7 +18,8 @@ import {PaginatorModule} from 'primeng/paginator';
     AsyncPipe,
     NgIf,
     DatePipe,
-    PaginatorModule
+    PaginatorModule,
+    TableModule
   ]
 })
 export class NeedyHistoryComponent implements OnInit {
@@ -27,11 +28,11 @@ export class NeedyHistoryComponent implements OnInit {
   pageSize: number = 5; // Items per page
   currentPage: number = 0; // Current page index
   errorMessage: string = '';
+  loading: boolean = false; // Indicates table loading state
+
 
   constructor(
     private requestService: RequestService,
-    private fb: FormBuilder,
-    private router: Router,
     private authService: AuthService,
   ) { }
 
@@ -40,21 +41,32 @@ export class NeedyHistoryComponent implements OnInit {
     this.loadRequests();
   }
   loadRequests(): void {
+this.loading=true;
     const needyId = this.authService.getUserId();
     this.requestService.getAllRequests(needyId, this.currentPage, this.pageSize).subscribe({
       next: (data) => {
+
         this.requests = data.content;
         this.totalRecords = data.totalElements;
+        this.requests.forEach(item => {
+          // Call getPhoto method to fetch the image asynchronously
+          this.requestService.getPhoto(item.itemData.imageUrl).subscribe(imageUrl => {
+            item.itemData.imageUrl = imageUrl; // Set the fetched image URL for each item
+          });
+        });
+        this.loading=false;
       },
       error: (err) => {
         console.error('Error loading requests:', err);
         this.errorMessage = 'Failed to load requests. Please try again later.';
+
+        this.loading=false;
       },
     });
   }
 
   onPageChange(event: any): void {
-    this.currentPage = event.page;
+    this.currentPage = event.first / event.rows;
     this.pageSize = event.rows;
     this.loadRequests();
   }

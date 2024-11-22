@@ -1,16 +1,15 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import {AuthInterceptor} from './app/components/auth/auth.interceptor';
+import {authInterceptor} from './app/components/auth/auth.interceptor';
+ // Import the interceptor
 
-
-// Extend the appConfig to include HTTP client and interceptors
 const extendedAppConfig = {
   ...appConfig,
   providers: [
     ...appConfig.providers,
-    provideHttpClient(withInterceptors([AuthInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor])),  // Use the function-based interceptor here
   ],
 };
 

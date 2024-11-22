@@ -45,22 +45,20 @@ export class LoginComponent implements OnInit {
       this.loginService.login(loginData).subscribe({
         next: (response) => {
           console.log('Needy login successfully:', response.token);
-          localStorage.setItem('authToken', response.token);
+          this.authService.saveToken(response.token);
 
-          // Decode the token
-          const decodedToken = jwtDecode(response.token);
-          console.log('Decoded Token:', decodedToken);
-          localStorage.setItem('authToken', response.token);
+          const role = this.authService.getUserRole();
+          console.log('Redirecting based on role:', role);
 
           // Redirect based on user role
-          if (this.authService.getUserRole()=== 'admin') {
+          if (role=== 'admin') {
             this.router.navigate(['/admin']);
-          } else if (this.authService.getUserRole()=== 'needy') {
+          } else if (role=== 'needy') {
             this.router.navigate(['/needy']);
-          } else if (this.authService.getUserRole()=== 'volunteer') {
+          } else if (role=== 'volunteer') {
             this.router.navigate(['/volunteer']);
           } else {
-            this.router.navigate(['/']);  // Default route if role not found
+            this.router.navigate(['/home']);  // Default route if role not found
           }
           //this.router.navigate(['/home']).then(r => "Error");
           this.errorMessage = null; // Clear error message on success

@@ -1,178 +1,37 @@
-.navbar {
-  background-color: #2c3e50;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 0.75rem 0;
-  min-height: 70px;
-}
-
-.navbar-spacer {
-  height: 70px;
-}
-
+/* Logo styling */
 .logo-img {
-  width: 120px;
-  height: auto;
-  margin-left: 1.5rem;
-  transition: transform 0.3s ease;
-}
-
-.logo-img:hover {
-  transform: scale(1.05);
-}
-
-.nav-item {
-  margin: 0 0.25rem;
-  position: relative;
-}
-
-.nav-item:hover {
-  background-color: #355575;
-  border-radius: 6px;
-}
-
-/* Dropdown hover fix */
-.dropdown:hover .dropdown-menu {
-  display: block;
-  margin-top: 0;
-}
-
-.nav-link {
-  color: #ffffff !important;
-  font-size: 1.1rem;
-  font-weight: 500;
-  padding: 0.625rem 1.25rem;
-  transition: all 0.3s ease;
-}
-
-.nav-link.active {
-  background-color: #1a2835 !important;
-  border-radius: 6px;
-  position: relative;
-}
-
-.nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  height: 3px;
-  background-color: #3498db;
-  border-radius: 2px;
-}
-
-.dropdown-menu {
-  background-color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 0.5rem;
-  min-width: 180px;
-}
-
-.dropdown-item {
-  font-size: 1rem;
-  padding: 0.625rem 1rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  text-align: right;
-}
-
-.dropdown-item:hover {
-  background-color: #f8f9fa;
-  color: #2c3e50;
-  transform: translateX(-4px);
-}
-
-/* Login link positioning */
-.login-link {
-  margin-right: auto;
-  background-color: #3498db;
-  border-radius: 6px;
-  padding: 0.5rem 1.25rem;
-  transition: all 0.3s ease;
-}
-
-.login-link:hover {
-  background-color: #2980b9;
-  transform: translateY(-2px);
-}
-
-/* Mobile responsiveness */
-@media (max-width: 991.98px) {
-  .navbar-collapse {
-    padding: 1rem 0;
-  }
-
-  .navbar-nav {
-    flex-direction: column;
-  }
-
-  .nav-item {
-    margin: 0.25rem 0;
-  }
-
-  .login-link {
-    order: 1;
-    margin: 0.5rem 0;
-    text-align: right;
-    width: 100%;
-  }
-
-  .nav-link {
-    padding: 0.75rem 1rem;
-    text-align: right;
-  }
-
-  .dropdown-menu {
-    background-color: rgba(255, 255, 255, 0.05);
-    border: none;
-    box-shadow: none;
-    margin-right: 1rem;
-  }
-
-  .dropdown-item {
-    color: #ffffff;
-    padding: 0.75rem 1.5rem;
-  }
-
-  .dropdown-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-  }
-}
-
-
-/*!* Navbar Styles *!
-nav {
-  background-color: #2c3e50;
-  height: 70px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-!* Spacer to prevent content from hiding behind fixed navbar *!
-.navbar-spacer {
-  height: 70px;
-}
-
-!* Logo styles *!
-.logo-img {
-  width: 100px;
+  width: 100px;  /* Adjust size as needed */
   height: auto;
   margin-left: 20px;
-  padding-left: 10px;
-  transition: transform 0.3s ease;
 }
 
-.logo-img:hover {
-  transform: scale(1.05);
+/* Ensure navbar has enough height and background color */
+nav {
+  background-color: #2c3e50;
+  height: 7vh;
 }
 
-!* Navigation items styling *!
+/* Ensure that the logo and link are aligned in one row */
+.navbar-brand,
+.nav-link {
+  display: flex;
+  align-items: center;
+}
+
+/* Adjust spacing between logo and link */
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+/* Customize the 'الرئيسية' link spacing */
+.mainItem {
+  margin-left: 15px; /* Adjust spacing between logo and link */
+}
+
+/* For navbar items on hover */
 .navbar-nav .nav-item {
-  margin: 0 0.5rem;
-  position: relative;
+  margin: 0 0.1rem;
 }
 
 .nav-link {
@@ -181,117 +40,9 @@ nav {
   text-align: center;
   padding: 0.5rem 1rem;
   display: block;
-  transition: all 0.3s ease;
 }
 
-!* Hover effect for nav items *!
-.navbar-nav .nav-item:hover {
-  background-color: #355575;
-  border-radius: 5px;
-}
-
-.nav-link:hover {
-  color: #ffffff !important;
-  transform: translateY(-2px);
-}
-
-!* Dropdown styling *!
-.dropdown-menu {
-  display: block;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.3s ease;
-  background-color: #ffffff;
-  border: none;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  padding: 0.5rem 0;
-}
-
-.dropdown-item {
-  padding: 0.7rem 1.5rem;
-  transition: background-color 0.3s ease;
-}
-
-.dropdown-item:hover {
-  background-color: #f8f9fa;
-  color: #2c3e50;
-}
-
-!* Show dropdown on hover *!
-.nav-item.dropdown:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-!* Login link styling *!
-.login-link {
-  margin-right: auto;
-}
-
-!* Responsive adjustments *!
-@media (max-width: 991.98px) {
-  .navbar-brand {
-    margin-right: 0;
-  }
-
-  .navbar-nav {
-    padding: 1rem 0;
-  }
-
-  .dropdown-menu {
-    background-color: transparent;
-    box-shadow: none;
-    border: none;
-  }
-
-  .dropdown-item {
-    color: #ffffff;
-  }
-
-  .dropdown-item:hover {
-    background-color: #355575;
-    color: #ffffff;
-  }
-}*/
-
-
-/*
-
-
-.logo-img {
-  width: 100px; // ضبط الحجم حسب الحاجة
-  height: auto;
-  margin-left: 20px;
-  padding-left: 10px;
-}
-
-nav {
-  background-color: #2c3e50;
-  height :7vh ;
-}
-
-.navbar-nav .nav-item {
-  margin: 0 0.5rem;
-
-  &:hover {
-    background-color: #355575; // لون الخلفية عند التمرير
-    border-radius: 5px; // إضافة زوايا مستديرة عند التمرير
-    color: #2c3e50;
-  }
-}
-
-// نمط الروابط داخل العناصر <li>
-.nav-link {
-  color: #ffffff;
-  font-weight: 500;
-  text-align: center;
-  padding: 0.5rem 1rem; // ضبط الحشو لملء مساحة الخلفية
-  display: block; // جعل الرابط يغطي كامل مساحة <li>
-}
-
-!* Trigger dropdown on hover *!
+/* Make dropdown visible */
 .nav-item.dropdown:hover .dropdown-menu {
   display: block;
   opacity: 1;
@@ -299,7 +50,7 @@ nav {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-!* Initially hide the dropdown *!
+/* Initially hide the dropdown */
 .dropdown-menu {
   display: block;
   opacity: 0;
@@ -308,8 +59,7 @@ nav {
   visibility: hidden;
 }
 
-!* Make it visible on hover *!
+/* Make it visible on hover */
 .nav-item.dropdown:hover .dropdown-menu {
   visibility: visible;
 }
-*/

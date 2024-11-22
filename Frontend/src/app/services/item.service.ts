@@ -5,6 +5,7 @@ import {ItemDto} from '../components/interfaces/item-dto';
 import {PageDto} from '../components/admin/volunteer/volunteer';
 import {ApiResponse2} from '../components/admin/volunteer/volunteer.component';
 import {ItemDtoForProduct} from '../components/interfaces/item-dto-for-product';
+import {CreateRequest} from '../components/interfaces/CreateRequest';
 
 export interface Product {
   name: string;
@@ -35,6 +36,14 @@ export class ItemService {
       .pipe(
         map((blob) => URL.createObjectURL(blob)) // Convert Blob to object URL
       );
+  }
+  getItemById(id: number) {
+
+    return this.http.get<ItemDtoForProduct>(`item/${id}`)
+  }
+  CreateRequest(request: CreateRequest): Observable<CreateRequest> {
+
+    return this.http.post<CreateRequest>(`request`,request);
   }
 }
 

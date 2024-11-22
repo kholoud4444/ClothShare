@@ -1,0 +1,9 @@
+.request-table {
+  margin-top: 1rem;
+
+  p-table {
+    .p-paginator {
+      margin-top: 1rem; // Add spacing between the table and paginator
+    }
+  }
+}

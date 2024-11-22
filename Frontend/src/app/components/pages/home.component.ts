@@ -4,7 +4,7 @@ import {RouterOutlet} from '@angular/router';
 import {FooterComponent} from '../Shared/footer/footer.component';
 import {HeaderComponent} from './header/header.component';
 import {AboutUsComponent} from '../Shared/about-us/about-us.component';
-import {ProductsComponent} from '../commen/products/products.component';
+import {ProductsComponent} from '../Shared/products/products.component';
 import {ContactUsComponent} from '../Shared/contact-us/contact-us.component';
 //import {VolunteerComponent} from '../admin/volunteer/volunteer.component';
 

@@ -12,7 +12,7 @@ export class RequestService {
   public getAllRequests(needyId: number, page: number, size: number): Observable<{ content: Array<Request>, totalElements: number }> {
     return this.http
       .get<{ content: Array<Request>, totalElements: number }>(
-        `needy/RequestsWithItemDetails/${needyId}?page=${page}&size=${size}`
+        `needy/RequestsWithItemDetails/${needyId}?pageNo=${page}&pageSize=${size}`
       );
   }
   public addrequest(request: Request):Observable<Request>{
@@ -21,5 +21,11 @@ export class RequestService {
   public deleteRequestById(requestId: number): Observable<string> {
     return this.http.delete(`request/${requestId}`, { responseType: 'text' });
   }
-
+  getPhoto(fileName: string): Observable<string> {
+    return this.http
+      .get(`item/getPhoto/${fileName}`, { responseType: 'blob' })
+      .pipe(
+        map((blob) => URL.createObjectURL(blob)) // Convert Blob to object URL
+      );
+  }
 }
