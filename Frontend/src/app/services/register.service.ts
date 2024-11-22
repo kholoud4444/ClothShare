@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Login} from '../interfaces/login';
+
+import {Needy} from '../components/interfaces/needy';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class RegisterService {
   constructor(private http:HttpClient) { }
-  public login(login: Login): Observable<any> {
-    return this.http.post<any>("authentication/login", login);
+
+  public addNeedy(needy: Needy):Observable<Needy>{
+    return this.http.post<Needy>("authentication/register",needy);
   }
 
 }

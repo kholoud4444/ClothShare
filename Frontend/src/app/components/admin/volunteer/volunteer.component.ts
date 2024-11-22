@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {TableModule} from 'primeng/table';
 
-import {AdminService} from '../../services/admin.service';
+import {AdminService} from '../../../services/admin.service';
 
 export interface User {
   userId: number;

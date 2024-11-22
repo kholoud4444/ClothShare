@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ItemService} from '../../services/item.service';
+import {ItemService} from '../../../services/item.service';
 import {TableModule} from 'primeng/table';
 import {Button} from 'primeng/button';
 import {CurrencyPipe, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';

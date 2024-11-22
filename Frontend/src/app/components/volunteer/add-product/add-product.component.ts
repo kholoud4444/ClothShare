@@ -4,7 +4,7 @@ import {PaginatorModule} from 'primeng/paginator';
 import {KeyValuePipe, NgForOf, NgIf} from '@angular/common';
 import {Router} from '@angular/router';
 import { ItemDto, ClothingType, ClothingSize, ItemState, GenderSuitability, ItemStatus } from '../../interfaces/item-dto';
-import {AddProductService} from '../../services/add-product.service';
+import {AddProductService} from '../../../services/add-product.service';
 @Component({
   selector: 'app-add-product',
   standalone: true,

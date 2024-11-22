@@ -6,8 +6,8 @@ import {VolunteerComponent} from './volunteer/volunteer.component';
 
 
 export  const adminRoutes: Routes = [
-  { path: '', component: HomeAdminComponent },
-  {path: 'volunteer', component:VolunteerComponent },
+  { path: 'volunteerRequests', component: HomeAdminComponent },
+  {path: 'volunteers', component:VolunteerComponent },
   {path:"item/:id" , component:ItemComponent},
   // {path:"products" , component:ProductsComponent},
 

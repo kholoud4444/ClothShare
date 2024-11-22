@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Request } from '../../interfaces/request';
-import { RequestService } from '../../services/request.service';
+import { RequestService } from '../../../services/request.service';
 import {AsyncPipe, DatePipe, NgForOf, NgIf} from '@angular/common';
 import { map, Observable } from 'rxjs';
-import {AuthService} from '../../services/auth.service';
+import {AuthService} from '../../../services/auth.service';
 import {PaginatorModule} from 'primeng/paginator';
 
 @Component({

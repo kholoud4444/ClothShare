@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {ApiResponse} from '../interfaces/request-volunteer-history';
-import {ApiResponse2} from '../admin/volunteer/volunteer.component';
+import {ApiResponse} from '../components/interfaces/request-volunteer-history';
+import {ApiResponse2} from '../components/admin/volunteer/volunteer.component';
 //import {ApiResponse2} from '../admin/volunteer/volunteer.component';
 
 

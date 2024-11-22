@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {LoginService} from '../../services/login.service';
+import {LoginService} from '../../../services/login.service';
 import {Needy} from '../../interfaces/needy';
 import {NgIf} from '@angular/common';
 import {Login} from '../../interfaces/login';
-import {RegisterService} from '../../services/register.service';
+import {RegisterService} from '../../../services/register.service';
 import {jwtDecode} from 'jwt-decode';
-import {AuthService} from '../../services/auth.service';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',

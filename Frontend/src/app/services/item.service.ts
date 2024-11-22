@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map, Observable} from 'rxjs';
-import {ItemDto} from '../interfaces/item-dto';
-import {PageDto} from '../admin/volunteer/volunteer';
-import {ApiResponse2} from '../admin/volunteer/volunteer.component';
-import {ItemDtoForProduct} from '../interfaces/item-dto-for-product';
+import {ItemDto} from '../components/interfaces/item-dto';
+import {PageDto} from '../components/admin/volunteer/volunteer';
+import {ApiResponse2} from '../components/admin/volunteer/volunteer.component';
+import {ItemDtoForProduct} from '../components/interfaces/item-dto-for-product';
 
 export interface Product {
   name: string;

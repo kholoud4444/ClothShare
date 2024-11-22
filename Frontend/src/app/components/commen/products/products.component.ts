@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { PaginatorModule } from 'primeng/paginator';
-import {ItemService} from '../../services/item.service';
+import {ItemService} from '../../../services/item.service';
 
 
 import {ItemDtoForProduct} from '../../interfaces/item-dto-for-product';

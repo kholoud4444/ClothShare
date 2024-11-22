@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {jwtDecode} from 'jwt-decode';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {ItemService} from '../../services/item.service';
+import {ItemService} from '../../../services/item.service';
 import {ItemDto} from '../../interfaces/item-dto';
 @Component({
   selector: 'app-item',

@@ -1,123 +1,60 @@
-.dashboard-container {
+// Update the .grid class in your SCSS
+
+.layout-wrapper {
   display: flex;
+  direction: rtl;
   min-height: 100vh;
-  font-family: 'Tajawal', sans-serif; /* Arabic font for readability */
-  color: #333;
-  background-color: #f4f6f8;
-}
+  position: relative;
 
-.sidebar {
-  width: 250px;
-  background-color: #2c3e50;
-  color: #ecf0f1;
-  padding: 20px;
-  right: 0; /* RTL: sidebar on the right */
-  height: 100vh;
+  .layout-content {
+    flex: 1;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
 
-  h2 {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: #fff;
+    &.content-shifted {
+      width: calc(100% - 250px);
+      margin-right: 250px;
+    }
+  }
+  p-sidebar {
+    background-color: #2c3e50;
   }
 
-  ul {
-    list-style: none;
-    padding: 0;
+  ::ng-deep .sidebar-custom {
+    width: 250px !important;
+    height: 100vh;
+    position: fixed;
 
-    li {
-      margin-bottom: 10px;
-      cursor: pointer;
+    &.p-sidebar {
+      background: #ffffff;
 
-      a {
-        color: #ecf0f1;
-        text-decoration: none;
-        display: block;
-        padding: 10px;
-        border-radius: 5px;
-        transition: background 0.3s;
-
-        &:hover {
-          background-color: #34495e;
-        }
+      .p-sidebar-content {
+        padding: 1rem;
       }
     }
-  }
-}
 
-.content {
-  flex-grow: 1;
-
-  padding: 20px;
-  width: 50%;
-
-  .content-header {
-
-    color: #000000;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    width: 50%;
-  }
-
-  .widgets {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-
-    .widget {
-      flex: 1 1 200px;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
+    .sidebar-title {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      text-align: right;
     }
   }
 }
-.pagination-info {
-  text-align: center;
-  margin: 10px 0;
-}
 
-.pagination {
-  display: flex;
-  justify-content: center;
-}
+// For mobile responsiveness
+@media screen and (max-width: 768px) {
+  .layout-wrapper {
+    .layout-content {
+      &.content-shifted {
+        width: 100%;
+        margin-right: 0;
+      }
+    }
 
-.page-link {
-  cursor: pointer;
-}
-
-.page-item.disabled .page-link {
-  cursor: not-allowed;
-}
-.btn-spacing {
-  margin-left: 8px; /* Adjust spacing as needed */
-}
-
-.btn-danger {
-  margin-left: 0; /* Ensure no extra space after the last button */
-}
-.filter-container {
-  display: flex; // تنظيم العناصر أفقياً
-  align-items: center; // محاذاة العناصر رأسياً في نفس الخط
-
-  label {
-    margin-right: 0.5rem; // إضافة مسافة بين التسمية والقائمة
-  }
-
-  .form-select {
-    position: relative; // ضبط الموضع النسبي
-    padding-right: 2rem; // إضافة مسافة داخلية لليمين لإبعاد النص عن السهم
-    text-align: right; // محاذاة النص داخل القائمة لليمين
-    direction: rtl; // ضمان عرض النصوص بشكل صحيح في اللغات العربية
-  }
-
-  select {
-    padding-right: 1.5rem; // مساحة داخلية للنص
-    text-align: center; // يمكن تغيير المحاذاة حسب المطلوب
+    ::ng-deep .sidebar-custom {
+      width: 100% !important;
+    }
   }
 }
-
-
-
