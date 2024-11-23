@@ -34,6 +34,7 @@ public class RequestMapper {
         requestDto.setStatus(request.getStatus());
         requestDto.setReason(request.getReason());
         requestDto.setNeedyId(request.getNeedy().getUserId());
+        requestDto.setItemId(request.getItem().getItemId());
         return requestDto;
     }
 
@@ -47,15 +48,6 @@ public class RequestMapper {
         request.setStatus(requestDto.getStatus());
         request.setReason(requestDto.getReason());
 
-        Needy needy = new Needy();
-        needy.setUserId(requestDto.getNeedyId());
-
-        Item item = new Item();
-        item.setItemId(requestDto.getItemId());
-        request.setRequestId(requestDto.getRequestId());
-
-        request.setNeedy(needy);
-        request.setItem(item);
 
         return request;
     }

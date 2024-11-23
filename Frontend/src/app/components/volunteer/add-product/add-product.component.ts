@@ -35,9 +35,9 @@ export class AddProductComponent {
 
   constructor(
     private fb: FormBuilder,
-    private addProductService: AddProductService,
-    private router: Router,
-    private authService: AuthService
+  private addProductService: AddProductService,
+  private router: Router,
+  private authService: AuthService
   ) {
     this.form = this.fb.group({
       type: ['', Validators.required],

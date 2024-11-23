@@ -2,6 +2,7 @@ package com.ntg.backend.service.imp;
 
 import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.MessageDto;
+import com.ntg.backend.dto.requestDto.requestStatusDto;
 import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.Mapper.RequestMapper;
 import com.ntg.backend.dto.requestDto.RequestDto;
@@ -124,21 +125,21 @@ public class RequestServiceImp implements RequestService {
     }
 
     @Override
-    public MessageDto<RequestDto> changeRequestStatus(RequestDto requestDto, long id) {
+    public MessageDto<requestStatusDto> changeRequestStatus(requestStatusDto requestStatusDto, long id) {
         Request existingRequest = requestRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("request", "id", id));
 
         // Check if the status from the DTO is different from the existing status
-        if (requestDto.getStatus() != existingRequest.getStatus()) {
+        if (requestStatusDto.getStatus() != existingRequest.getStatus()) {
             // Update the status if different and save to database
-            existingRequest.setStatus(requestDto.getStatus());
+            existingRequest.setStatus(requestStatusDto.getStatus());
             requestRepo.save(existingRequest);
-            RequestDto currentRequest= requestMapper.mapToRequestDto(existingRequest);// Save the updated item status
-            String message = "Request status updated successfully to " + existingRequest.getStatus();
-            return new MessageDto<>(message, currentRequest);
+
+//            currentRequest.setNeedyId(existingRequest.getNeedy().getUserId());// Save the updated item status
+            return new MessageDto<requestStatusDto>("request updated succesffully",requestStatusDto );
         } else {
-            RequestDto currentRequest= requestMapper.mapToRequestDto(existingRequest);// Save the updated item status
-            String message = "Item status is already " + existingRequest.getStatus() + "; no changes made.";
-            return new MessageDto<>(message, currentRequest);
+//            RequestDto currentRequest= requestMapper.mapToRequestDto(existingRequest);// Save the updated item status
+//            String message = "Item status is already " + existingRequest.getStatus() + "; no changes made.";
+            return new MessageDto<>("request status is already",requestStatusDto );
         }
     }
 

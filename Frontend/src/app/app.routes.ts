@@ -10,6 +10,13 @@ import {AdminGuard} from './gaurds/admin.guard';
 import {NeedyGuard} from './gaurds/needy.guard';
 import {VolunteerGuard} from './gaurds/volunteer.guard';
 import {PageNotFoundComponent} from './components/Shared/page-not-found/page-not-found.component';
+import {
+  GetItemRequestWithNeedyDetailsComponent
+} from './components/volunteer/get-item-request-with-needy-details/get-item-request-with-needy-details.component';
+import {
+  VolunteerItemsDetailsComponent
+} from './components/volunteer/volunteer-items-details/volunteer-items-details.component';
+import {VolunteerComponent} from './components/admin/volunteer/volunteer.component';
 
 export const routes: Routes = [
   {path: "login", component:LoginComponent},
@@ -17,6 +24,12 @@ export const routes: Routes = [
   {path: "register" , component:RegisterComponent},
   {path: "home" , component:HomeComponent},
   { path: 'addproduct', component: AddProductComponent },
+  {path:"allItemByVolunteer",component:VolunteerItemsDetailsComponent},
+  {path:"allItemRequestByNeedy",component:GetItemRequestWithNeedyDetailsComponent},
+  {path: 'allVolunteer', component:VolunteerComponent },
+
+
+
 
   {
     path: 'admin',

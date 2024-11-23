@@ -1,0 +1,60 @@
+<div class="container py-4">
+  <h2 class="text-center mb-4">إدارة الطلبات</h2>
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white text-center">
+      <h4>قائمة الطلبات</h4>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-hover table-bordered text-center">
+        <thead class="bg-light">
+        <tr>
+          <th>الإعدادات</th>
+          <th>حالة الطلب</th>
+          <th>سبب الطلب</th>
+          <th>جنس المحتاج</th>
+          <th>رقم المحتاج</th>
+          <th>موقع المحتاج</th>
+          <th>اسم المحتاج</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr
+          *ngFor="let request of requestsWithNeedyInfo; let i = index; trackBy: trackByRequestId"
+          [ngClass]="{ 'table-success': request.requestStatus === 'تم_الموافقة', 'table-danger': request.requestStatus === 'مرفوض' }"
+        >
+          <td>
+            <p-button
+              icon="pi pi-check"
+              styleClass="p-button-rounded p-button-success mx-1"
+              label="قبول"
+              (click)="acceptRequest(request.requestId)"
+            ></p-button>
+
+            <p-button
+              icon="pi pi-times"
+              styleClass="p-button-rounded p-button-danger mx-1"
+              label="رفض"
+              (click)="refuseRequest(request.requestId)"
+            ></p-button>
+          </td>
+          <td>{{ request.requestStatus }}</td>
+          <td>{{ request.reason }}</td>
+          <td>{{ request.needyInfo.gender }}</td>
+          <td>{{ request.needyInfo.phone }}</td>
+          <td>{{ request.needyInfo.location }}</td>
+          <td>{{ request.needyInfo.firstName }} {{ request.needyInfo.lastName }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      <p-paginator
+        [rows]="pageSize"
+        [totalRecords]="totalRecords"
+        (onPageChange)="onPageChange($event)"
+        [pageLinkSize]="5"
+        [rowsPerPageOptions]="[5, 10, 15]"
+      ></p-paginator>
+    </div>
+  </div>
+</div>

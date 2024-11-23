@@ -1,42 +1,39 @@
 <div class="volunteer-table">
   <p-table
     [value]="users"
-  [paginator]="true"
-  [rows]="pageSize"
-  [totalRecords]="totalRecords"
-  [loading]="loading"
-  [lazy]="true"
-  (onLazyLoad)="onPageChange($event)"
-  [responsiveLayout]="'scroll'"
+    [paginator]="true"
+    [rows]="pageSize"
+    [totalRecords]="totalRecords"
+    [loading]="loading"
+    [lazy]="true"
+    (onLazyLoad)="onPageChange($event)"
+    [responsiveLayout]="'scroll'"
   >
-  <ng-template pTemplate="header">
-    <tr>
-      <th>User ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th>National ID</th>
-      <th>Gender</th>
-      <th>Birth Date</th>
-      <th>Location</th>
-      <th>Role</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-volunteer>
-    <tr>
-      <td>{{ volunteer.userId }}</td>
-      <td>{{ volunteer.firstName }}</td>
-      <td>{{ volunteer.lastName }}</td>
-      <td>{{ volunteer.email }}</td>
-      <td>{{ volunteer.phone }}</td>
-      <td>{{ volunteer.nationalId }}</td>
-      <td>{{ volunteer.gender }}</td>
-      <td>{{ volunteer.birthDate }}</td>
-      <td>{{ volunteer.location }}</td>
-      <td>{{ volunteer.role }}</td>
-    </tr>
-  </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>الجنس</th>
+        <th>تاريخ الميلاد</th>
+        <th>الموقع</th>
+        <th>البريد الإلكتروني</th>
+        <th>رقم القومي</th>
+        <th>رقم الهاتف</th>
+        <th>الاسم </th>
+        <th>رقم المستخدم</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-volunteer>
+      <tr>
+
+        <td>{{ volunteer.gender }}</td>
+        <td>{{ volunteer.birthDate }}</td>
+        <td>{{ volunteer.location }}</td>
+        <td>{{ volunteer.email }}</td>
+        <td>{{ volunteer.nationalId }}</td>
+        <td>{{ volunteer.phone }}</td>
+        <td>{{ volunteer.firstName }} {{ volunteer.lastName }}</td>
+        <td>{{ volunteer.userId }}</td>
+
+      </tr>
+    </ng-template>
   </p-table>
 </div>
-<!--git-->

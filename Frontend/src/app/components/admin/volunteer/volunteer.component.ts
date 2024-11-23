@@ -2,28 +2,9 @@ import {Component, inject, OnInit} from '@angular/core';
 import {TableModule} from 'primeng/table';
 
 import {AdminService} from '../../../services/admin.service';
+import {UserInterface, userResponseDetails} from '../../interfaces/user-interface';
 
-export interface User {
-  userId: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  nationalId: string;
-  gender: string;
-  birthDate: string;
-  location: string;
-  role: string;
-}
 
-export interface ApiResponse2 {
-  content: User[];
-  totalElements: number;
-  totalPages: number;
-  pageNumber: number;
-  pageSize: number;
-  isLast: boolean;
-}
 
 @Component({
   selector: 'app-volunteer',
@@ -36,7 +17,7 @@ export interface ApiResponse2 {
 })
 
 export class VolunteerComponent implements OnInit {
-  users: User[] = [];
+  users: UserInterface[] = [];
   totalRecords: number = 0;
   pageNo: number = 0;
   pageSize: number = 5;

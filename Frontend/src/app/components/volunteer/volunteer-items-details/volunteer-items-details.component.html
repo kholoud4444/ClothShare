@@ -1,0 +1,133 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">تعديل المنتج</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Product Details Form -->
+        <form [formGroup]="form" (ngSubmit)="editItem()" >
+          <!-- Type -->
+          <div class="form-group">
+            <label for="type" class="text-end">النوع</label>
+            <select id="type" class="form-control" formControlName="type" name="type" required>
+              <option *ngFor="let type of ClothingType | keyvalue" [value]="type.value">{{ type.value }}</option>
+            </select>
+          </div>
+
+          <!-- Condition -->
+          <div class="form-group">
+            <label for="state" class="text-end">الحالة</label>
+            <select id="state" class="form-control" formControlName="state" name="state" required>
+              <option *ngFor="let state of ItemState | keyvalue" [value]="state.value">{{ state.value }}</option>
+            </select>
+          </div>
+
+          <!-- Size -->
+          <div class="form-group">
+            <label for="size" class="text-end">المقاس</label>
+            <select id="size" class="form-control" formControlName="size" name="size" required>
+              <option *ngFor="let size of ClothingSize | keyvalue" [value]="size.value">{{ size.value }}</option>
+            </select>
+          </div>
+
+          <!-- Gender Suitability -->
+          <div class="form-group">
+            <label for="genderSuitability" class="text-end">الملائمة الجنسية</label>
+            <select id="genderSuitability" class="form-control" formControlName="genderSuitability" name="genderSuitability" required>
+              <option *ngFor="let gender of GenderSuitability | keyvalue" [value]="gender.value">{{ gender.value }}</option>
+            </select>
+          </div>
+          <input type="hidden" formControlName="itemId">
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="description">الوصف:</label>
+            <textarea id="description" class="form-control" formControlName="description" placeholder="أدخل وصف المنتج هنا" maxlength="500"></textarea>
+          </div>
+
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">حفظ التعديلات</button>
+      </div>
+        </form>
+
+  </div>
+</div>
+</div>
+</div>
+<table class="table">
+  <thead class="text-end">
+  <tr>
+    <th>الإعدادات</th>
+    <th>حالة الطلب </th>
+    <th>الجنس</th>
+    <th>المقاس </th>
+    <th>الصورة</th>
+    <th>حالة الملبس</th>
+    <th>نوع الملبس</th>
+    <th>رقم الملبس</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of items; let i = index; trackBy: trackByItemId" class="text-end">
+    <td>
+      <!-- Button Placeholder for future actions like Add, Edit, or Delete -->
+
+
+      <p-button
+        icon="pi pi-trash"
+        styleClass="p-button-text p-button-rounded p-button-danger"
+        label="حذف"
+        (click)="deleteItem(item.itemId)"
+      ></p-button>
+      <p-button
+        icon="pi pi-pencil"
+        styleClass="p-button-text p-button-rounded p-button-info"
+        label="تعديل"
+        data-bs-toggle="modal" data-bs-target="#exampleModal"
+        (click)="getItemId(item.itemId)"
+      ></p-button>
+    </td>
+    <td>
+      {{ item.status }}
+    </td>
+    <td>
+      {{ item.genderSuitability }}
+    </td>
+    <td>
+      {{ item.size }}
+    </td>
+    <td>
+      <img
+        *ngIf="item.imageUrl"
+        [ngSrc]="item.imageUrl"
+        alt="{{ item.type || 'لا توجد صورة' }}"
+        width="100"
+        height="100"
+        class="shadow-4"
+        loading="lazy"
+      />
+    </td>
+    <td>
+      <p>{{ item.state }}</p>
+    </td>
+    <td>
+      <p>{{ item.type }}</p>
+    </td>
+    <td>
+      {{ (currentPage - 1) * pageSize + (i + 1) }} <!-- Adjusted to calculate based on the current page -->
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<p-paginator
+  [rows]="pageSize"
+  [totalRecords]="totalRecords"
+  (onPageChange)="onPageChange($event)"
+  [pageLinkSize]="5"
+  [rowsPerPageOptions]="[5, 10, 15]"
+></p-paginator>

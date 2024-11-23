@@ -8,6 +8,16 @@ export interface ItemDto {
   status: ItemStatus;
   volunteerId: number ; // Optional field, depending on the backend
 }
+export interface ItemDtoForEditItem {
+  type: ClothingType;
+  size: ClothingSize;
+  state: ItemState;
+  genderSuitability: GenderSuitability;
+  description: string;
+  status: ItemStatus;
+  volunteerId: number ; // Optional field, depending on the backend
+  itemId: number;
+}
 
 export enum ClothingType {
   FASHION = 'فستان',

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import {ItemDto} from '../components/interfaces/item-dto';
-import {PageDto} from '../components/admin/volunteer/volunteer';
-import {ApiResponse2} from '../components/admin/volunteer/volunteer.component';
+import {PageDto} from '../components/interfaces/volunteer';
+
 import {ItemDtoForProduct} from '../components/interfaces/item-dto-for-product';
 import {CreateRequest} from '../components/interfaces/CreateRequest';
 

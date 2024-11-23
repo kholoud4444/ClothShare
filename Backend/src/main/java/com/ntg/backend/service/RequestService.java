@@ -3,6 +3,7 @@ package com.ntg.backend.service;
 import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.dto.requestDto.MessageDto;
+import com.ntg.backend.dto.requestDto.requestStatusDto;
 import com.ntg.backend.dto.responseDto.RequestWithItemDetails;
 import com.ntg.backend.dto.requestDto.RequestDto;
 import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
@@ -18,6 +19,6 @@ public interface RequestService {
     PageDto<RequestDto> getAllRequests(int pageNo, int pageSize);
     PageDto<RequestWithItemDetails> getRequestsByItemId(Long itemId, int pageNo, int pageSize);
     RequestWithItemDetails getRequestWithItemDetails(long requestId);
-    MessageDto<RequestDto> changeRequestStatus(RequestDto requestDto, long id);
+    MessageDto<requestStatusDto> changeRequestStatus(requestStatusDto requestStatusDto, long id);
     PageDto<RequestWithNeedyDetails> requestsWithNeedyDetails(long itemId, int pageNo, int pageSize);
 }
