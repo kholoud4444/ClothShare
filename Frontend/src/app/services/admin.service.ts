@@ -13,10 +13,10 @@ export class AdminService {
   constructor(private http:HttpClient) { }
 
   public getAllItems(page: number, size: number): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(`/api/admin/allItems?pageNo=${page}&pageSize=${size}`);
+    return this.http.get<ApiResponse>(`admin/allItemsWithVolunteerName?pageNo=${page}&pageSize=${size}`);
   }
   public changeItemRequest(id: number, updatedItem: any): Observable<string> {
-    return this.http.put<string>(`/api/admin/changeItemStatus/${id}`, updatedItem);
+    return this.http.put<string>(`admin/changeItemStatus/${id}`, updatedItem);
   }
 
   public getAllVolunteer(role: string ,pageNo: number, pageSize: number): Observable<userResponseDetails> {

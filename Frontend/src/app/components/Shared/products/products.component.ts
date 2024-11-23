@@ -47,14 +47,19 @@ export class ProductsComponent implements OnInit {
     this.loading = true;
     this.itemService.getAllItems(this.pageNo, this.pageSize).subscribe({
       next: (response) => {
-        this.items = response.content;
-        this.totalRecords = response.totalElements;
+        // Filter items with status 'approved'
+        const filteredItems = response.content.filter(
+          (item) => item.status === 'تم_الموافقه'
+        );
+
+        this.items = filteredItems;
+        this.totalRecords = filteredItems.length; // Update totalRecords to reflect filtered items
         this.loading = false;
 
         // For each item, fetch the image URL
-        this.items.forEach(item => {
+        this.items.forEach((item) => {
           // Call getPhoto method to fetch the image asynchronously
-          this.itemService.getPhoto(item.imageUrl).subscribe(imageUrl => {
+          this.itemService.getPhoto(item.imageUrl).subscribe((imageUrl) => {
             item.imageUrl = imageUrl; // Set the fetched image URL for each item
           });
         });
@@ -67,10 +72,11 @@ export class ProductsComponent implements OnInit {
   }
 
   onPageChange(event: any): void {
-    this.pageNo = event.first / event.rows;  // Correcting the page number calculation
+    this.pageNo = event.first / event.rows; // Correcting the page number calculation
     this.pageSize = event.rows;
     this.getItems();
   }
+
   trackByItemId(index: number, item: ItemDtoForProduct): number {
     return item.itemId; // Returning the unique identifier of each item
   }

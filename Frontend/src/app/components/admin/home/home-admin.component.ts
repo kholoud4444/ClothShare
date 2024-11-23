@@ -3,6 +3,7 @@ import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {AdminService} from '../../../services/admin.service';
 import {ApiResponse, RequestVolunteerHistory} from '../../interfaces/request-volunteer-history';
+import {RequestService} from '../../../services/request.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,7 @@ export class HomeAdminComponent implements OnInit {
   totalPages: number = 0;
   noItemsFound: boolean = false; // Tracks if no items are found after filtering
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService,private requestService: RequestService) {}
 
   ngOnInit() {
     this.loadAllRequests(); // Load all items when the component initializes
@@ -35,10 +36,17 @@ export class HomeAdminComponent implements OnInit {
 
   // Load all items from the backend
   loadAllRequests() {
-    this.adminService.getAllItems(0, 1000).subscribe({
+    this.adminService.getAllItems(0, 10000).subscribe({
       next: (response: ApiResponse) => {
         this.allItems = response.content; // Store all items
-        this.applyFilter(); // Initialize with unfiltered items
+        this.applyFilter();
+
+        this.allItems.forEach(item => {
+          // Call getPhoto method to fetch the image asynchronously
+          this.requestService.getPhoto(item.item.imageUrl).subscribe(imageUrl => {
+            item.item.imageUrl = imageUrl; // Set the fetched image URL for each item
+          });
+        });// Initialize with unfiltered items
       },
       error: err => {
         this.errorMessage = 'Error fetching data';
@@ -119,5 +127,3 @@ export class HomeAdminComponent implements OnInit {
     });
   }
 }
-
-

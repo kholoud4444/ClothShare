@@ -94,7 +94,7 @@ export class ItemComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error submitting request:', err);
-        alert('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.');
+        alert('لقد طلبت هذا العنصر من قبل');
       },
     });
   }

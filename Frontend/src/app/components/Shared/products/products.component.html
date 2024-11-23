@@ -2,8 +2,8 @@
   <h1>منتجاتنا </h1>
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <!-- Angular *ngFor to loop over items -->
-    <div *ngFor="let product of items; trackBy: trackByItemId" class="col-3" dir="rtl">
-      <div class="card h-100">
+    <div *ngFor="let product of items; trackBy: trackByItemId" class="col-3" dir="rtl" >
+      <div  class="card h-100" >
         <!-- Image section (use dynamic imgUrl if available) -->
         <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="Item Image" class="card-img-top" />
         <div class="card-body">
@@ -11,7 +11,7 @@
           <p class="card-text text-end">
             {{ product.description }}
           </p>
-          <div class="product-info d-flex justify-content-between align-items-center">
+          <div  class="product-info d-flex justify-content-between align-items-center">
             <div class="product-sub-info text-end">
               <p><span style="font-weight: bold;">التصنيف: </span>{{ product.type }}</p>
               <p><span style="font-weight: bold;">الحجم : </span>{{ product.size }}</p>

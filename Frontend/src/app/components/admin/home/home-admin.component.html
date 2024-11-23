@@ -3,10 +3,10 @@
   <aside class="sidebar">
     <h2>لوحة التحكم</h2>
     <ul>
-      <li><a routerLink="/overview">المستفيدين</a></li>
-      <li><a routerLink="/volunteers">المتطوعين</a></li>
-      <li><a routerLink="/reports">الملابس</a></li>
-      <li><a routerLink="/settings">الطلبات</a></li>
+      <li><a routerLink="/admin/needy">المستفيدين</a></li>
+      <li><a routerLink="/admin/volunteers">المتطوعين</a></li>
+      <li><a routerLink="/admin/products">الملابس</a></li>
+      <li><a routerLink="/admin">الطلبات</a></li>
     </ul>
   </aside>
 
@@ -17,8 +17,7 @@
         <label for="statusFilter">تصفية حسب الحالة:</label>
         <select id="statusFilter" (change)="filterByStatus($event)" class="form-select">
           <option value="">الكل</option>
-          <option value="تم_الموافقه">تم_الموافقه<
-            /option>
+          <option value="تم_الموافقه">تم_الموافقه</option>
           <option value="معلق">معلق</option>
           <option value="مرفوض">مرفوض</option>
         </select>
