@@ -1,0 +1,64 @@
+
+$primary-color: #2c3e50; // Sidebar background color
+$secondary-color: #ecf0f1; // Light background for content
+$success-color: #28a745;
+$danger-color: #dc3545;
+$text-color: #fff;
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    text-align: right; // RTL alignment
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+
+  th {
+    background-color: $primary-color;
+    color: $text-color;
+  }
+
+  td {
+    background-color: #fff;
+    vertical-align: middle;
+
+    img {
+      border-radius: 5px; // Keeps the rounded corners
+      width: 50px; // Adjust the width of the image
+      height: 50px; // Adjust the height of the image to maintain a square aspect ratio
+      object-fit: cover; // Ensures the image fits within the dimensions without distortion
+    }
+
+    .btn {
+      padding: 5px 10px;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &-success {
+        background-color: $success-color;
+        color: #fff;
+
+        &:hover {
+          background-color: darken($success-color, 10%);
+        }
+      }
+
+      &-danger {
+        background-color: $danger-color;
+        color: #fff;
+
+        &:hover {
+          background-color: darken($danger-color, 10%);
+        }
+      }
+
+      &-spacing {
+        margin-left: 10px;
+      }
+    }
+  }
+}

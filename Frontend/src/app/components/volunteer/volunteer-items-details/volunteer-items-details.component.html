@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -58,9 +58,10 @@
 </div>
 </div>
 </div>
-<table class="table">
-  <thead class="text-end">
-  <tr>
+<table class="table mt-3" >
+  <thead class="text-end" style="background-color: #001F3F">
+  <tr >
+    <th>الطلبات</th>
     <th>الإعدادات</th>
     <th>حالة الطلب </th>
     <th>الجنس</th>
@@ -69,10 +70,16 @@
     <th>حالة الملبس</th>
     <th>نوع الملبس</th>
     <th>رقم الملبس</th>
+
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let item of items; let i = index; trackBy: trackByItemId" class="text-end">
+    <td>
+      <button type="button" class="btn btn-primary" [routerLink]="['/volunteer/request', item.itemId]" routerLinkActive="active">
+        <i class="pi pi-shopping-cart"></i> عرض الطلبات
+      </button>
+    </td>
     <td>
       <!-- Button Placeholder for future actions like Add, Edit, or Delete -->
 
@@ -120,6 +127,7 @@
     <td>
       {{ (currentPage - 1) * pageSize + (i + 1) }} <!-- Adjusted to calculate based on the current page -->
     </td>
+
   </tr>
   </tbody>
 </table>

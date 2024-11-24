@@ -22,7 +22,13 @@
           </div>
         </div>
         <div class="card-footer text-end">
-          <button type="button" class="btn btn-primary" [routerLink]="['/needy/item', product.itemId]" routerLinkActive="active">
+          <button *ngIf="userRole=='needy'" type="button" class="btn btn-primary" [routerLink]="['/needy/item', product.itemId]" routerLinkActive="active">
+            <i class="pi pi-shopping-cart"></i> عرض المنتج
+          </button>
+          <button *ngIf="userRole=='admin'" type="button" class="btn btn-primary" [routerLink]="['/admin/item', product.itemId]" routerLinkActive="active">
+            <i class="pi pi-shopping-cart"></i> عرض المنتج
+          </button>
+          <button *ngIf="userRole=='volunteer'" type="button" class="btn btn-primary" [routerLink]="['/volunteer/item', product.itemId]" routerLinkActive="active">
             <i class="pi pi-shopping-cart"></i> عرض المنتج
           </button>
         </div>

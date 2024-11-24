@@ -9,6 +9,7 @@ import {ItemService} from '../../../services/item.service';
 
 
 import {ItemDtoForProduct} from '../../interfaces/item-dto-for-product';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-products',
@@ -35,10 +36,11 @@ export class ProductsComponent implements OnInit {
   pageNo: number = 0;
   pageSize: number = 8;
   loading: boolean = false;
-
-  constructor(private itemService: ItemService) {}
+userRole!: string | null;
+  constructor(private itemService: ItemService,private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.userRole=this.authService.getUserRole();
     this.getItems();
   }
 

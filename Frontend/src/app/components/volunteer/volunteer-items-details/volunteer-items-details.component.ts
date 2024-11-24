@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {VolunteerService} from '../../services/volunteer.service';
+import {VolunteerService} from '../../../services/volunteer.service';
 import {ItemDtoForProduct} from '../../interfaces/item-dto-for-product';
 import {Button} from 'primeng/button';
 import {KeyValuePipe, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
@@ -17,6 +17,7 @@ import {
 } from '../../interfaces/item-dto';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-volunteer-items-details',
@@ -29,7 +30,9 @@ import {AuthService} from '../../../services/auth.service';
     PaginatorModule,
     NgIf,
     KeyValuePipe,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLinkActive,
+    RouterLink
   ],
   templateUrl: './volunteer-items-details.component.html',
   styleUrl: './volunteer-items-details.component.scss'
@@ -68,7 +71,7 @@ export class VolunteerItemsDetailsComponent implements OnInit {
   // Method to fetch items with pagination
   getItems(): void {
     this.loading = true;
-    this.volunteerService.getAllItemDetailsByVolunteerId(2, this.pageNo, this.pageSize).subscribe({
+    this.volunteerService.getAllItemDetailsByVolunteerId(this.authService.getUserId(), this.pageNo, this.pageSize).subscribe({
       next: (response) => {
         this.items = response.content;
         this.totalRecords = response.totalElements;

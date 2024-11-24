@@ -4,9 +4,10 @@ import {NgClass, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {PaginatorModule} from 'primeng/paginator';
 import {RequestWithNeedyInfo} from '../../interfaces/request-with-needy-info';
 import {PageDto} from '../../interfaces/volunteer';
-import {VolunteerService} from '../../services/volunteer.service';
+import {VolunteerService} from '../../../services/volunteer.service';
 import {RequestDto, RequestStatus} from '../../interfaces/request-dto';
 import {RequestStatusDto} from '../../interfaces/request-status-dto';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-get-item-request-with-needy-details',
@@ -27,15 +28,18 @@ export class GetItemRequestWithNeedyDetailsComponent {
   totalRecords: number = 0;
   pageNo: number = 0;
   pageSize: number = 10;
-  itemId: number=10;
+  itemId!: number;
   loading: boolean = false;
   requestStatus:String = "";
   num: number = 0;
   currentPage: number = 1; // Current page number
-  constructor(private volunteerService: VolunteerService) {}
+  constructor(private route: ActivatedRoute,private volunteerService: VolunteerService) {}
 
   ngOnInit(): void {
-    this.loadRequests();
+    this.route.params.subscribe((params) => {
+      this.itemId = +params['id']; // Convert 'id' to a number
+      this.loadRequests();
+    });
   }
 
   loadRequests(): void {
