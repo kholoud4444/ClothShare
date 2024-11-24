@@ -1,4 +1,4 @@
-<div class="volunteer-table">
+<div class="needy-table">
   <p-table
     [value]="users"
     [paginator]="true"
@@ -20,16 +20,16 @@
         <th>الاسم </th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-volunteer>
+    <ng-template pTemplate="body" let-needy>
       <tr>
 
-        <td>{{ volunteer.gender }}</td>
-        <td>{{ volunteer.birthDate }}</td>
-        <td>{{ volunteer.location }}</td>
-        <td>{{ volunteer.email }}</td>
-        <td>{{ volunteer.nationalId }}</td>
-        <td>{{ volunteer.phone }}</td>
-        <td>{{ volunteer.firstName }} {{ volunteer.lastName }}</td>
+        <td>{{ needy.gender }}</td>
+        <td>{{ needy.birthDate }}</td>
+        <td>{{ needy.location }}</td>
+        <td>{{ needy.email }}</td>
+        <td>{{ needy.nationalId }}</td>
+        <td>{{ needy.phone }}</td>
+        <td>{{ needy.firstName }} {{ needy.lastName }}</td>
 
 
       </tr>

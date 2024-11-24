@@ -19,7 +19,7 @@ export class AdminService {
     return this.http.put<string>(`admin/changeItemStatus/${id}`, updatedItem);
   }
 
-  public getAllVolunteer(role: string ,pageNo: number, pageSize: number): Observable<userResponseDetails> {
+  public getAllUsersByRole(role: string ,pageNo: number, pageSize: number): Observable<userResponseDetails> {
     // const params = new HttpParams().set('pageNo',pageNo ).set('pageSize',pageSize);
 
     return this.http.get<userResponseDetails>(`user/getAllByRole/${role}`,{params:{pageNo:pageNo, pageSize:pageSize}});

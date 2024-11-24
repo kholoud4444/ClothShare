@@ -1,22 +1,21 @@
-import {Component, inject, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
+import {PrimeTemplate} from 'primeng/api';
 import {TableModule} from 'primeng/table';
-
+import {UserInterface} from '../../interfaces/user-interface';
 import {AdminService} from '../../../services/admin.service';
-import {UserInterface, userResponseDetails} from '../../interfaces/user-interface';
-
-
 
 @Component({
-  selector: 'app-volunteer',
+  selector: 'app-needy',
   standalone: true,
   imports: [
+    PrimeTemplate,
     TableModule
   ],
-  templateUrl: './volunteer.component.html',
-  styleUrl: './volunteer.component.scss'
+  templateUrl: './needy.component.html',
+  styleUrl: './needy.component.scss'
 })
+export class NeedyComponent {
 
-export class VolunteerComponent implements OnInit {
   users: UserInterface[] = [];
   totalRecords: number = 0;
   pageNo: number = 0;
@@ -27,13 +26,13 @@ export class VolunteerComponent implements OnInit {
   constructor(private userService: AdminService) {}
 
   ngOnInit() {
-    this.getAllVolunteer();
+    this.getAllNeedy();
   }
 
-  getAllVolunteer() {
+  getAllNeedy() {
     this.loading = true;
-    console.log('Fetching volunteers...');
-    this.userService.getAllUsersByRole('volunteer', this.pageNo, this.pageSize).subscribe({
+    console.log('Fetching Needy...');
+    this.userService.getAllUsersByRole('needy', this.pageNo, this.pageSize).subscribe({
       next: (response) => {
         console.log('Response:', response);  // Check if the response structure matches
         this.users = response.content;
@@ -50,9 +49,8 @@ export class VolunteerComponent implements OnInit {
   onPageChange(event: any) {
     this.pageNo = event.first / event.rows;  // Correcting calculation
     this.pageSize = event.rows;
-    this.getAllVolunteer();
+    this.getAllNeedy();
   }
 
 
 }
-// git

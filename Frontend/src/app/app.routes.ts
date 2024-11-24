@@ -17,6 +17,7 @@ import {
   VolunteerItemsDetailsComponent
 } from './components/volunteer/volunteer-items-details/volunteer-items-details.component';
 import {VolunteerComponent} from './components/admin/volunteer/volunteer.component';
+import {NeedyComponent} from './components/admin/needy/needy.component';
 
 export const routes: Routes = [
   {path: "login", component:LoginComponent},
@@ -27,6 +28,7 @@ export const routes: Routes = [
   {path:"allItemByVolunteer",component:VolunteerItemsDetailsComponent},
   {path:"allItemRequestByNeedy",component:GetItemRequestWithNeedyDetailsComponent},
   {path: 'allVolunteer', component:VolunteerComponent },
+  {path:'AllNeedy',component:NeedyComponent},
 
 
 
