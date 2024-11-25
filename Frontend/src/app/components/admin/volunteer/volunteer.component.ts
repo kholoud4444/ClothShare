@@ -7,7 +7,7 @@ import {UserInterface, userResponseDetails} from '../../interfaces/user-interfac
 
 
 @Component({
-  selector: 'app-volunteer',
+  selector: '-app-volunteer',
   standalone: true,
   imports: [
     TableModule

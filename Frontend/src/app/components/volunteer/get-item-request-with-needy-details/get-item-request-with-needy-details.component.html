@@ -23,18 +23,19 @@
         >
           <td>
             <p-button
+              icon="pi pi-times"
+              styleClass="p-button-rounded p-button-danger mx-1"
+              label="رفض"
+              (click)="refuseRequest(request.requestId)"
+            ></p-button>
+            <p-button
               icon="pi pi-check"
               styleClass="p-button-rounded p-button-success mx-1"
               label="قبول"
               (click)="acceptRequest(request.requestId)"
             ></p-button>
 
-            <p-button
-              icon="pi pi-times"
-              styleClass="p-button-rounded p-button-danger mx-1"
-              label="رفض"
-              (click)="refuseRequest(request.requestId)"
-            ></p-button>
+
           </td>
           <td>{{ request.requestStatus }}</td>
           <td>{{ request.reason }}</td>

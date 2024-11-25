@@ -20,3 +20,21 @@ $base-padding: 15px;
     line-height: 1.5;
   }
 //}
+
+
+/* Apply styles to make the footer stick at the bottom */
+html, body {
+  height: 100%; /* Ensure full height for the viewport */
+  margin: 0;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the layout takes full screen height */
+}
+
+.content {
+  flex: 1; /* Push the footer to the bottom */
+  height: 70vh; /* Optional: To match your desired router-outlet height */
+}

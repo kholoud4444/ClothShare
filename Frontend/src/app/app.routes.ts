@@ -6,12 +6,14 @@ import {AdminGuard} from './gaurds/admin.guard';
 import {NeedyGuard} from './gaurds/needy.guard';
 import {VolunteerGuard} from './gaurds/volunteer.guard';
 import {PageNotFoundComponent} from './components/Shared/page-not-found/page-not-found.component';
+import {ContactUsComponent} from './components/Shared/contact-us/contact-us.component';
 
 export const routes: Routes = [
   {path: "login", component:LoginComponent},
   {path:"",redirectTo:"/home",pathMatch:"full"},
   {path: "register" , component:RegisterComponent},
   {path: "home" , component:HomeComponent},
+  {path:"contactus" , component:ContactUsComponent},
 
   {
     path: 'admin',

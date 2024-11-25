@@ -35,7 +35,7 @@
 
           <!-- Gender Suitability -->
           <div class="form-group">
-            <label for="genderSuitability" class="text-end">الملائمة الجنسية</label>
+            <label for="genderSuitability" class="text-end">جنس الملبس</label>
             <select id="genderSuitability" class="form-control" formControlName="genderSuitability" name="genderSuitability" required>
               <option *ngFor="let gender of GenderSuitability | keyvalue" [value]="gender.value">{{ gender.value }}</option>
             </select>
