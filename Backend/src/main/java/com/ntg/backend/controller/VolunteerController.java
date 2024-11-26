@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/volunteer")
+@CrossOrigin("http://localhost:4200")
 public class VolunteerController {
 
     private final VolunteerServiceImp volunteerServiceImp;

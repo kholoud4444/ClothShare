@@ -7,6 +7,8 @@ import {NeedyGuard} from './gaurds/needy.guard';
 import {VolunteerGuard} from './gaurds/volunteer.guard';
 import {PageNotFoundComponent} from './components/Shared/page-not-found/page-not-found.component';
 import {ContactUsComponent} from './components/Shared/contact-us/contact-us.component';
+import {VerifyEmailComponent} from './components/auth/verify-email/verify-email.component';
+import {ForgetPasswordComponent} from './components/auth/forget-password/forget-password.component';
 
 export const routes: Routes = [
   {path: "login", component:LoginComponent},
@@ -14,6 +16,8 @@ export const routes: Routes = [
   {path: "register" , component:RegisterComponent},
   {path: "home" , component:HomeComponent},
   {path:"contactus" , component:ContactUsComponent},
+  {path:"verifyEmail",component:VerifyEmailComponent},
+  {path:"forgetPassword", component:ForgetPasswordComponent},
 
   {
     path: 'admin',

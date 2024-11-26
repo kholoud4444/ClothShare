@@ -12,6 +12,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/needy")
+@CrossOrigin("http://localhost:4200")
+
 public class NeedyController {
 
     private final NeedyServiceImp needyServiceImp;

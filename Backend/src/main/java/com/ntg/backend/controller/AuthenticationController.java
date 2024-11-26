@@ -1,9 +1,7 @@
 package com.ntg.backend.controller;
 
 
-import com.ntg.backend.dto.requestDto.AuthenticationRequestBody;
-import com.ntg.backend.dto.requestDto.MessageDto;
-import com.ntg.backend.dto.requestDto.RegisterDto;
+import com.ntg.backend.dto.requestDto.*;
 import com.ntg.backend.dto.responseDto.AuthenticationResponseBody;
 import com.ntg.backend.entity.User;
 import com.ntg.backend.service.imp.AuthenticationService;
@@ -16,6 +14,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/authentication")
+@CrossOrigin("http://localhost:4200")
+
 public class AuthenticationController {
     private final AuthenticationService authenticationUserService;
 
@@ -35,19 +35,19 @@ public class AuthenticationController {
     }
 
     @PutMapping("/validateEmailVerificationToken")
-    public  ResponseEntity<MessageDto<String>> verifyEmail(@RequestParam String token, @RequestParam String email) {
-        authenticationUserService.validateEmailVerificationToken(token,email);
+    public  ResponseEntity<MessageDto<String>> verifyEmail(@RequestBody VerifyDto verifyDto) {
+        authenticationUserService.validateEmailVerificationToken(verifyDto);
         return new ResponseEntity<>(new MessageDto<>("Email verified successfully", null), HttpStatus.OK);
     }
 
-    @PostMapping("/sendEmailVerificationToken")
-    public ResponseEntity<MessageDto<String>>  sendEmailVerificationToken(@RequestParam String email) {
+    @PutMapping("/sendEmailVerificationToken")
+    public ResponseEntity<MessageDto<String>>  sendEmailVerificationToken(@RequestBody String email) {
         authenticationUserService.sendEmailVerificationToken(email);
         return new ResponseEntity<>(new MessageDto<>("Email verification token sent successfully", null), HttpStatus.OK);
     }
 
     @PutMapping("/sendPasswordResetToken")
-    public  ResponseEntity<MessageDto<String>> sendPasswordResetToken(@RequestParam String email) {
+    public  ResponseEntity<MessageDto<String>> sendPasswordResetToken(@RequestBody String email) {
         authenticationUserService.sendPasswordResetToken(email);
         return new ResponseEntity<>(new MessageDto<>("Password reset token sent successfully.", null), HttpStatus.OK);
     }
@@ -56,6 +56,13 @@ public class AuthenticationController {
     public ResponseEntity<MessageDto<String>> resetPassword(@RequestParam String newPassword, @RequestParam String token, @RequestParam String email) {
         authenticationUserService.resetPassword(email, newPassword, token);
         return new ResponseEntity<>(new MessageDto<>("Password Reset Successfully", null), HttpStatus.OK);
+
+    }
+    @PutMapping("/verifyResetTokenPassword")
+    public ResponseEntity<MessageDto<String>> verifyResetTokenPassword
+            (@RequestBody verifyResetPasswordCode verifyResetPasswordCode) {
+        authenticationUserService.verifyResetTokenPassword(verifyResetPasswordCode);
+        return new ResponseEntity<>(new MessageDto<>("Otp Successfully", null), HttpStatus.OK);
 
     }
 }
