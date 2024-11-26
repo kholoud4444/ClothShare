@@ -1,14 +1,42 @@
-<div
-  class="header-background"
-  [ngStyle]="{
-    'background-image': 'url(' + images[currentImageIndex] + ')',
-    'background-size': 'cover',
-    'background-position': 'center',
-    'background-repeat': 'no-repeat'
-  }"
->
-  <div class="header-content">
-    <!-- Your header content, like logo, navigation, etc. -->
-    <h1>مرحبا بك في عالم الخير</h1>
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <ol class="carousel-indicators">
+    <li
+      *ngFor="let _ of images; let i = index"
+      [class.active]="i === currentSlide"
+      (click)="goToSlide(i)"
+      data-bs-target="#carouselExampleIndicators"
+      [attr.data-bs-slide-to]="i"
+    ></li>
+  </ol>
+  <div class="carousel-inner">
+    <div
+      *ngFor="let image of images; let i = index"
+      class="carousel-item"
+      [class.active]="i === currentSlide"
+    >
+      <img [src]="image.src" class="d-block w-100" [alt]="image.alt" />
+      <div class="carousel-caption text-center">
+        <h2 class="carousel-label">{{ image.label }}</h2>
+        <h3 class="carousel-description">{{ image.description }}</h3>
+      </div>
+    </div>
   </div>
+  <a
+    class="carousel-control-prev"
+    href="#carouselExampleIndicators"
+    role="button"
+    data-bs-slide="prev"
+    (click)="prevSlide()"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  </a>
+  <a
+    class="carousel-control-next"
+    href="#carouselExampleIndicators"
+    role="button"
+    data-bs-slide="next"
+    (click)="nextSlide()"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </a>
 </div>

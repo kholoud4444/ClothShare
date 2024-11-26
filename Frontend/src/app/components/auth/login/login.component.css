@@ -6,7 +6,7 @@ body, html {
 }
 
 .bg-container {
-  background-image: url("/assets/images/bg2.jpg");
+  /*background-image: url("/assets/images/sbk3.jpg");*/
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -14,14 +14,16 @@ body, html {
   justify-content: center;
   align-items: center;
   padding: 20px; /* لإضافة مساحة على الأجهزة الصغيرة */
+
 }
 
 .card {
   border-radius: 16px;
   backdrop-filter: blur(8px); /* تأثير تمويه للخلفية */
-  background: rgba(255, 255, 255, 0.85); /* خلفية شفافة للكارد */
+  /*background: #C7EAF6 ;*/
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* تحسين الظل */
   transition: transform 0.2s, box-shadow 0.2s; /* تأثير عند التمرير */
+
 }
 
 /* إضافة تأثير عند تمرير الماوس على الكارد */

@@ -1,38 +1,47 @@
-.header-background {
+.carousel-item {
+  height: 92vh; /* Maintain the height you want */
+  object-fit: cover;
+  opacity: 0; /* Start with invisible */
+  transition: opacity 0.1s ease-in-out; /* Smooth fade-in effect */
+}
+
+.carousel-item.active {
+  opacity: 1; /* Make it visible when active */
+}
+
+.carousel-inner {
   position: relative;
-  height: 100vh; // Full viewport height
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: inherit;
-    background-size: inherit;
-    background-position: inherit;
-   filter: blur(2px);
-  }
-  .header-content {
-    //position: relative;
-    color: #17222d;
-    text-align: center;
-    z-index: 2; // Keep text above blurred background
-  }
-  h1 ,p {
-    background-color: #fafafa;
-    width:400px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    border-radius: 6px;
-    opacity: 0.8;
+}
 
+.carousel-caption {
+  position: absolute;
+  //top: 20; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  //right:50px;
+  bottom:160px;
+  transform: translate(-50%, -50%); /* Adjust for exact centering */
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5); /* Optional: Add a semi-transparent background */
+  padding: 20px;
+  border-radius: 10px; /* Optional: Add rounded corners */
+}
 
-  }
+.carousel-label {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff; /* White text */
+  margin-bottom: 10px;
+}
+
+.carousel-description {
+  font-size: 1.2rem;
+  color: #ffffff; /* White text */
+}
+
+.carousel-indicators li {
+  background-color: rgba(0, 0, 0, 0.5); /* Add a background to indicators */
+}
+
+.carousel-indicators .active {
+  background-color: #fff; /* Active indicator color */
 }

@@ -15,6 +15,7 @@
     <div [ngClass]="{'collapse': isNavbarCollapsed, 'navbar-collapse': true}" id="navbarNav">
       <a *ngIf="userRole==null" class="nav-link text-white" routerLink="/login" routerLinkActive="active">تسجيل الدخول</a>
       <a *ngIf="userRole!=null" class="nav-link text-white" routerLink="/login" routerLinkActive="active" (click)="logout()">تسجيل خروج</a>
+
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-end">
         <!-- Admin Dropdown -->
         <li *ngIf="userRole === 'admin'" class="nav-item dropdown">
@@ -36,7 +37,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="NeedyDropdown">
             <li><a class="dropdown-item" routerLink="/needy/products">المنتجات</a></li>
-            <li><a class="dropdown-item" routerLink="/needy"> طلباتى</a></li>
+            <li><a class="dropdown-item" routerLink="/needy">طلباتى</a></li>
           </ul>
         </li>
 

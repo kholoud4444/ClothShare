@@ -48,6 +48,8 @@ export class VolunteerItemsDetailsComponent implements OnInit {
 
   form: FormGroup ;// Current page number
 
+  filterForm: FormGroup;
+
 
   constructor(private volunteerService: VolunteerService, private itemService: ItemService,
               private fb: FormBuilder,private authService: AuthService) {
@@ -58,6 +60,10 @@ export class VolunteerItemsDetailsComponent implements OnInit {
       genderSuitability: ['', Validators.required],
       description: ['', Validators.required],
       itemId:['',Validators.required],
+    });
+    this.filterForm = this.fb.group({
+      status: [''],
+      genderSuitability: ['']
     });
   }
 
@@ -71,7 +77,7 @@ export class VolunteerItemsDetailsComponent implements OnInit {
   // Method to fetch items with pagination
   getItems(): void {
     this.loading = true;
-    this.volunteerService.getAllItemDetailsByVolunteerId(this.authService.getUserId(), this.pageNo, this.pageSize).subscribe({
+    this.volunteerService.getAllItemDetailsByVolunteerId(this.authService.getUserId(), this.pageNo, this.pageSize, this.filterForm).subscribe({
       next: (response) => {
         this.items = response.content;
         this.totalRecords = response.totalElements;

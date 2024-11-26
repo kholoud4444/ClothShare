@@ -10,13 +10,16 @@ $secondary-color: #ecf0f1; // Light background for content
 $success-color: #28a745;
 $danger-color: #dc3545;
 $text-color: #fff;
+$logo_dark_color:#001F3F;
+$logo_light_color:#C7EAF6;
+
 
 
 body {
   margin:0;
   padding:0;
   font-family: $font-family;
-  background-color: #fafafa;
+  background-color: rgb(248 249 250);
 
 
   // Example of nesting
