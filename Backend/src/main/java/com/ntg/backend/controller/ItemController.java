@@ -26,6 +26,8 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/item")
+@CrossOrigin("http://localhost:4200")
+
 public class ItemController {
 
     private final ItemServiceImp itemServiceImp;

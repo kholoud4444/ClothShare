@@ -1,0 +1,23 @@
+<div class="center-container">
+  <!-- Input field for OTP -->
+<div class="myForm">
+  <h4>Enter OTP Code</h4>
+  <p>We send an otp code to your email</p>
+<!--  <p-floatLabel>-->
+<!--    <input pInputText id="OTP" [(ngModel)]="otp" placeholder="Enter OTP" />-->
+<!--&lt;!&ndash;    <label for="OTP">OTP</label>&ndash;&gt;-->
+<!--  </p-floatLabel>-->
+  <p-inputOtp [(ngModel)]="otp" />
+
+  <!-- Button to send the verification code to the email -->
+  <button pButton type="button" label="Send Verification Code" (click)="sendVerificationCode()" class="send-button"></button>
+
+  <!-- Button to verify email after OTP is entered -->
+  <button pButton type="button" label="Verify Your Mail" (click)="verifyEmail()" class="verify-button"></button>
+  <p *ngIf="message" [ngClass]="messageClass" class="verification-message">{{ message }}</p>
+</div>
+
+
+  <!-- Display message (success or error) -->
+
+</div>

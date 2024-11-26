@@ -7,7 +7,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // Injecting AuthService and Router using Angular DI system
   const authService = new AuthService(); // Make sure to inject using DI
   const jwtHelper = new JwtHelperService();
-  const token = authService.getToken();// Fetch token from localStorage
+  const token = localStorage.getItem('authToken');// Fetch token from localStorage
   // Get the JWT token from the service3
 
   if (token && !jwtHelper.isTokenExpired(token)) {

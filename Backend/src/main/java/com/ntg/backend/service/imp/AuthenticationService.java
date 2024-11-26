@@ -3,7 +3,10 @@ package com.ntg.backend.service.imp;
 import com.ntg.backend.Mapper.UserMapper;
 import com.ntg.backend.dto.requestDto.AuthenticationRequestBody;
 import com.ntg.backend.dto.requestDto.RegisterDto;
+import com.ntg.backend.dto.requestDto.VerifyDto;
+import com.ntg.backend.dto.requestDto.verifyResetPasswordCode;
 import com.ntg.backend.dto.responseDto.AuthenticationResponseBody;
+import com.ntg.backend.dto.responseDto.ResponseMessage;
 import com.ntg.backend.entity.User;
 import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.jwt.JwtService;
@@ -21,7 +24,7 @@ public class AuthenticationService {
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
     private final UserRepo userRepository;
     private final UserMapper userMapper; // Repository for Volunteer
-    private final int durationInMinutes = 1;
+    private final int durationInMinutes = 5;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtService jwtService;
     private final EmailService emailService;
@@ -37,8 +40,8 @@ public class AuthenticationService {
     // Helper method to generate a verification token
     private static String generateVerificationToken() {
         SecureRandom random = new SecureRandom();
-        StringBuilder token = new StringBuilder(5);
-        for (int i = 0; i < 5; i++) {
+        StringBuilder token = new StringBuilder(4);
+        for (int i = 0; i < 4; i++) {
             token.append(random.nextInt(10)); // Appending random digit from 0 to 9
         }
         return token.toString();
@@ -63,15 +66,30 @@ public class AuthenticationService {
     }
 
     // Validate email verification token
-    public void validateEmailVerificationToken(String token, String email) {
-        User user = userRepository.findByEmail(email);
-        if (user != null && bCryptPasswordEncoder.matches(token, user.getEmailVerificationToken())
+    public void validateEmailVerificationToken(VerifyDto verifyDto) {
+        User user = userRepository.findByEmail(verifyDto.getEmail());
+
+        // Check if the user was found
+        if(user == null){
+          throw new ResourceNotFoundException("Email Not Found ");
+        }
+
+        // This will throw a null pointer exception if user is null
+        System.out.println("email----->" + user.getEmail());
+
+        // Check if user is null again and throw exception
+        if (user == null) {
+            throw new ResourceNotFoundException("Email Not Found");
+        }
+
+        // If user is found and OTP matches and token has not expired
+        if (user != null && bCryptPasswordEncoder.matches(verifyDto.getOtp(), user.getEmailVerificationToken())
                 && !user.getEmailVerificationTokenExpiryDate().isBefore(LocalDateTime.now())) {
             user.setEmailVerified(true);
             user.setEmailVerificationToken(null);
             user.setEmailVerificationTokenExpiryDate(null);
             userRepository.save(user);
-        } else if (user != null && bCryptPasswordEncoder.matches(token, user.getEmailVerificationToken())
+        } else if (user != null && bCryptPasswordEncoder.matches(verifyDto.getOtp(), user.getEmailVerificationToken())
                 && user.getEmailVerificationTokenExpiryDate().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Email verification token expired.");
         } else {
@@ -156,6 +174,19 @@ public class AuthenticationService {
             throw new IllegalArgumentException("Password reset token expired.");
         } else {
             throw new IllegalArgumentException("Password reset token failed.");
+        }
+    }
+    public void verifyResetTokenPassword(verifyResetPasswordCode verifyResetPasswordCode) {
+        User user = userRepository.findByEmail(verifyResetPasswordCode.getEmail());
+        System.out.println();
+
+        if ( !bCryptPasswordEncoder.matches(verifyResetPasswordCode.getResetPasswordCode(), user.getPasswordResetToken()))
+        {
+            throw new IllegalArgumentException("Invalid reset password code.");
+
+        }
+         if ( user.getPasswordResetTokenExpiryDate().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Password reset token expired.");
         }
     }
 }
