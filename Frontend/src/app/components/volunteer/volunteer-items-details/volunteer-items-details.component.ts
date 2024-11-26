@@ -18,6 +18,7 @@ import {
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
 import {RouterLink, RouterLinkActive} from '@angular/router';
+import {ImageModule} from 'primeng/image';
 
 @Component({
   selector: 'app-volunteer-items-details',
@@ -32,7 +33,8 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
     KeyValuePipe,
     ReactiveFormsModule,
     RouterLinkActive,
-    RouterLink
+    RouterLink,
+    ImageModule
   ],
   templateUrl: './volunteer-items-details.component.html',
   styleUrl: './volunteer-items-details.component.scss'

@@ -12,18 +12,16 @@ export class RequestService {
   public getAllRequests(needyId: number, page: number, size: number): Observable<{ content: Array<Request>, totalElements: number }> {
     return this.http
       .get<{ content: Array<Request>, totalElements: number }>(
-        `needy/RequestsWithItemDetails/${needyId}?pageNo=${page}&pageSize=${size}`
+        `http://localhost:8080/needy/RequestsWithItemDetails/${needyId}?pageNo=${page}&pageSize=${size}`
       );
   }
-  public addrequest(request: Request):Observable<Request>{
-    return this.http.post<Request>("/api/registration",request);
-  }
+
   public deleteRequestById(requestId: number): Observable<string> {
-    return this.http.delete(`request/${requestId}`, { responseType: 'text' });
+    return this.http.delete(`http://localhost:8080/request/${requestId}`, { responseType: 'text' });
   }
   getPhoto(fileName: string): Observable<string> {
     return this.http
-      .get(`item/getPhoto/${fileName}`, { responseType: 'blob' })
+      .get(`http://localhost:8080/item/getPhoto/${fileName}`, { responseType: 'blob' })
       .pipe(
         map((blob) => URL.createObjectURL(blob)) // Convert Blob to object URL
       );

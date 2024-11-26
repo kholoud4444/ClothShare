@@ -7,7 +7,7 @@ import {UserInterface, userResponseDetails} from '../../interfaces/user-interfac
 
 
 @Component({
-  selector: '-app-volunteer',
+  selector: 'app-volunteer',
   standalone: true,
   imports: [
     TableModule
@@ -22,7 +22,7 @@ export class VolunteerComponent implements OnInit {
   pageNo: number = 0;
   pageSize: number = 5;
   loading: boolean = false;
-  you: number=0;
+
 
   constructor(private userService: AdminService) {}
 

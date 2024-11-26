@@ -6,6 +6,7 @@ import {ItemComponent} from '../Shared/item/item.component';
 import {
   GetItemRequestWithNeedyDetailsComponent
 } from './get-item-request-with-needy-details/get-item-request-with-needy-details.component';
+import {ProfileComponent} from '../Shared/profile/profile.component';
 
 
 
@@ -15,6 +16,7 @@ export const volunteerRoutes: Routes = [
    {path:"products" , component:ProductsComponent},
   {path:"item/:id" , component:ItemComponent},
   {path:"request/:id" , component:GetItemRequestWithNeedyDetailsComponent},
+  {path:"profile" , component:ProfileComponent},
 
 
 ];

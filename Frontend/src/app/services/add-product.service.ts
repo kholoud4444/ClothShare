@@ -18,10 +18,10 @@ export class AddProductService {
     formData.append('image', image, image.name);
 
     // Post the form data to the backend
-    return this.http.post<MessageDto<ImageUrl>>("/item/uploadImage", formData);
+    return this.http.post<MessageDto<ImageUrl>>("http://localhost:8080/item/uploadImage", formData);
   }
   public createItem(itemDto: ItemDto): Observable<ItemDto> {
-    return this.http.post<ItemDto>("/item/createItem", itemDto);
+    return this.http.post<ItemDto>("http://localhost:8080/item/createItem", itemDto);
   }
 }
 

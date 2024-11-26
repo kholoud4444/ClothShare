@@ -87,6 +87,7 @@ public class UserServiceImp implements UserService {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
         userMapper.updateUserDtoToEntity(userResponseDetails, user);
+        User savedUser = userRepository.save(user);
 
         UserResponseDetails savedUserResponseDetails = new UserResponseDetails();
         userMapper.mapToUserDto(user, savedUserResponseDetails);

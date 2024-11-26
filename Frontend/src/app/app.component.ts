@@ -11,10 +11,10 @@ import {ItemComponent} from './components/Shared/item/item.component';
 import {ProductsComponent} from './components/Shared/products/products.component';
 import {NeedyHistoryComponent} from './components/needy/needy-history/needy-history.component';
 import {HomeAdminComponent} from './components/admin/home/home-admin.component';
-import {VolunteerComponent} from './components/admin/volunteer/volunteer.component';
 import {
   VolunteerItemsDetailsComponent
 } from './components/volunteer/volunteer-items-details/volunteer-items-details.component';
+import {VolunteerComponent} from './components/admin/volunteer/volunteer.component';
 
 
 

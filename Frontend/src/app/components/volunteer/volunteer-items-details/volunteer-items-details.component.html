@@ -125,15 +125,16 @@
       {{ item.size }}
     </td>
     <td>
-      <img
-        *ngIf="item.imageUrl"
-        [ngSrc]="item.imageUrl"
-        alt="{{ item.type || 'لا توجد صورة' }}"
-        width="100"
-        height="100"
-        class="shadow-4"
-        loading="lazy"
-      />
+      <p-image *ngIf="item.imageUrl" [src]="item.imageUrl" [preview]="true"
+
+
+               alt="{{ item.type || 'لا توجد صورة' }}"
+               width="100"
+               height="100"
+               class="shadow-4"
+               loading="lazy">
+
+      </p-image>
     </td>
     <td>
       <p>{{ item.state }}</p>

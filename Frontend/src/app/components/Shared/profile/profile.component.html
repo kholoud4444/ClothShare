@@ -1,0 +1,74 @@
+<div class="profile-container" dir="rtl">
+  <p-card class="profile-card">
+    <ng-container *ngIf="!isEditing; else editMode">
+      <div class="profile-header">
+        <img
+          [src]="'./assets/images/unKnown.jpg'"
+          alt="Profile Image"
+          class="profile-img"
+        />
+        <div class="profile-actions">
+          <p-button
+            label="تعديل"
+            icon="pi pi-pencil"
+            (click)="toggleEditMode()"
+            class="p-button-primary"
+            [style]="{ 'background-color': '#2c3e50', 'border-color': '#2c3e50', color: '#ffffff' }"
+          ></p-button>
+          <p-button
+            label="حذف"
+            icon="pi pi-trash"
+            (click)="deleteUser()"
+            class="p-button-danger"
+            [style]="{ 'background-color': '#2c3e50', 'border-color': '#2c3e50', color: '#ffffff' }"
+          ></p-button>
+        </div>
+      </div>
+
+      <div class="profile-details">
+        <p><strong>الاسم:</strong> {{ user?.firstName }}</p>
+        <p><strong>الاسم الاخير:</strong> {{ user?.lastName }}</p>
+        <p><strong>محل السكن:</strong> {{ user?.location }}</p>
+        <p><strong>الهاتف:</strong> {{ user?.phone }}</p>
+        <p><strong>البريد الإلكتروني:</strong> {{ user?.email }}</p>
+        <p><strong>الرقم القومي:</strong> {{ user?.nationalId }}</p>
+        <p><strong>الدور:</strong> {{ user?.role }}</p>
+
+
+      </div>
+    </ng-container>
+
+    <ng-template #editMode>
+      <div class="edit-details">
+        <div class="p-fluid">
+          <div class="p-field">
+            <label for="firstName">الاسم الاول</label>
+            <input id="firstName" type="text" pInputText [(ngModel)]="editProfileForm.firstName" />
+          </div>
+          <div class="p-field">
+            <label for="lastName">الاسم الاخير</label>
+            <input id="lastName" type="text" pInputText [(ngModel)]="editProfileForm.lastName" />
+          </div>
+          <div class="p-field">
+            <label for="location"> محل السكن</label>
+            <input id="location" type="text" pInputText [(ngModel)]="editProfileForm.location" />
+          </div>
+          <div class="p-field">
+            <label for="phone">الهاتف</label>
+            <input id="phone" type="text" pInputText [(ngModel)]="editProfileForm.phone" />
+
+          </div>
+
+
+        </div>
+
+        <div class="action-buttons">
+          <p-button label="حفظ" icon="pi pi-check" (click)="saveChanges()" class="p-button-success"
+                    [style]="{ 'background-color': '#2c3e50', 'border-color': '#2c3e50', color: '#ffffff' }"></p-button>
+          <p-button label="إلغاء" icon="pi pi-times" (click)="cancelEdit()" class="p-button-secondary"
+                    [style]="{ 'background-color': '#2c3e50', 'border-color': '#2c3e50', color: '#ffffff' }"></p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-card>
+</div>

@@ -28,22 +28,22 @@ export class ItemService {
   // Fetch all items
   getAllItems(pageNo: number, pageSize: number): Observable<PageDto<ItemDtoForProduct>> {
 
-    return this.http.get<PageDto<ItemDtoForProduct>>(`item/all`, {params: {pageNo: pageNo, pageSize: pageSize}})
+    return this.http.get<PageDto<ItemDtoForProduct>>(`http://localhost:8080/item/all`, {params: {pageNo: pageNo, pageSize: pageSize}})
   }
   getPhoto(fileName: string): Observable<string> {
     return this.http
-      .get(`item/getPhoto/${fileName}`, { responseType: 'blob' })
+      .get(`http://localhost:8080/item/getPhoto/${fileName}`, { responseType: 'blob' })
       .pipe(
         map((blob) => URL.createObjectURL(blob)) // Convert Blob to object URL
       );
   }
   getItemById(id: number) {
 
-    return this.http.get<ItemDtoForProduct>(`item/${id}`)
+    return this.http.get<ItemDtoForProduct>(`http://localhost:8080/item/${id}`)
   }
   CreateRequest(request: CreateRequest): Observable<CreateRequest> {
 
-    return this.http.post<CreateRequest>(`request`,request);
+    return this.http.post<CreateRequest>(`http://localhost:8080/request`,request);
   }
 }
 
