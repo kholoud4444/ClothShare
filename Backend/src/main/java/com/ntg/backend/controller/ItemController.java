@@ -5,6 +5,7 @@ import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.dto.requestDto.MessageDto;
 import com.ntg.backend.dto.responseDto.ImageUrl;
 import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
+import com.ntg.backend.entity.Item;
 import com.ntg.backend.exception.ResourceNotFoundException;
 import com.ntg.backend.service.imp.ItemServiceImp;
 import org.springframework.core.io.Resource;
@@ -22,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -126,6 +128,29 @@ public class ItemController {
     {
         ItemDto updatedItemDto = itemServiceImp.updateItem(itemDto,id);
         return new ResponseEntity<>(updatedItemDto,HttpStatus.OK);
+    }
+    @GetMapping("/getFilteredItems")
+    public ResponseEntity<PageDto<ItemDto>> getFilteredItems(
+            @RequestParam(value = "type", required = false) Optional<Item.ClothingType> type,
+            @RequestParam(value = "size", required = false) Optional<Item.ClothingSize> size,
+            @RequestParam(value = "state", required = false) Optional<Item.ItemState> state,
+            @RequestParam(value = "genderSuitability", required = false) Optional<Item.GenderSuitability> genderSuitability,
+            @RequestParam(value = "status", required = false) Optional<Item.ItemStatus> status, // Added status filter
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        // Log incoming parameters for debugging
+        System.out.println("Received filter parameters:");
+        type.ifPresent(t -> System.out.println("Type: " + t));
+        size.ifPresent(s -> System.out.println("Size: " + s));
+        state.ifPresent(s -> System.out.println("State: " + s));
+        genderSuitability.ifPresent(g -> System.out.println("GenderSuitability: " + g));
+        status.ifPresent(s -> System.out.println("Status: " + s)); // Log status filter
+
+        PageDto<ItemDto> items = itemServiceImp.getAllItemsByFilters(
+                type, size, state, genderSuitability, status, pageNo, pageSize
+        );
+        return ResponseEntity.ok(items);
     }
 
 

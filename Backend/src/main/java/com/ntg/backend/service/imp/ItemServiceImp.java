@@ -1,6 +1,8 @@
 package com.ntg.backend.service.imp;
 
 import com.ntg.backend.Mapper.ItemMapper;
+
+import com.ntg.backend.dto.ResponsePagination.ItemSpecifications;
 import com.ntg.backend.dto.ResponsePagination.PageDto;
 import com.ntg.backend.dto.requestDto.ItemDto;
 import com.ntg.backend.dto.requestDto.MessageDto;
@@ -12,7 +14,10 @@ import com.ntg.backend.service.ItemService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ItemServiceImp implements ItemService {
@@ -73,13 +78,53 @@ public class ItemServiceImp implements ItemService {
             // Update the status if different and save to database
             existingItem.setStatus(itemDto.getStatus());
             itemRepo.save(existingItem);
-            ItemDto currentItem= itemMapper.mapToItemDto(existingItem);// Save the updated item status
+            ItemDto currentItem = itemMapper.mapToItemDto(existingItem);// Save the updated item status
             String message = "Item status updated successfully to " + existingItem.getStatus();
             return new MessageDto<>(message, currentItem);
         } else {
-            ItemDto currentItem= itemMapper.mapToItemDto(existingItem);
+            ItemDto currentItem = itemMapper.mapToItemDto(existingItem);
             String message = "Item status is already " + existingItem.getStatus() + "; no changes made.";
             return new MessageDto<>(message, currentItem);
         }
     }
+
+    @Override
+    public PageDto<ItemDto> getAllItemsByFilters(
+            Optional<Item.ClothingType> type,
+            Optional<Item.ClothingSize> size,
+            Optional<Item.ItemState> state,
+            Optional<Item.GenderSuitability> genderSuitability,
+            Optional<Item.ItemStatus> status,  // Adding status filter
+            int pageNo,
+            int pageSize
+    ) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+        // Create the base specification to apply filters conditionally
+        Specification<Item> spec = Specification.where(null);
+
+        // Add each filter only if the Optional is present
+        if (type.isPresent()) {
+            spec = spec.and(ItemSpecifications.hasType(type.get()));
+        }
+        if (size.isPresent()) {
+            spec = spec.and(ItemSpecifications.hasSize(size.get()));
+        }
+        if (state.isPresent()) {
+            spec = spec.and(ItemSpecifications.hasState(state.get()));
+        }
+        if (genderSuitability.isPresent()) {
+            spec = spec.and(ItemSpecifications.hasGenderSuitability(genderSuitability.get()));
+        }
+        if (status.isPresent()) {
+            spec = spec.and(ItemSpecifications.hasStatus(status.get()));  // Add status filter
+        }
+
+        // Execute the query with the dynamically built specification
+        Page<Item> items = itemRepo.findAll(spec, pageable);
+
+        // Convert the result to DTO and return
+        return itemMapper.itemDtoPageDto(items);
+    }
 }
+
