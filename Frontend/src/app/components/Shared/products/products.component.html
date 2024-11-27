@@ -1,5 +1,41 @@
 <div class="p-4">
   <h1>منتجاتنا </h1>
+  <div class="filter-section">
+
+    <select id="type" >
+      <option value="">الكل</option>
+      <option value="قميص">قميص</option>
+      <option value="فستان">فستان</option>
+      <!-- Add other options -->
+    </select>
+    <label for="type">:التصنيف</label>
+
+    <select id="size" >
+      <option value="">الكل</option>
+      <option value="صغير">صغير</option>
+      <option value="متوسط">متوسط</option>
+
+      <!-- Add other options -->
+    </select>
+    <label for="size">:الحجم</label>
+
+    <select id="status" >
+      <option value="">الكل</option>
+      <option value="جديد">جديد</option>
+      <option value="مستعمل">مستعمل</option>
+      <!-- Add other options -->
+    </select>
+    <label for="type">:حاله الملبس</label>
+    <!-- Add more filters as needed -->
+
+    <select id="gender" >
+      <option value="">الكل</option>
+      <option value="ذكر">ذكر</option>
+      <option value="انثى">انثى</option>
+      <!-- Add other options -->
+    </select>
+    <label for="gender">:النوع</label>
+  </div>
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <!-- Angular *ngFor to loop over items -->
     <div *ngFor="let product of items; trackBy: trackByItemId" class="col-3" dir="rtl" >
