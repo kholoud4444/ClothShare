@@ -147,6 +147,7 @@ public class ItemController {
         genderSuitability.ifPresent(g -> System.out.println("GenderSuitability: " + g));
         status.ifPresent(s -> System.out.println("Status: " + s)); // Log status filter
 
+
         PageDto<ItemDto> items = itemServiceImp.getAllItemsByFilters(
                 type, size, state, genderSuitability, status, pageNo, pageSize
         );

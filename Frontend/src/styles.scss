@@ -94,3 +94,6 @@ table {
   justify-content:center;
 }
 
+.dropdown-item.active, .dropdown-item:active{
+  background-color: $primary-color !important;
+}

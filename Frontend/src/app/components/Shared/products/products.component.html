@@ -1,5 +1,31 @@
 <div class="p-4">
   <h1>منتجاتنا </h1>
+  <div class=" my-4 flex justify-content-evenly">
+    <p-dropdown
+      [options]="typies"
+      [(ngModel)]="selectedType"
+      optionLabel="name"
+      (onChange)="handleOnFilter($event)"
+      placeholder="اختر نوع الملبس" />
+    <p-dropdown
+      [options]="state"
+      [(ngModel)]="selectedState"
+      optionLabel="name"
+      (onChange)="handleOnFilter($event)"
+      placeholder="اختر حالة الملبس" />
+    <p-dropdown
+      [options]="gender"
+      [(ngModel)]="selectedGender"
+      optionLabel="name"
+      (onChange)="handleOnFilter($event)"
+      placeholder="اختر جنس الملبس" />
+    <p-dropdown
+      [options]="size"
+      [(ngModel)]="selectedSize"
+      optionLabel="name"
+      (onChange)="handleOnFilter($event)"
+      placeholder="اختر مقاس الملبس" />
+  </div>
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <!-- Angular *ngFor to loop over items -->
     <div *ngFor="let product of items; trackBy: trackByItemId" class="col-3" dir="rtl">

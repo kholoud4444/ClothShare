@@ -32,6 +32,12 @@ export class ItemService {
     });
   }
 
+  getFilteredItems(type:string,state:string,genderSuitability:string,size:string,pageNo: number, pageSize: number): Observable<PageDto<ItemDtoForProduct>> {
+    return this.http.get<PageDto<ItemDtoForProduct>>(`http://localhost:8080/item/getFilteredItems`, {
+      params: {type:type,state:state,genderSuitability:genderSuitability,size:size, pageNo: pageNo.toString(), pageSize: pageSize.toString() },
+    });
+  }
+
   // Fetch photo
   getPhoto(fileName: string): Observable<string> {
     return this.http

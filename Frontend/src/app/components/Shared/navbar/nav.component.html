@@ -4,7 +4,6 @@
     <button
       class="navbar-toggler"
       type="button"
-      (click)="toggleNavbar()"
       aria-controls="navbarNav"
       [attr.aria-expanded]="!isNavbarCollapsed"
       aria-label="التبديل"
@@ -34,8 +33,6 @@
         <a
           class="nav-link dropdown-toggle text-white"
           role="button"
-          aria-expanded="false"
-          data-bs-toggle="dropdown"
         >
           <i class="pi pi-user"></i>
         </a>
@@ -60,7 +57,7 @@
           id="ProfileDropdown"
           role="button"
           aria-expanded="false"
-          data-bs-toggle="dropdown"
+
         >
           <i class="pi pi-user"></i>
         </a>
