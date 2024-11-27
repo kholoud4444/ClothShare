@@ -1,8 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container-fluid px-4">
-    <!-- Logo -->
-
-
     <!-- Toggler Button -->
     <button
       class="navbar-toggler"
@@ -24,14 +21,64 @@
         تسجيل الدخول
       </a>
       <a
-        *ngIf="userRole != null"
-        class="btn btn-outline-light"
+        *ngIf="userRole == 'admin'"
+        class="btn btn-outline-light me-2"
         routerLink="/login"
         routerLinkActive="active"
         (click)="logout()"
       >
         تسجيل خروج
       </a>
+      <!-- Profile Icon and Dropdown -->
+      <li *ngIf="userRole=='needy'" class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle text-white"
+          role="button"
+          aria-expanded="false"
+          data-bs-toggle="dropdown"
+        >
+          <i class="pi pi-user"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="ProfileDropdown">
+          <li>
+            <a
+              class="dropdown-item"
+              routerLink="needy/profile"
+              routerLinkActive="active"
+            >
+              إعدادات الملف الشخصي
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" (click)="logout() "routerLink="/login">تسجيل الخروج</a>
+          </li>
+        </ul>
+      </li>
+      <li *ngIf="userRole=='volunteer'" class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle text-white"
+          id="ProfileDropdown"
+          role="button"
+          aria-expanded="false"
+          data-bs-toggle="dropdown"
+        >
+          <i class="pi pi-user"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="ProfileDropdown">
+          <li>
+            <a
+              class="dropdown-item"
+              routerLink="volunteer/profile"
+              routerLinkActive="active"
+            >
+              إعدادات الملف الشخصي
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" (click)="logout()">تسجيل الخروج</a>
+          </li>
+        </ul>
+      </li>
     </div>
 
     <!-- Navbar Content -->
@@ -58,7 +105,6 @@
           <ul class="dropdown-menu" aria-labelledby="NeedyDropdown">
             <li><a class="dropdown-item" routerLink="/needy/products">المنتجات</a></li>
             <li><a class="dropdown-item" routerLink="/needy">طلباتي</a></li>
-            <li><a class="dropdown-item" routerLink="/needy/profile">الملف الشخصي</a></li>
           </ul>
         </li>
 
@@ -71,7 +117,6 @@
             <li><a class="dropdown-item" routerLink="/volunteer">منتجاتي</a></li>
             <li><a class="dropdown-item" routerLink="/volunteer/addProduct">إضافة منتج</a></li>
             <li><a class="dropdown-item" routerLink="/volunteer/products">المنتجات</a></li>
-            <li><a class="dropdown-item" routerLink="/volunteer/profile">الملف الشخصي</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -81,13 +126,7 @@
         <a class="navbar-brand" routerLink="/home" routerLinkActive="active">
           <img src="/assets/images/Logo.png" alt="Logo" class="logo-img" />
         </a>
-
-        <!-- Admin Dropdown -->
-
       </ul>
-
-      <!-- Authentication Links -->
-
     </div>
   </div>
 </nav>
