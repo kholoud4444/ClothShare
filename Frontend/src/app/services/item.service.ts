@@ -27,16 +27,18 @@ export class ItemService {
 
   // Fetch all items
   getAllItems(pageNo: number, pageSize: number): Observable<PageDto<ItemDtoForProduct>> {
-
-    return this.http.get<PageDto<ItemDtoForProduct>>(`http://localhost:8080/item/all`, {params: {pageNo: pageNo, pageSize: pageSize}})
+    return this.http.get<PageDto<ItemDtoForProduct>>(`http://localhost:8080/item/all`, {
+      params: { pageNo: pageNo.toString(), pageSize: pageSize.toString() },
+    });
   }
+
+  // Fetch photo
   getPhoto(fileName: string): Observable<string> {
     return this.http
       .get(`http://localhost:8080/item/getPhoto/${fileName}`, { responseType: 'blob' })
-      .pipe(
-        map((blob) => URL.createObjectURL(blob)) // Convert Blob to object URL
-      );
+      .pipe(map((blob) => URL.createObjectURL(blob)));
   }
+
   getItemById(id: number) {
 
     return this.http.get<ItemDtoForProduct>(`http://localhost:8080/item/${id}`)

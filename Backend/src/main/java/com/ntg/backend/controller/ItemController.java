@@ -110,7 +110,7 @@ public class ItemController {
 
     @GetMapping("/all")
     public ResponseEntity<PageDto<ItemDto>> getAllItems(@RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
-                                                     @RequestParam (value = "pageSize",defaultValue = "10",required = false) int pageSize)
+                                                     @RequestParam (value = "pageSize",defaultValue = "6",required = false) int pageSize)
     {
         PageDto<ItemDto> itemsPageDto = itemServiceImp.getAllItems(pageNo, pageSize);
         return new ResponseEntity<>(itemsPageDto,HttpStatus.OK);
