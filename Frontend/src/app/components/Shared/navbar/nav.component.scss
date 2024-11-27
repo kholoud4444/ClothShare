@@ -71,12 +71,7 @@ nav {
   background-color: #001F3F;
 }
 
-/* Active link styling */
-.nav-link.active {
-  font-weight: bold;
-  color: #C7EAF6 !important;
-  border-bottom: 2px solid #C7EAF6;
-}
+
 
 /* For the navbar toggler button on small screens */
 .navbar-toggler {
@@ -87,14 +82,4 @@ nav {
   background-color: #001F3F;
 }
 
-/* Dropdown arrow indicator */
-//.nav-link.dropdown-toggle::after {
-//  content: ' ▼';
-//  font-size: 0.75rem;
-//  margin-left: 5px;
-//  color: #ffffff;
-//}
 
-.nav-link.dropdown-toggle:hover::after {
-  color: #C7EAF6;
-}
