@@ -79,7 +79,7 @@ export class VolunteerItemsDetailsComponent implements OnInit {
   // Method to fetch items with pagination
   getItems(): void {
     this.loading = true;
-    this.volunteerService.getAllItemDetailsByVolunteerId(this.authService.getUserId(), this.pageNo, this.pageSize, this.filterForm).subscribe({
+    this.volunteerService.getAllItemDetailsByVolunteerId(this.authService.getUserId(), this.pageNo, this.pageSize).subscribe({
       next: (response) => {
         this.items = response.content;
         this.totalRecords = response.totalElements;

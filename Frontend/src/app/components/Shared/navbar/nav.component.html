@@ -1,25 +1,45 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container">
-    <!-- Dropdown toggle button -->
+  <div class="container-fluid px-4">
+    <!-- Logo -->
+
+
+    <!-- Toggler Button -->
     <button
       class="navbar-toggler"
       type="button"
       (click)="toggleNavbar()"
       aria-controls="navbarNav"
       [attr.aria-expanded]="!isNavbarCollapsed"
-      aria-label="Toggle navigation"
+      aria-label="التبديل"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+    <div class="d-flex me-auto align-items-center">
+      <a
+        *ngIf="userRole == null"
+        class="btn btn-outline-light me-2"
+        routerLink="/login"
+        routerLinkActive="active"
+      >
+        تسجيل الدخول
+      </a>
+      <a
+        *ngIf="userRole != null"
+        class="btn btn-outline-light"
+        routerLink="/login"
+        routerLinkActive="active"
+        (click)="logout()"
+      >
+        تسجيل خروج
+      </a>
+    </div>
 
+    <!-- Navbar Content -->
     <div [ngClass]="{'collapse': isNavbarCollapsed, 'navbar-collapse': true}" id="navbarNav">
-      <a *ngIf="userRole==null" class="nav-link text-white" routerLink="/login" routerLinkActive="active">تسجيل الدخول</a>
-      <a *ngIf="userRole!=null" class="nav-link text-white" routerLink="/login" routerLinkActive="active" (click)="logout()">تسجيل خروج</a>
-
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-end">
-        <!-- Admin Dropdown -->
+      <ul class="navbar-nav ms-auto align-items-center mb-2 mb-lg-0">
+        <!-- Home Link -->
         <li *ngIf="userRole === 'admin'" class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white" href="#" id="AdminDropdown" role="button" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="AdminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             الأدمن
           </a>
           <ul class="dropdown-menu" aria-labelledby="AdminDropdown">
@@ -32,39 +52,42 @@
 
         <!-- Needy Dropdown -->
         <li *ngIf="userRole === 'needy'" class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white" href="#" id="NeedyDropdown" role="button" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="NeedyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             المستفيد
           </a>
           <ul class="dropdown-menu" aria-labelledby="NeedyDropdown">
             <li><a class="dropdown-item" routerLink="/needy/products">المنتجات</a></li>
-            <li><a class="dropdown-item" routerLink="/needy">طلباتى</a></li>
+            <li><a class="dropdown-item" routerLink="/needy">طلباتي</a></li>
             <li><a class="dropdown-item" routerLink="/needy/profile">الملف الشخصي</a></li>
           </ul>
         </li>
 
         <!-- Volunteer Dropdown -->
         <li *ngIf="userRole === 'volunteer'" class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white" href="#" id="VolunteerDropdown" role="button" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="VolunteerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             المتطوع
           </a>
           <ul class="dropdown-menu" aria-labelledby="VolunteerDropdown">
-            <li><a class="dropdown-item" routerLink="/volunteer">منتجاتى</a></li>
-            <li><a class="dropdown-item" routerLink="/volunteer/addProduct">اضافة منتج</a></li>
+            <li><a class="dropdown-item" routerLink="/volunteer">منتجاتي</a></li>
+            <li><a class="dropdown-item" routerLink="/volunteer/addProduct">إضافة منتج</a></li>
             <li><a class="dropdown-item" routerLink="/volunteer/products">المنتجات</a></li>
             <li><a class="dropdown-item" routerLink="/volunteer/profile">الملف الشخصي</a></li>
           </ul>
         </li>
-
-        <!-- Additional Links -->
         <li class="nav-item">
-          <a class="nav-link text-white mainItem" routerLink="/home" routerLinkActive="active">الرئيسية</a>
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">الرئيسية</a>
         </li>
+
+        <a class="navbar-brand" routerLink="/home" routerLinkActive="active">
+          <img src="/assets/images/Logo.png" alt="Logo" class="logo-img" />
+        </a>
+
+        <!-- Admin Dropdown -->
+
       </ul>
 
-      <!-- Logo moved to the right -->
-      <a class="navbar-brand ms-auto" routerLink="/home" routerLinkActive="active">
-        <img src="/assets/images/Logo.png" alt="Logo" class="logo-img" />
-      </a>
+      <!-- Authentication Links -->
+
     </div>
   </div>
 </nav>

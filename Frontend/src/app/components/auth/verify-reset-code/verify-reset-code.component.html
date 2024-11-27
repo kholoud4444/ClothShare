@@ -1,1 +1,37 @@
-<p>verify-reset-code works!</p>
+<div class="center-container">
+  <div class="otp-verification-container">
+    <div class="verification-header">
+      <h2>ادخل رمز التأكيد لكلمة السر</h2>
+      <p class="description">تم إرسال رمز التأكيد على البريد الإلكتروني الخاص بك</p>
+    </div>
+
+    <div class="otp-form">
+      <div class="otp-input-container">
+        <p-inputOtp
+          [(ngModel)]="resetCode"
+          [length]="6"
+          class="otp-input"
+        />
+      </div>
+
+      <div class="action-container">
+        <button
+          pButton
+          type="button"
+          label="تأكيد الرمز"
+          (click)="verifyResetPasswordCode()"
+          class="verify-button"
+        ></button>
+      </div>
+
+      <div class="message-container">
+        <p
+          *ngIf="message"
+          [ngClass]="messageClass"
+        >
+          {{ message }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

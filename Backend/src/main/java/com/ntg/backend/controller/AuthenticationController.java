@@ -52,17 +52,23 @@ public class AuthenticationController {
         return new ResponseEntity<>(new MessageDto<>("Password reset token sent successfully.", null), HttpStatus.OK);
     }
 
-    @PutMapping("/resetPassword")
-    public ResponseEntity<MessageDto<String>> resetPassword(@RequestParam String newPassword, @RequestParam String token, @RequestParam String email) {
-        authenticationUserService.resetPassword(email, newPassword, token);
-        return new ResponseEntity<>(new MessageDto<>("Password Reset Successfully", null), HttpStatus.OK);
-
-    }
+//    @PutMapping("/resetPassword")
+//    public ResponseEntity<MessageDto<String>> resetPassword(@RequestParam String newPassword, @RequestParam String token, @RequestParam String email) {
+//        authenticationUserService.resetPassword(email, newPassword, token);
+//        return new ResponseEntity<>(new MessageDto<>("Password Reset Successfully", null), HttpStatus.OK);
+//
+//    }
     @PutMapping("/verifyResetTokenPassword")
     public ResponseEntity<MessageDto<String>> verifyResetTokenPassword
             (@RequestBody verifyResetPasswordCode verifyResetPasswordCode) {
         authenticationUserService.verifyResetTokenPassword(verifyResetPasswordCode);
         return new ResponseEntity<>(new MessageDto<>("Otp Successfully", null), HttpStatus.OK);
+
+    }
+       @PutMapping("/updateNewPassword")
+    public ResponseEntity<MessageDto<String>> resetPassword(@RequestBody CreateNewPassword createNewPassword) {
+        authenticationUserService.createNewPassword(createNewPassword);
+        return new ResponseEntity<>(new MessageDto<>("Password Reset Successfully", null), HttpStatus.OK);
 
     }
 }

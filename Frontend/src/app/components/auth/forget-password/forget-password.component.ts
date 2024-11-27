@@ -44,6 +44,7 @@ export class ForgetPasswordComponent {
         // On success, show a success message and redirect to another page if needed
         this.message = response.message || 'Password reset code sent successfully!';
         this.messageClass = 'success';
+        this.router.navigate(['/verifyNewPassword']);
         // Optional: Redirect user after successful request
         // this.router.navigate(['/some-other-page']);
       },

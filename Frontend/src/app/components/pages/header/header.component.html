@@ -1,5 +1,5 @@
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-  <ol class="carousel-indicators">
+  <ul class="carousel-indicators list-unstyled">
     <li
       *ngFor="let _ of images; let i = index"
       [class.active]="i === currentSlide"
@@ -7,7 +7,7 @@
       data-bs-target="#carouselExampleIndicators"
       [attr.data-bs-slide-to]="i"
     ></li>
-  </ol>
+  </ul>
   <div class="carousel-inner">
     <div
       *ngFor="let image of images; let i = index"

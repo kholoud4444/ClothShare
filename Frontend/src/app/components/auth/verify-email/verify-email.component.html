@@ -1,23 +1,45 @@
 <div class="center-container">
-  <!-- Input field for OTP -->
-<div class="myForm">
-  <h4>Enter OTP Code</h4>
-  <p>We send an otp code to your email</p>
-<!--  <p-floatLabel>-->
-<!--    <input pInputText id="OTP" [(ngModel)]="otp" placeholder="Enter OTP" />-->
-<!--&lt;!&ndash;    <label for="OTP">OTP</label>&ndash;&gt;-->
-<!--  </p-floatLabel>-->
-  <p-inputOtp [(ngModel)]="otp" />
+  <div class="email-verification-container">
+    <div class="verification-header">
+      <h2>ادخل رمز التأكيد</h2>
+      <p class="description">تم إرسال رمز التأكيد على البريد الإلكتروني الخاص بك</p>
+    </div>
 
-  <!-- Button to send the verification code to the email -->
-  <button pButton type="button" label="Send Verification Code" (click)="sendVerificationCode()" class="send-button"></button>
+    <div class="verification-form">
+      <div class="otp-input-container">
+        <p-inputOtp
+          [(ngModel)]="otp"
+          [length]="6"
+          class="otp-input"
+        />
+      </div>
 
-  <!-- Button to verify email after OTP is entered -->
-  <button pButton type="button" label="Verify Your Mail" (click)="verifyEmail()" class="verify-button"></button>
-  <p *ngIf="message" [ngClass]="messageClass" class="verification-message">{{ message }}</p>
-</div>
+      <div class="action-buttons">
+        <button
+          pButton
+          type="button"
+          label="إعادة إرسال رمز التأكيد"
+          (click)="sendVerificationCode()"
+          class="resend-button"
+        ></button>
 
+        <button
+          pButton
+          type="button"
+          label="تأكيد البريد الإلكتروني"
+          (click)="verifyEmail()"
+          class="verify-button"
+        ></button>
+      </div>
 
-  <!-- Display message (success or error) -->
-
+      <div class="message-container">
+        <p
+          *ngIf="message"
+          [ngClass]="messageClass"
+        >
+          {{ message }}
+        </p>
+      </div>
+    </div>
+  </div>
 </div>

@@ -9,6 +9,8 @@ import {PageNotFoundComponent} from './components/Shared/page-not-found/page-not
 import {ContactUsComponent} from './components/Shared/contact-us/contact-us.component';
 import {VerifyEmailComponent} from './components/auth/verify-email/verify-email.component';
 import {ForgetPasswordComponent} from './components/auth/forget-password/forget-password.component';
+import {VerifyResetCodeComponent} from './components/auth/verify-reset-code/verify-reset-code.component';
+import {NewPasswordComponent} from './components/auth/new-password/new-password.component';
 
 export const routes: Routes = [
   {path: "login", component:LoginComponent},
@@ -18,6 +20,8 @@ export const routes: Routes = [
   {path:"contactus" , component:ContactUsComponent},
   {path:"verifyEmail",component:VerifyEmailComponent},
   {path:"forgetPassword", component:ForgetPasswordComponent},
+  {path:"verifyNewPassword", component:VerifyResetCodeComponent},
+  {path:"NewPassword", component:NewPasswordComponent},
 
   {
     path: 'admin',

@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
   this.needyService.addNeedy(needyData).subscribe({
     next: (response) => {
       console.log('Needy registered successfully:', response);
-      this.router.navigate(['/login']).then(r => "Error");
+      this.router.navigate(['/verifyEmail']).then(r => "Error");
     },
     error: (error) => {
       if (error.status === 400) {

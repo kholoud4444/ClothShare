@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 import {Login} from '../components/interfaces/login';
 import {VerifyEmailComponent} from '../components/auth/verify-email/verify-email.component';
 import {VerifyEmail} from '../components/interfaces/verify-email';
+import {VerifyResetPasswordToken} from '../components/interfaces/verify-reset-password-token';
+import {CreateNewPassword} from '../components/interfaces/createNewPassword';
 
 
 @Injectable({
@@ -27,6 +29,14 @@ export class LoginService {
   public sendPasswordResetToken(email:String): Observable<any> {
 
     return this.http.put<any>("http://localhost:8080/authentication/sendPasswordResetToken", email);
+  }
+  public verifyResetTokenPassword(verifyResetPasswordToken:VerifyResetPasswordToken): Observable<any> {
+
+    return this.http.put<any>("http://localhost:8080/authentication/verifyResetTokenPassword", verifyResetPasswordToken);
+  }
+  public updateNewPassword(updateNewPassword:CreateNewPassword): Observable<any> {
+
+    return this.http.put<any>("http://localhost:8080/authentication/updateNewPassword", updateNewPassword);
   }
 
 
