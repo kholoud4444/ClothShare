@@ -61,15 +61,15 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.userRole = this.authService.getUserRole();
     this.getItems();
-      this.typies = [
-        { name: 'الكل' },
-        { name: 'قميص' },
-        { name: 'فستان' },
-        { name: 'بنطلون' },
-        { name: 'تنورة' },
-        { name: 'جاكيت' },
-        { name: 'معطف' }
-      ];
+    this.typies = [
+      { name: 'الكل' },
+      { name: 'قميص' },
+      { name: 'فستان' },
+      { name: 'بنطلون' },
+      { name: 'تنورة' },
+      { name: 'جاكيت' },
+      { name: 'معطف' }
+    ];
     this.state = [
       { name: 'الكل' },
       { name: 'جديد' },
@@ -130,37 +130,37 @@ export class ProductsComponent implements OnInit {
   }
 
   handleOnFilter($event: any) {
-      // if(this.selectedType.name=="الكل"){
-      //
-      // }
-      // else
-      // {
-      //   this.typeVar=this.selectedType.name;
-      // }
-      //
-      // if(this.selectedState.name=="الكل")
-      // {
-      //
-      // }
-      // else
-      // {
-      //   this.stateVar=this.selectedState.name
-      // }
-      // if(this.selectedGender.name=="الكل"){
-      //
-      // }
-      // else
-      //
-      // {
-      //   this.genderVar=this.selectedGender.name;
-      // }
-      // if(this.selectedSize.name=="الكل"){
-      //
-      // }
-      // else
-      // {
-      //   this.sizeVar=this.selectedSize.name;
-      // }
+    // if(this.selectedType.name=="الكل"){
+    //
+    // }
+    // else
+    // {
+    //   this.typeVar=this.selectedType.name;
+    // }
+    //
+    // if(this.selectedState.name=="الكل")
+    // {
+    //
+    // }
+    // else
+    // {
+    //   this.stateVar=this.selectedState.name
+    // }
+    // if(this.selectedGender.name=="الكل"){
+    //
+    // }
+    // else
+    //
+    // {
+    //   this.genderVar=this.selectedGender.name;
+    // }
+    // if(this.selectedSize.name=="الكل"){
+    //
+    // }
+    // else
+    // {
+    //   this.sizeVar=this.selectedSize.name;
+    // }
     if (this.selectedType.name && this.selectedType.name!=='الكل')
     {
       this.typeVar=this.selectedType.name;
@@ -194,18 +194,18 @@ export class ProductsComponent implements OnInit {
       this.genderVar='';
     }
 
-      this.itemService.getFilteredItems(this.typeVar,this.stateVar,this.genderVar,this.sizeVar,this.pageNo,this.pageSize).subscribe({
-        next: (response) => {
-          this.items = response.content;
-          this.items.forEach(item => {
-            this.loadImage(item);
-          });
-        },
-        error: (err) => {
-          console.error('Error fetching items:', err);
-          this.loading = false;
-        },
-      });
+    this.itemService.getFilteredItems(this.typeVar,this.stateVar,this.genderVar,this.sizeVar,this.pageNo,this.pageSize).subscribe({
+      next: (response) => {
+        this.items = response.content;
+        this.items.forEach(item => {
+          this.loadImage(item);
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching items:', err);
+        this.loading = false;
+      },
+    });
   }
   loadImage(item: ItemDtoForProduct): void {
     if (item.imageUrl) {

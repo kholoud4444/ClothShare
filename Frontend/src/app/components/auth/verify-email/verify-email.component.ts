@@ -61,13 +61,13 @@ export class VerifyEmailComponent implements  OnInit {
         },
         (error) => {
           // On error, show an error message
-          this.message = error.error.message || 'An unexpected error occurred.';
+          this.message = error.error.message || 'حدث خطأ حاول مره اخرى';
           this.messageClass = 'error'; // Error class
           console.error('Error sending verification code:', error);
         }
       );
     } else {
-      this.message = 'Please enter a valid email address.';
+      this.message = 'البريد الالكتروني غير صالح';
       this.messageClass = 'error';
     }
   }
@@ -89,13 +89,13 @@ export class VerifyEmailComponent implements  OnInit {
         },
         (error) => {
           // On error, show an error message
-          this.message = error.error.message || 'Verification failed. Please check the OTP or email.';
+          this.message = 'حدث خطأ حاول مره اخرى';
           this.messageClass = 'error';
           console.error('Error verifying email:', error);
         }
       );
     } else {
-      this.message = 'Please enter both the OTP and email.';
+      this.message = 'برجاء ادخال الرمز التأكيدي';
       this.messageClass = 'error';
     }
   }

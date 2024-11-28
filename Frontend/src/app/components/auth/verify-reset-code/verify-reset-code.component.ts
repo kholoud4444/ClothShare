@@ -46,13 +46,13 @@ export class VerifyResetCodeComponent {
         },
         (error) => {
           // On error, show an error message
-          this.message = error.error.message || 'Verification failed. Please check the OTP or email.';
+          this.message =  'حدث خطأ حاول مره اخرى';
           this.messageClass = 'error';
           console.error('Error verifying email:', error);
         }
       );
     } else {
-      this.message = 'Please enter the ResetTokenCode';
+      this.message = 'برجاء ادخال الرمز التأكيدي';
       this.messageClass = 'error';
     }
 

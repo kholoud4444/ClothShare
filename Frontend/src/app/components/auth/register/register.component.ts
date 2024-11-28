@@ -57,9 +57,9 @@ export class RegisterComponent implements OnInit {
     },
     error: (error) => {
       if (error.status === 400) {
-        this.errorMessage = "The email or another unique field already exists."; // Customize this message as needed
+        this.errorMessage = "البريد الالكتروني او كلمه المرور موجوده"; // Customize this message as needed
       } else {
-        this.errorMessage = "An unexpected error occurred. Please try again later.";
+        this.errorMessage = "حدث خطأ اثناء التسجيل حاول مره اخرى ";
       }
     }
   });

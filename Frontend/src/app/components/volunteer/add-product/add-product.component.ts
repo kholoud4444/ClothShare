@@ -66,18 +66,18 @@ export class AddProductComponent {
     this.addProductService.uploadImage(this.selectedFile).subscribe({
       next: (response) => {
         this.imageUrl = response.object.imageUrl;
-        alert('Image uploaded successfully!');
+        alert('تم تحميل الصوره بنجاح');
       },
       error: (error) => {
         console.error('Image upload failed:', error);
-        alert('Failed to upload image.');
+        alert('حدث خطأ اثناء تنزيل الصوره');
       },
     });
   }
 
   onSubmit(): void {
     if (!this.imageUrl) {
-      alert('Please upload an image before creating the item.');
+      alert('برجاء ادخال الصوره');
       return;
     }
 
@@ -95,10 +95,8 @@ export class AddProductComponent {
 
     this.addProductService.createItem(itemData).subscribe({
       next: (response) => {
-        alert('Item created successfully!');
+        alert('تم اضافه العنصر بنجاح');
         console.log(response);
-        this.notificationService.showError("تم اضافة المنتج بنجاح")
-
       },
       error: (error) => {
         console.error('Item creation failed:', error);

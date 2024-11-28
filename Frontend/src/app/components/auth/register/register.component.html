@@ -27,7 +27,7 @@
 
             <ul *ngIf="registerForm.get('firstName')?.errors && registerForm.get('firstName')?.touched" class="text-danger small">
               <span *ngIf="registerForm.get('firstName')?.getError('required')" class="text-danger small">الاسم الأول مطلوب</span>
-              <span *ngIf="registerForm.get('firstName')?.getError('pattern')" class="text-danger small">letters between 3 and 50 characters</span>
+              <span *ngIf="registerForm.get('firstName')?.getError('pattern')" class="text-danger small">عدد الاحرف لا تقل عن ثلاثه احرف </span>
             </ul>
           </div>
           <div class="col-md-6">
@@ -40,12 +40,9 @@
               placeholder="أدخل الاسم الأخير"
               required
             />
-<!--            <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="text-danger small">-->
-<!--              الاسم الأخير مطلوب-->
-<!--            </div>-->
             <ul *ngIf="registerForm.get('lastName')?.errors && registerForm.get('lastName')?.touched" class="text-danger small">
-              <span *ngIf="registerForm.get('lastName')?.getError('required')" class="text-danger small">الاسم الأول مطلوب</span>
-              <span *ngIf="registerForm.get('lastName')?.getError('pattern')" class="text-danger small">letters between 3 and 50 characters</span>
+              <span *ngIf="registerForm.get('lastName')?.getError('required')" class="text-danger small">الاسم الاخير مطلوب</span>
+              <span *ngIf="registerForm.get('lastName')?.getError('pattern')" class="text-danger small">عدد الاحرف لا تقل عن ثلاثه احرف</span>
             </ul>
           </div>
         </div>
@@ -81,8 +78,6 @@
           <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-danger small">
             <span *ngIf="registerForm.get('password')?.errors?.['required']">كلمة المرور مطلوبة</span>
             <span *ngIf="registerForm.get('password')?.errors?.['minlength']">كلمة المرور يجب أن تحتوي على 8 أحرف على الأقل</span>
-
-
           </div>
         </div>
 
@@ -97,13 +92,10 @@
             placeholder="أدخل الرقم القومي"
             required
           />
-<!--          <div *ngIf="registerForm.get('nationalId')?.invalid && registerForm.get('nationalId')?.touched" class="text-danger small">-->
-<!--            الرقم القومي مطلوب-->
-<!--          </div>-->
 
           <ul *ngIf="registerForm.get('nationalId')?.errors && registerForm.get('nationalId')?.touched" class="text-danger small">
             <span *ngIf="registerForm.get('nationalId')?.getError('required')" class="text-danger small">الرقم القومي مطلوب</span>
-            <span *ngIf="registerForm.get('nationalId')?.getError('pattern')" class="text-danger small">letters between 3 and 50 characters</span>
+            <span *ngIf="registerForm.get('nationalId')?.getError('pattern')" class="text-danger small">عدد الاحرف لا تقل عن ثلاثه احرف</span>
           </ul>
         </div>
 
@@ -117,12 +109,10 @@
             formControlName="phone"
             placeholder="أدخل رقم الهاتف"
           />
-<!--          <div *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched" class="text-danger small">-->
-<!--            رقم الهاتف مطلوب-->
-<!--          </div>-->
+
           <ul *ngIf="registerForm.get('phone')?.errors && registerForm.get('phone')?.touched" class="text-danger small">
             <span *ngIf="registerForm.get('phone')?.getError('required')" class="text-danger small">الرقم القومي مطلوب</span>
-            <span *ngIf="registerForm.get('phone')?.getError('pattern')" class="text-danger small">letters between 3 and 50 characters</span>
+            <span *ngIf="registerForm.get('phone')?.getError('pattern')" class="text-danger small">عدد الاحرف لا تقل عن ثلاثه احرف</span>
           </ul>
         </div>
 

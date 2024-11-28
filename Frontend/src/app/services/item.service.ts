@@ -54,6 +54,3 @@ export class ItemService {
     return this.http.post<CreateRequest>(`http://localhost:8080/request`,request);
   }
 }
-
-
-

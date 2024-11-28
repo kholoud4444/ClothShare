@@ -136,7 +136,7 @@ export class VolunteerItemsDetailsComponent implements OnInit {
   }
 
   deleteItem(itemId: number): void {
-    if (confirm("Are you sure you want to delete this item?")) {
+    if (confirm("هل انت متأكد انك تريد حذف هذا العنصر؟")) {
       this.volunteerService.deleteVolunteerItemByItemId(itemId).subscribe(
         (response) => {
           // Handle success (e.g., remove item from the UI or show a message)
@@ -164,7 +164,7 @@ export class VolunteerItemsDetailsComponent implements OnInit {
     };
     this.volunteerService.updateItem(itemData.itemId,itemData).subscribe({
       next: (response) => {
-        alert('Item updated successfully!');
+        alert('تم التعديل بنجاح');
         this.getItems();
         console.log(response);
       },
