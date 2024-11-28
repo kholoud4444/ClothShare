@@ -7,7 +7,8 @@ import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import {NgForOf, NgIf} from '@angular/common';
 import { MessageService } from 'primeng/api';
-import {UserInterface} from '../../interfaces/user-interface'; // For notifications
+import {UserInterface} from '../../interfaces/user-interface';
+import {Router} from '@angular/router'; // For notifications
 
 @Component({
   selector: 'app-profile',
@@ -32,7 +33,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private profileService: ProfilerService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -110,6 +112,7 @@ export class ProfileComponent implements OnInit {
           this.showMessage('success', 'نجاح', 'تم حذف الحساب بنجاح');
           this.user = null;
           this.authService.logout();
+          this.router.navigate(['/login']);
         },
         error: (err) => {
           console.error('Error deleting user:', err);

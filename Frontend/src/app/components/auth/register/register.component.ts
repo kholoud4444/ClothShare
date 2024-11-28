@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {RegisterService} from '../../../services/register.service';
 import {Needy} from '../../interfaces/needy';
 import {NgIf} from '@angular/common';
@@ -24,20 +24,22 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private registerService: RegisterService,
     private router: Router
-) {}
-   ngOnInit(): void {
+) {
     this.registerForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      phone: ['', Validators.required],
-      nationalId: ['', Validators.required],
-      gender: ['', Validators.required],
-      birthDate: ['', Validators.required],
-      location: ['', Validators.required],
-      role: ['', Validators.required],
+      firstName: new FormControl('',[Validators.required, Validators.pattern(/^[A-Za-zء-ي]{2,10}$/)]) ,
+      lastName: new FormControl('',[ Validators.required,Validators.pattern(/^[A-Za-zء-ي]{2,10}$/)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      phone: new FormControl('',[ Validators.required, Validators.pattern(/^01[1205][\d\u0660-\u0669]{8}$/)]),
+      nationalId: new FormControl('',[ Validators.required, Validators.pattern(/^[23][\d\u0660-\u0669]{13}$/)]),
+      gender: new FormControl('', [Validators.required]),
+      birthDate: new FormControl('', [Validators.required]),
+      location: new FormControl('', [Validators.required]),
+      role: new FormControl('', [Validators.required]),
     });
+  }
+   ngOnInit(): void {
+
   }
 
   register(): void {

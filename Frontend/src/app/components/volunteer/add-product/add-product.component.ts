@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import { ItemDto, ClothingType, ClothingSize, ItemState, GenderSuitability, ItemStatus } from '../../interfaces/item-dto';
 import {AddProductService} from '../../../services/add-product.service';
 import {AuthService} from '../../../services/auth.service';
+import {NotificationService} from '../../../services/notification.service';
 @Component({
   selector: 'app-add-product',
   standalone: true,
@@ -37,7 +38,8 @@ export class AddProductComponent {
     private fb: FormBuilder,
   private addProductService: AddProductService,
   private router: Router,
-  private authService: AuthService
+  private authService: AuthService,
+    private notificationService: NotificationService,
   ) {
     this.form = this.fb.group({
       type: ['', Validators.required],
@@ -95,6 +97,8 @@ export class AddProductComponent {
       next: (response) => {
         alert('Item created successfully!');
         console.log(response);
+        this.notificationService.showError("تم اضافة المنتج بنجاح")
+
       },
       error: (error) => {
         console.error('Item creation failed:', error);

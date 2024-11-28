@@ -8,6 +8,7 @@ import {Login} from '../../interfaces/login';
 import {RegisterService} from '../../../services/register.service';
 import {jwtDecode} from 'jwt-decode';
 import {AuthService} from '../../../services/auth.service';
+import {NotificationService} from '../../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private router: Router,
     private authService: AuthService,
+    private notificationService: NotificationService,
   ) {}
 
   ngOnInit(): void {
@@ -65,6 +67,10 @@ export class LoginComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error login needy:', error);
+          if(error.status === 404){
+            this.notificationService.showError("البريد الإلكتروني غير متاح")
+          }
+          this.notificationService.showError(error.error.message);
           this.errorMessage = 'البريد الإلكتروني أو كلمة المرور غير صحيحة'; // Set error message
         }
       });

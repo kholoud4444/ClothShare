@@ -61,16 +61,17 @@ public class AdminServiceImp implements AdminService {
         if (!adminRepo.existsByEmail("admin@gmail.com")) {
             Admin admin = new Admin();
             admin.setFirstName("Admin");
-            admin.setLastName("1");
+            admin.setLastName("admin");
             admin.setEmail("admin@gmail.com");
-            LocalDate birthday = LocalDate.of(1999, 1, 12); // Format: year, month, day
+            LocalDate birthday = LocalDate.of(2002, 8, 1); // Format: year, month, day
             admin.setBirthDate(birthday);
             admin.setGender("Male");
             admin.setEmailVerified(true);
-            admin.setPassword(bCryptPasswordEncoder.encode("12345678")); // Encrypt password
+            admin.setPassword(bCryptPasswordEncoder.encode("0122316810")); // Encrypt password
             admin.setRole("admin");
             admin.setLocation("cairo");
-            admin.setNationalId("29990112880596");
+            admin.setNationalId("30208011300353");
+            admin.setPhone("01003197262");
 
             adminRepo.save(admin); // Save admin to database
             System.out.println("Admin account created.");

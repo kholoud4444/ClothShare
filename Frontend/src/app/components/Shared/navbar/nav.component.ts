@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from '@angular/router';
 import { NgClass, NgIf, NgOptimizedImage } from '@angular/common';
 import {jwtDecode} from 'jwt-decode';
 import {AuthService} from  '../../../services/auth.service';
@@ -23,12 +23,13 @@ export class NavComponent implements OnInit {
   decodedToken: any = null; // Decoded token variable
   userRole: string | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,private  router: Router ) {}
   toggleNavbar(): void {
     this.isNavbarCollapsed = !this.isNavbarCollapsed; // Toggle dropdown state
   }
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   ngOnInit(): void {
