@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component  } from '@angular/core';
 import {ButtonDirective} from 'primeng/button';
 import {FloatLabelModule} from 'primeng/floatlabel';
 import {InputTextModule} from 'primeng/inputtext';
 import {NgClass, NgIf} from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {LoginService} from '../../../services/login.service';
 import {Router} from '@angular/router';
 import {PasswordModule} from 'primeng/password';
 import {CreateNewPassword} from '../../interfaces/createNewPassword';
 import {InputOtpModule} from 'primeng/inputotp';
+import {NotificationService} from '../../../services/notification.service';
+
 
 @Component({
   selector: 'app-new-password',
@@ -34,13 +36,18 @@ export class NewPasswordComponent {
   newPassword:string = ""// Message to display to the user
   messageClass: string = ''; // For applying dynamic styles to the message
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(
+    private loginService: LoginService, private router: Router ,
+    private notificationService: NotificationService,
+  ) {
+
+  }
 
   // Method to handle form submission and send reset password token
   updateNewPassword(): void {
     if (this.newPassword) {
       this.newpassword = { email: this.email, password: this.newPassword };
-console.log(this.newpassword);
+     console.log(this.newpassword);
       // Call the service to verify the email with the OTP
       this.loginService.updateNewPassword(this.newpassword).subscribe(
         (response) => {
@@ -51,14 +58,16 @@ console.log(this.newpassword);
         },
         (error) => {
           // On error, show an error message
-          this.message = error.error.message || 'Verification failed. Please check the email.';
-          this.messageClass = 'error';
+          // this.message = error.error.message || 'Verification failed. Please check the email.';
+          // this.messageClass = 'error';
           console.error('Error verifying email:', error);
+          this.notificationService.showError("خطأ فى تأكيد الأيميل")
         }
       );
     } else {
       this.message = 'Please enter  new password.';
       this.messageClass = 'error';
+      this.notificationService.showError("أدخل كلمة السر الجديدة ")
     }
   }
 
