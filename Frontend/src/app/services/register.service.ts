@@ -10,7 +10,7 @@ import {Needy} from '../components/interfaces/needy';
 })
 export class RegisterService {
   constructor(private http:HttpClient) { }
-
+   email:string="";
   public addNeedy(needy: Needy):Observable<Needy>{
     return this.http.post<Needy>("http://localhost:8080/authentication/register",needy);
   }

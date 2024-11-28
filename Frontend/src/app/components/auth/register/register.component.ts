@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   errorMessage: string | null = null;
   constructor(
     private fb: FormBuilder,
-    private needyService: RegisterService,
+    private registerService: RegisterService,
     private router: Router
 ) {}
    ngOnInit(): void {
@@ -47,10 +47,11 @@ export class RegisterComponent implements OnInit {
   }
 
   const needyData: Needy = this.registerForm.value;
-  this.needyService.addNeedy(needyData).subscribe({
+  this.registerService.addNeedy(needyData).subscribe({
     next: (response) => {
       console.log('Needy registered successfully:', response);
-      this.router.navigate(['/verifyEmail']).then(r => "Error");
+      this.registerService.email=needyData.email;
+      this.router.navigate([`/verifyEmail/${needyData.email}`]).then(r => "Error");
     },
     error: (error) => {
       if (error.status === 400) {

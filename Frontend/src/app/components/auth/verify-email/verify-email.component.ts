@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
 import {LoginService} from '../../../services/login.service';
@@ -6,9 +6,10 @@ import {NgClass, NgIf} from '@angular/common';
 import {FloatLabelModule} from 'primeng/floatlabel';
 import {ChipsModule} from 'primeng/chips';
 import {ButtonDirective} from 'primeng/button';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {VerifyEmail} from '../../interfaces/verify-email';
 import {InputOtpModule} from 'primeng/inputotp';
+import {RegisterService} from '../../../services/register.service';
 
 @Component({
   selector: 'app-verify-email',
@@ -25,20 +26,30 @@ import {InputOtpModule} from 'primeng/inputotp';
   templateUrl: './verify-email.component.html',
   styleUrl: './verify-email.component.scss'
 })
-export class VerifyEmailComponent {
+export class VerifyEmailComponent implements  OnInit {
    VerifyEmailOtp?: VerifyEmail;
   otp: string = ''; // OTP token input
-  email: string = 'adhamsiliman121@gmail.com'; // Email input
+  email: any = ''; // Email input
   message: string = ''; // Message to display to the user
   messageClass: string = ''; // To dynamically apply CSS class for success/error messages
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router,private registerService: RegisterService,private _ActivatedRoute:ActivatedRoute) {
 
+  }
+  ngOnInit(): void {
+   // this.email=this.registerService.email;
+      this.email = this._ActivatedRoute.snapshot.paramMap.get("email");
+
+  }
   /**
    * Sends the email verification token to the provided email address.
    */
+
+
   sendVerificationCode(): void {
+
     if (this.email) {
+      this.email=this.registerService.email;
       // Call the service to send the verification code to the email
       this.loginService.sendEmailVerificationToken(this.email).subscribe(
         (response) => {
@@ -88,4 +99,6 @@ export class VerifyEmailComponent {
       this.messageClass = 'error';
     }
   }
+
+
 }

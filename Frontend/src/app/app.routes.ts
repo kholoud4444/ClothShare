@@ -18,7 +18,7 @@ export const routes: Routes = [
   {path: "register" , component:RegisterComponent},
   {path: "home" , component:HomeComponent},
   {path:"contactus" , component:ContactUsComponent},
-  {path:"verifyEmail",component:VerifyEmailComponent},
+  {path:"verifyEmail/:email",component:VerifyEmailComponent},
   {path:"forgetPassword", component:ForgetPasswordComponent},
   {path:"verifyNewPassword", component:VerifyResetCodeComponent},
   {path:"NewPassword", component:NewPasswordComponent},
