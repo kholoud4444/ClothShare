@@ -3,6 +3,7 @@ import {TableModule} from 'primeng/table';
 
 import {AdminService} from '../../../services/admin.service';
 import {UserInterface, userResponseDetails} from '../../interfaces/user-interface';
+import {PaginatorModule} from 'primeng/paginator';
 
 
 
@@ -10,7 +11,8 @@ import {UserInterface, userResponseDetails} from '../../interfaces/user-interfac
   selector: 'app-volunteer',
   standalone: true,
   imports: [
-    TableModule
+    TableModule,
+    PaginatorModule
   ],
   templateUrl: './volunteer.component.html',
   styleUrl: './volunteer.component.scss'
@@ -22,6 +24,7 @@ export class VolunteerComponent implements OnInit {
   pageNo: number = 0;
   pageSize: number = 5;
   loading: boolean = false;
+
 
 
   constructor(private userService: AdminService) {}

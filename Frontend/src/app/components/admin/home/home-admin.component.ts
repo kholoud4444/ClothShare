@@ -4,16 +4,18 @@ import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {AdminService} from '../../../services/admin.service';
 import {ApiResponse, RequestVolunteerHistory} from '../../interfaces/request-volunteer-history';
 import {RequestService} from '../../../services/request.service';
+import {PaginatorModule} from "primeng/paginator";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    RouterLink,
-    AsyncPipe,
-    NgForOf,
-    NgIf
-  ],
+    imports: [
+        RouterLink,
+        AsyncPipe,
+        NgForOf,
+        NgIf,
+        PaginatorModule
+    ],
   templateUrl: './home-admin.component.html',
   styleUrl: './home-admin.component.scss'
 })
@@ -26,7 +28,11 @@ export class HomeAdminComponent implements OnInit {
   itemsPerPage: number = 5;
   totalItems: number = 0;
   totalPages: number = 0;
-  noItemsFound: boolean = false; // Tracks if no items are found after filtering
+  noItemsFound: boolean = false;
+  totalRecords: number = 0;
+  pageNo: number = 0;
+  pageSize: number = 5;
+  loading: boolean = false;
 
   constructor(private adminService: AdminService,private requestService: RequestService) {}
 
@@ -74,12 +80,10 @@ export class HomeAdminComponent implements OnInit {
 
   // Update pagination after filtering or navigation
   updatePagination() {
-    this.totalItems = this.filteredItems.length;
-    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-
-    const startIndex = this.currentPage * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.items = this.filteredItems.slice(startIndex, endIndex); // Paginate filtered items
+    const startIndex = this.pageNo * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.items = this.filteredItems.slice(startIndex, endIndex);
+    this.totalRecords = this.filteredItems.length;  // Update totalRecords for paginator
   }
 
   // Navigate to the next page
@@ -126,4 +130,11 @@ export class HomeAdminComponent implements OnInit {
       },
     });
   }
+  onPageChange(event: any) {
+    this.pageNo = event.first / event.rows;
+    this.pageSize = event.rows;
+    this.updatePagination();  // Instead of loading all requests again, just update the pagination.
+  }
+
+
 }

@@ -3,14 +3,16 @@ import {PrimeTemplate} from 'primeng/api';
 import {TableModule} from 'primeng/table';
 import {UserInterface} from '../../interfaces/user-interface';
 import {AdminService} from '../../../services/admin.service';
+import {PaginatorModule} from "primeng/paginator";
 
 @Component({
   selector: 'app-needy',
   standalone: true,
-  imports: [
-    PrimeTemplate,
-    TableModule
-  ],
+    imports: [
+        PrimeTemplate,
+        TableModule,
+        PaginatorModule
+    ],
   templateUrl: './needy.component.html',
   styleUrl: './needy.component.scss'
 })

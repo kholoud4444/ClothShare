@@ -4,6 +4,7 @@ import com.ntg.backend.dto.responseDto.UserResponseDetails;
 import com.ntg.backend.service.imp.UserServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,15 +25,15 @@ public class UserController {
         return new ResponseEntity<>(userResponseDetails, HttpStatus.OK);
 
     }
-
+    @PreAuthorize("hasRole('needy') or hasRole('volunteer')")
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable("id") Long id)
     {
         userServiceImp.deleteUserById(id);
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
     }
-
-        @GetMapping("/getAllByRole/{role}")
+    @PreAuthorize("hasRole('needy') or hasRole('volunteer') or hasRole('admin')")
+    @GetMapping("/getAllByRole/{role}")
         public ResponseEntity<PageDto<UserResponseDetails>> getAllUsersByRole(@PathVariable("role") String role
                 , @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo
                 , @RequestParam (value = "pageSize",defaultValue = "5",required = false) int pageSize)
@@ -40,7 +41,7 @@ public class UserController {
             PageDto<UserResponseDetails> userResponsePagination = userServiceImp.getAllUsersWithRole(role,pageNo,pageSize);
             return new ResponseEntity<>(userResponsePagination, HttpStatus.OK);
         }
-
+    @PreAuthorize("hasRole('needy') or hasRole('volunteer')")
     @PutMapping("{id}")
     public ResponseEntity<UserResponseDetails> updateUser(@RequestBody UserResponseDetails userResponseDetails, @PathVariable("id") long id)
     {

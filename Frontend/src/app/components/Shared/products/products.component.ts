@@ -43,6 +43,7 @@ export class ProductsComponent implements OnInit {
   genderVar:string='';
   stateVar:string='';
   typeVar:string='';
+  typeStatus:string='';
 
   typies: any[] | undefined;
   selectedState: any | undefined = '';
@@ -130,37 +131,7 @@ export class ProductsComponent implements OnInit {
   }
 
   handleOnFilter($event: any) {
-    // if(this.selectedType.name=="الكل"){
-    //
-    // }
-    // else
-    // {
-    //   this.typeVar=this.selectedType.name;
-    // }
-    //
-    // if(this.selectedState.name=="الكل")
-    // {
-    //
-    // }
-    // else
-    // {
-    //   this.stateVar=this.selectedState.name
-    // }
-    // if(this.selectedGender.name=="الكل"){
-    //
-    // }
-    // else
-    //
-    // {
-    //   this.genderVar=this.selectedGender.name;
-    // }
-    // if(this.selectedSize.name=="الكل"){
-    //
-    // }
-    // else
-    // {
-    //   this.sizeVar=this.selectedSize.name;
-    // }
+
     if (this.selectedType.name && this.selectedType.name!=='الكل')
     {
       this.typeVar=this.selectedType.name;
@@ -193,8 +164,9 @@ export class ProductsComponent implements OnInit {
     {
       this.genderVar='';
     }
+    this.typeStatus="تم_الموافقه";
 
-    this.itemService.getFilteredItems(this.typeVar,this.stateVar,this.genderVar,this.sizeVar,this.pageNo,this.pageSize).subscribe({
+    this.itemService.getFilteredItems(this.typeVar,this.stateVar,this.genderVar,this.sizeVar,this.typeStatus,this.pageNo,this.pageSize).subscribe({
       next: (response) => {
         this.items = response.content;
         this.items.forEach(item => {

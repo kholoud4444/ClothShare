@@ -13,6 +13,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,7 +39,7 @@ public class ItemController {
     public ItemController(ItemServiceImp itemServiceImp) {
         this.itemServiceImp = itemServiceImp;
     }
-
+    @PreAuthorize("hasRole('volunteer') ")
     @PostMapping("/uploadImage")
     public ResponseEntity<MessageDto<ImageUrl>> uploadFile(@RequestPart("image") MultipartFile image) {
         try {
@@ -76,12 +77,13 @@ public class ItemController {
 
 
     // API to save the item with provided data, including the image URL
+    @PreAuthorize("hasRole('needy') ")
     @PostMapping("/createItem")
     public ResponseEntity<ItemDto> saveItem(@RequestBody ItemDto itemDto) {
         ItemDto savedItem = itemServiceImp.createItem(itemDto);
         return new ResponseEntity<>(savedItem, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('needy') or hasRole('volunteer') or hasRole('admin')")
     @GetMapping("/getPhoto/{fileName}")
     public ResponseEntity<Resource> getPhoto(@PathVariable String fileName) throws MalformedURLException {
         // Construct the file path
@@ -107,6 +109,7 @@ public class ItemController {
         ItemDto itemDto = itemServiceImp.getItemById(id);
         return new ResponseEntity<>(itemDto,HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('needy') or hasRole('volunteer') or hasRole('admin')")
 
     @GetMapping("/all")
     public ResponseEntity<PageDto<ItemDto>> getAllItems(@RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
@@ -129,6 +132,7 @@ public class ItemController {
         ItemDto updatedItemDto = itemServiceImp.updateItem(itemDto,id);
         return new ResponseEntity<>(updatedItemDto,HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('needy') or hasRole('volunteer') or hasRole('admin')")
     @GetMapping("/getFilteredItems")
     public ResponseEntity<PageDto<ItemDto>> getFilteredItems(
             @RequestParam(value = "type", required = false) Optional<Item.ClothingType> type,

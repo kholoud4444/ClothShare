@@ -32,9 +32,9 @@ export class ItemService {
     });
   }
 
-  getFilteredItems(type:string,state:string,genderSuitability:string,size:string,pageNo: number, pageSize: number): Observable<PageDto<ItemDtoForProduct>> {
+  getFilteredItems(type:string,state:string,genderSuitability:string,size:string,status:string,pageNo: number, pageSize: number): Observable<PageDto<ItemDtoForProduct>> {
     return this.http.get<PageDto<ItemDtoForProduct>>(`http://localhost:8080/item/getFilteredItems`, {
-      params: {type:type,state:state,genderSuitability:genderSuitability,size:size, pageNo: pageNo.toString(), pageSize: pageSize.toString() },
+      params: {type:type,state:state,genderSuitability:genderSuitability,size:size,status:status, pageNo: pageNo.toString(), pageSize: pageSize.toString() },
     });
   }
 

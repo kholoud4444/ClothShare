@@ -9,6 +9,7 @@ import com.ntg.backend.dto.responseDto.RequestWithNeedyDetails;
 import com.ntg.backend.service.imp.RequestServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public class RequestController {
         PageDto<RequestDto> RequestDTOs = requestServiceImp.getAllRequests(pageNo, pageSize) ;
         return new ResponseEntity<>(RequestDTOs,HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('needy') ")
     @DeleteMapping("{id}")
     public ResponseEntity<MessageDto<String>> deleteRequestById(@PathVariable("id") Long id)
     {
@@ -59,14 +60,14 @@ public class RequestController {
         RequestDto updatedRequest = requestServiceImp.updateRequest(requestDto, id);
         return ResponseEntity.ok(updatedRequest);
     }
-
+    @PreAuthorize("hasRole('needy') ")
     @GetMapping("/requestWithItemDetails/{id}")
     public ResponseEntity<RequestWithItemDetails>getRequestWithItemsDetails(@PathVariable("id") long id )
     {
         RequestWithItemDetails requestWithItemDetails = requestServiceImp.getRequestWithItemDetails(id);
         return new ResponseEntity<>(requestWithItemDetails,HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('needy') ")
     @GetMapping("/AllRequestsByItemId/{id}")
     public ResponseEntity<PageDto<RequestWithItemDetails>>getRequestsWithItemsDetailsByItemId(@PathVariable("id") long id,
                                                                                           @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
@@ -75,7 +76,7 @@ public class RequestController {
         PageDto <RequestWithItemDetails> requestWithItemDetails = requestServiceImp.getRequestsByItemId(id, pageNo, pageSize);
         return new ResponseEntity<>(requestWithItemDetails,HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('volunteer')")
     @GetMapping("/requestsWithNeedyDetailsByItemId/{id}")
     public ResponseEntity<PageDto<RequestWithNeedyDetails>> getAllRequestsNeedyDetails(@PathVariable("id") long itemId,
                                                                                        @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,

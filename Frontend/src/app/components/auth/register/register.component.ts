@@ -73,7 +73,7 @@ export class RegisterComponent implements OnInit {
     },
     error: (error) => {
       if (error.status === 400) {
-        this.errorMessage = "البريد الالكتروني او كلمه المرور موجوده"; // Customize this message as needed
+        this.errorMessage = "البريد الالكتروني موجود"; // Customize this message as needed
       } else {
         this.errorMessage = "حدث خطأ اثناء التسجيل حاول مره اخرى ";
       }

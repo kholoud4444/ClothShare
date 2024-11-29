@@ -24,7 +24,7 @@ public class NeedyController {
 
 
     //get all Requests with Item details for specific Needy
-//    @PreAuthorize("hasRole('ROLE_NEEDY')")
+    @PreAuthorize("hasRole('needy')")
     @GetMapping("/RequestsWithItemDetails/{id}")
     public ResponseEntity<PageDto<RequestWithItemDetails>> getAllRequestsDetailsByNeedyId
     (@PathVariable("id") long needyId,  @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
@@ -36,7 +36,7 @@ public class NeedyController {
     }
 
     //get all Requests with Item details for all Needies
-//    @PreAuthorize("hasRole('ROLE_NEEDY')")
+    @PreAuthorize("hasRole('needy')")
     @GetMapping("/allRequestsDetailsWithItemDetails")
     public ResponseEntity<PageDto<RequestWithItemDetails>> getAllRequestDetailsForAllNeedies(
             @RequestParam (value = "pageNo",defaultValue = "0",required = false) int pageNo,
