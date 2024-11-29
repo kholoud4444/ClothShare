@@ -33,7 +33,7 @@ export class ForgetPasswordComponent {
   sendResetPasswordToken(): void {
     if (!this.isValidEmail(this.emailReset)) {
       // If the email is invalid, show an error message
-      this.message = 'Please enter a valid email address.';
+      this.message = 'البريد الالكتروني غير صالح.';
       this.messageClass = 'error';
       return;
     }
@@ -42,7 +42,7 @@ export class ForgetPasswordComponent {
     this.loginService.sendPasswordResetToken(this.emailReset).subscribe(
       (response) => {
         // On success, show a success message and redirect to another page if needed
-        this.message = response.message || 'Password reset code sent successfully!';
+        this.message = 'تم تغيير الرقم السري بنجاح';
         this.messageClass = 'success';
         this.router.navigate(['/verifyNewPassword']);
         // Optional: Redirect user after successful request
@@ -50,7 +50,7 @@ export class ForgetPasswordComponent {
       },
       (error) => {
         // On error, show an error message
-        this.message = error.error.message || 'An unexpected error occurred.';
+        this.message =  'حدث خطأ حاول مره اخرى';
         this.messageClass = 'error';
         console.error('Error sending password reset token:', error);
       }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {PaginatorModule} from 'primeng/paginator';
 import {KeyValuePipe, NgForOf, NgIf} from '@angular/common';
@@ -22,7 +22,7 @@ import {NotificationService} from '../../../services/notification.service';
   styleUrl: './add-product.component.scss'
 })
 export class AddProductComponent {
-
+  @ViewChild('fileInput') fileInput!: ElementRef;
   form: FormGroup;
   selectedFile: File | null = null;
   imageUrl: string | null = null;
@@ -50,6 +50,10 @@ export class AddProductComponent {
     });
   }
 
+  clearFileInput(): void {
+    this.fileInput.nativeElement.value = '';
+    this.selectedFile = null;
+  }
   onImageSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -66,18 +70,18 @@ export class AddProductComponent {
     this.addProductService.uploadImage(this.selectedFile).subscribe({
       next: (response) => {
         this.imageUrl = response.object.imageUrl;
-        alert('Image uploaded successfully!');
+        alert('تم تحميل الصوره بنجاح');
       },
       error: (error) => {
         console.error('Image upload failed:', error);
-        alert('Failed to upload image.');
+        alert('حدث خطأ اثناء تنزيل الصوره');
       },
     });
   }
 
   onSubmit(): void {
     if (!this.imageUrl) {
-      alert('Please upload an image before creating the item.');
+      alert('برجاء ادخال الصوره');
       return;
     }
 
@@ -95,12 +99,14 @@ export class AddProductComponent {
 
     this.addProductService.createItem(itemData).subscribe({
       next: (response) => {
-        alert('Item created successfully!');
+        debugger
+        alert('تم اضافه العنصر بنجاح');
         console.log(response);
-        this.notificationService.showError("تم اضافة المنتج بنجاح")
-
+        this.form.reset();
+        this.clearFileInput()
       },
       error: (error) => {
+        debugger
         console.error('Item creation failed:', error);
       },
     });

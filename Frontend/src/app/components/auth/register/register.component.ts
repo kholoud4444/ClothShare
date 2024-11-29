@@ -26,8 +26,8 @@ export class RegisterComponent implements OnInit {
     private router: Router
 ) {
     this.registerForm = this.fb.group({
-      firstName: new FormControl('',[Validators.required, Validators.pattern(/^[A-Za-zء-ي]{2,10}$/)]) ,
-      lastName: new FormControl('',[ Validators.required,Validators.pattern(/^[A-Za-zء-ي]{2,10}$/)]),
+      firstName: new FormControl('',[Validators.required, Validators.pattern(/^[a-zA-Z\u0621-\u064A\u0660-\u0669]{2,10}$/)]) ,
+      lastName: new FormControl('',[ Validators.required,Validators.pattern(/^[a-zA-Z\u0621-\u064A\u0660-\u0669]{2,10}$/)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       phone: new FormControl('',[ Validators.required, Validators.pattern(/^01[1205][\d\u0660-\u0669]{8}$/)]),
@@ -36,6 +36,22 @@ export class RegisterComponent implements OnInit {
       birthDate: new FormControl('', [Validators.required]),
       location: new FormControl('', [Validators.required]),
       role: new FormControl('', [Validators.required]),
+    });
+
+
+    // Trim spaces in real-time
+    this.registerForm.get('firstName')?.valueChanges.subscribe(value => {
+      const trimmedValue = value.replace(/\s+/g, '');
+      if (value !== trimmedValue) {
+        this.registerForm.get('firstName')?.setValue(trimmedValue, { emitEvent: false });
+      }
+    });
+
+    this.registerForm.get('lastName')?.valueChanges.subscribe(value => {
+      const trimmedValue = value.replace(/\s+/g, '');
+      if (value !== trimmedValue) {
+        this.registerForm.get('lastName')?.setValue(trimmedValue, { emitEvent: false });
+      }
     });
   }
    ngOnInit(): void {
@@ -57,9 +73,9 @@ export class RegisterComponent implements OnInit {
     },
     error: (error) => {
       if (error.status === 400) {
-        this.errorMessage = "The email or another unique field already exists."; // Customize this message as needed
+        this.errorMessage = "البريد الالكتروني او كلمه المرور موجوده"; // Customize this message as needed
       } else {
-        this.errorMessage = "An unexpected error occurred. Please try again later.";
+        this.errorMessage = "حدث خطأ اثناء التسجيل حاول مره اخرى ";
       }
     }
   });

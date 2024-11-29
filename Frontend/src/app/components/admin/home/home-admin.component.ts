@@ -49,7 +49,7 @@ export class HomeAdminComponent implements OnInit {
         });// Initialize with unfiltered items
       },
       error: err => {
-        this.errorMessage = 'Error fetching data';
+        this.errorMessage = 'حدث خطأ في التحميل';
       },
     });
   }

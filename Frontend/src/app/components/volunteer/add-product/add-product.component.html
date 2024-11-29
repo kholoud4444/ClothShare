@@ -7,7 +7,7 @@
     <form>
       <div class="form-group">
         <label for="image">رفع صورة:</label>
-        <input type="file" id="image" (change)="onImageSelected($event)" class="form-control" />
+        <input type="file" id="image" #fileInput (change)="onImageSelected($event)" class="form-control" />
       </div>
       <button type="button" (click)="onImageUpload()" class="btn btn-primary btn-block" [disabled]="!selectedFile">تحميل</button>
     </form>
