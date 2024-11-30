@@ -136,12 +136,13 @@ export class VolunteerItemsDetailsComponent implements OnInit {
   }
 
   deleteItem(itemId: number): void {
-    if (confirm("هل انت متأكد انك تريد حذف هذا العنصر؟")) {
+    if (confirm("هل انت متأكد انك تريد حذف هذا الملبس ؟")) {
       this.volunteerService.deleteVolunteerItemByItemId(itemId).subscribe(
         (response) => {
           // Handle success (e.g., remove item from the UI or show a message)
           console.log(response.message);  // Show success message or remove from the list
-          this.items = this.items.filter(item => item.itemId !== itemId);  // Update UI after deletion
+          this.items = this.items.filter(item => item.itemId !== itemId);
+          alert("تم حذف الملبس")// Update UI after deletion
         },
         (error) => {
           // Handle error (e.g., show an error message)
@@ -162,11 +163,16 @@ export class VolunteerItemsDetailsComponent implements OnInit {
       volunteerId: this.authService.getUserId(),
       itemId :this.form.value.itemId// Optional, adjust as needed
     };
+
     this.volunteerService.updateItem(itemData.itemId,itemData).subscribe({
       next: (response) => {
         alert('تم التعديل بنجاح');
-        this.getItems();
-        console.log(response);
+
+
+          // After 3 seconds, reload the items
+          this.getItems();
+          console.log(response);
+
       },
       error: (error) => {
         console.error('Item creation failed:', error);

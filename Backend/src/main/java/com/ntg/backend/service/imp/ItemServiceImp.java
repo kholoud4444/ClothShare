@@ -46,6 +46,7 @@ public class ItemServiceImp implements ItemService {
         Item existingItem = itemRepo.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Item", "id", id));
         itemMapper.updateEntityFromDto(itemDto, existingItem);
+        itemRepo.save(existingItem);
         return itemMapper.mapToItemDto(itemRepo.save(existingItem));
     }
 

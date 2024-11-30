@@ -70,6 +70,7 @@ export class GetItemRequestWithNeedyDetailsComponent {
         console.log('Request accepted successfully:', response);
         // Refresh or update the UI here
         this.loadRequests();
+        alert('تم قبول الطلب بنجاح');
       },
       (error) => {
         console.error('Error accepting request:', error);
@@ -87,6 +88,9 @@ export class GetItemRequestWithNeedyDetailsComponent {
     this.volunteerService.changeRequestStatus(requestId, updatedRequestStatus).subscribe(
       (response) => {
         console.log('Request refused successfully:', response);
+        debugger
+
+        alert('تم حذف الطلب بنجاح');
         // Refresh or update the UI here
         this.loadRequests();
       },

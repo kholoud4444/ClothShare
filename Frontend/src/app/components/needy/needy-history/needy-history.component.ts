@@ -72,7 +72,7 @@ this.loading=true;
   }
 
   handleDeleteRequest(requestId: number): void {
-    const conf = confirm("Are you sure you want to delete this request?");
+    const conf = confirm("هل انت متأكد انك تريد حذف هذا العنصر؟");
     if (!conf) return;
 
     this.requestService.deleteRequestById(requestId).subscribe({

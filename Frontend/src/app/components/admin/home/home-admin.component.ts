@@ -118,22 +118,48 @@ export class HomeAdminComponent implements OnInit {
 
   // Update the item status and reload data
   changeItemRequest(item: RequestVolunteerHistory, status: string) {
-    const updatedItem = { ...item.item, status }; // Prepare updated data
+    let confirmationMessage = '';
+    let successMessage = '';
 
-    this.adminService.changeItemRequest(item.itemId, updatedItem).subscribe({
-      next: () => {
-        console.log(`Item ID ${item.itemId} status updated to ${status}`);
-        this.loadAllRequests(); // Reload all items to reflect the change
-      },
-      error: (err) => {
-        console.error('Error updating item:', err);
-      },
-    });
+    // Decide the confirmation message based on the status
+    if (status === 'تم_الموافقه') {
+      confirmationMessage = 'هل أنت متأكد من قبول طلب هذا الملبس؟';
+      successMessage = 'تم الموافقة على طلب الملبس';
+    } else if (status === 'مرفوض') {
+      confirmationMessage = 'هل أنت متأكد من رفض  طلب هذا الملبس؟';
+      successMessage = 'تم رفض طلب الملبس';
+    } else {
+      confirmationMessage = 'هل أنت متأكد من تحديث حالة العنصر؟';
+      // Default message
+    }
+
+    // Show the confirmation dialog
+    const isConfirmed = window.confirm(confirmationMessage);
+
+    if (isConfirmed) {
+      const updatedItem = { ...item.item, status };
+
+      // Make sure the service call happens only after the confirmation
+      this.adminService.changeItemRequest(item.itemId, updatedItem).subscribe({
+        next: () => {
+          console.log(`تم تحديث حالة العنصر ID ${item.itemId} إلى: ${status}`);
+          alert(successMessage); // Show success alert
+          this.loadAllRequests(); // Reload items after the update
+        },
+        error: (err) => {
+          console.error('حدث خطأ أثناء تحديث العنصر:', err);
+        },
+      });
+    } else {
+      console.log('تم إلغاء التحديث.');
+    }
   }
-  onPageChange(event: any) {
-    this.pageNo = event.first / event.rows;
+
+
+  onPageChange(event: any): void {
+    this.pageNo = event.first / event.rows; // Correcting page number calculation
     this.pageSize = event.rows;
-    this.updatePagination();  // Instead of loading all requests again, just update the pagination.
+    this.loadAllRequests();
   }
 
 
