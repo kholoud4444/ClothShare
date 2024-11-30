@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ApiResponse} from '../components/interfaces/request-volunteer-history';
 import {userResponseDetails} from '../components/interfaces/user-interface';
+import {ContactUs} from '../components/interfaces/contact-us';
 
 
 
@@ -24,4 +25,9 @@ export class AdminService {
 
     return this.http.get<userResponseDetails>(`http://localhost:8080/user/getAllByRole/${role}`,{params:{pageNo:pageNo, pageSize:pageSize}});
   }
+  public sendContactUsEmail(contactData: ContactUs): Observable<any> {
+    return this.http.post(`http://localhost:8080/authentication/contactus`, contactData)
+      }
+
+
 }

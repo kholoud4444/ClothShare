@@ -73,6 +73,7 @@ public class AuthenticationController {
     }
     @PostMapping("/contactus")
     public ResponseEntity <MessageDto<ContactUs>> loginPage( @RequestBody ContactUs contactUs) {
+        authenticationUserService.contactUsMail(contactUs);
         return new ResponseEntity<>(new MessageDto<>("email sent Successfully", contactUs), HttpStatus.OK);
     }
 

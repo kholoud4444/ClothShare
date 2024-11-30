@@ -23,6 +23,7 @@ export const routes: Routes = [
   {path:"verifyNewPassword", component:VerifyResetCodeComponent},
   {path:"NewPassword", component:NewPasswordComponent},
 
+
   {
     path: 'admin',
     loadChildren: () => import('./components/admin/admin.route').then(m => m.adminRoutes),
