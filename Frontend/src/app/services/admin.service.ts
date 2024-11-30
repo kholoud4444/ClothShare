@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {ApiResponse} from '../components/interfaces/request-volunteer-history';
-import {userResponseDetails} from '../components/interfaces/user-interface';
-import {ContactUs} from '../components/interfaces/contact-us';
+import {ApiResponse} from '../interfaces/request-volunteer-history';
+import {userResponseDetails} from '../interfaces/user-interface';
+import {ContactUs} from '../interfaces/contact-us';
 
 
 

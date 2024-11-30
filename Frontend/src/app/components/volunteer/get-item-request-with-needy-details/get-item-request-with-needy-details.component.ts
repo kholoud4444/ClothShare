@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import {Button} from 'primeng/button';
 import {NgClass, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {PaginatorModule} from 'primeng/paginator';
-import {RequestWithNeedyInfo} from '../../interfaces/request-with-needy-info';
-import {PageDto} from '../../interfaces/volunteer';
+import {RequestWithNeedyInfo} from '../../../interfaces/request-with-needy-info';
 import {VolunteerService} from '../../../services/volunteer.service';
-import {RequestDto, RequestStatus} from '../../interfaces/request-dto';
-import {RequestStatusDto} from '../../interfaces/request-status-dto';
+import {RequestDto, RequestStatus} from '../../../interfaces/request-dto';
+import {RequestStatusDto} from '../../../interfaces/request-status-dto';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({

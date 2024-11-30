@@ -7,7 +7,7 @@ import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import {NgForOf, NgIf} from '@angular/common';
 import { MessageService } from 'primeng/api';
-import {UserInterface} from '../../interfaces/user-interface';
+import {UserInterface} from '../../../interfaces/user-interface';
 import {Router} from '@angular/router'; // For notifications
 
 @Component({

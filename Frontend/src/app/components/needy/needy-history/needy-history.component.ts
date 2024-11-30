@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Request } from '../../interfaces/request';
+import { Request } from '../../../interfaces/request';
 
 import {AsyncPipe, DatePipe, NgForOf, NgIf} from '@angular/common';
 

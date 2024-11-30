@@ -3,10 +3,9 @@ import {ButtonDirective} from "primeng/button";
 import {InputOtpModule} from "primeng/inputotp";
 import {NgClass, NgIf} from "@angular/common";
 import {FormsModule} from '@angular/forms';
-import {VerifyEmail} from '../../interfaces/verify-email';
 import {LoginService} from '../../../services/login.service';
 import {Router} from '@angular/router';
-import {VerifyResetPasswordToken} from '../../interfaces/verify-reset-password-token';
+import {VerifyResetPasswordToken} from '../../../interfaces/verify-reset-password-token';
 
 @Component({
   selector: 'app-verify-reset-code',

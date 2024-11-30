@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {AdminService} from '../../../services/admin.service';
-import {ApiResponse, RequestVolunteerHistory} from '../../interfaces/request-volunteer-history';
+import {ApiResponse, RequestVolunteerHistory} from '../../../interfaces/request-volunteer-history';
 import {RequestService} from '../../../services/request.service';
 import {PaginatorModule} from "primeng/paginator";
 

@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {PaginatorModule} from 'primeng/paginator';
 import {KeyValuePipe, NgForOf, NgIf} from '@angular/common';
 import {Router} from '@angular/router';
-import { ItemDto, ClothingType, ClothingSize, ItemState, GenderSuitability, ItemStatus } from '../../interfaces/item-dto';
+import { ItemDto, ClothingType, ClothingSize, ItemState, GenderSuitability, ItemStatus } from '../../../interfaces/item-dto';
 import {AddProductService} from '../../../services/add-product.service';
 import {AuthService} from '../../../services/auth.service';
 import {NotificationService} from '../../../services/notification.service';

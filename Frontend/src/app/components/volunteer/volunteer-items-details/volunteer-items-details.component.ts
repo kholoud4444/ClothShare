@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {VolunteerService} from '../../../services/volunteer.service';
-import {ItemDtoForProduct} from '../../interfaces/item-dto-for-product';
+import {ItemDtoForProduct} from '../../../interfaces/item-dto-for-product';
 import {Button} from 'primeng/button';
 import {KeyValuePipe, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {TagModule} from 'primeng/tag';
@@ -14,7 +14,7 @@ import {
   ItemDto,
   ItemDtoForEditItem,
   ItemState, ItemStatus
-} from '../../interfaces/item-dto';
+} from '../../../interfaces/item-dto';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
 import {RouterLink, RouterLinkActive} from '@angular/router';
@@ -43,7 +43,7 @@ export class VolunteerItemsDetailsComponent implements OnInit {
   items: ItemDtoForProduct[] = [];
   totalRecords: number = 0;
   pageNo: number = 0;
-  pageSize: number = 10;
+  pageSize: number = 7;
   loading: boolean = false;
   num: number = 0;
   currentPage: number = 1;

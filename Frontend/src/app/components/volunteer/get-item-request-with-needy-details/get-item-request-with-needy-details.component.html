@@ -26,17 +26,18 @@
               icon="pi pi-times"
               styleClass="p-button-rounded p-button-danger mx-1"
               label="رفض"
+              [disabled]="request.requestStatus === 'مرفوض'"
               (click)="refuseRequest(request.requestId)"
             ></p-button>
             <p-button
               icon="pi pi-check"
               styleClass="p-button-rounded p-button-success mx-1"
               label="قبول"
+              [disabled]="request.requestStatus === 'تم_الموافقة'"
               (click)="acceptRequest(request.requestId)"
             ></p-button>
-
-
           </td>
+
           <td>{{ request.requestStatus }}</td>
           <td>{{ request.reason }}</td>
           <td>{{ request.needyInfo.gender }}</td>

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {PageDto} from '../interfaces/volunteer';
+import {ItemDtoForProduct} from '../interfaces/item-dto-for-product';
+import {RequestStatusDto} from '../interfaces/request-status-dto';
+import {MessageDto} from '../interfaces/AddImage/message-dto';
+import {RequestWithNeedyInfo} from '../interfaces/request-with-needy-info';
+import {ItemDto} from '../interfaces/item-dto';
 
-import {ItemDtoForProduct} from '../components/interfaces/item-dto-for-product';
-import {PageDto} from '../components/interfaces/volunteer';
-import {RequestDto} from '../components/interfaces/request-dto';
-import {MessageDto} from '../components/interfaces/AddImage/message-dto';
-import {ItemDto} from '../components/interfaces/item-dto';
-import {RequestWithNeedyInfo} from '../components/interfaces/request-with-needy-info';
-import {RequestStatusDto} from '../components/interfaces/request-status-dto';
+
 
 @Injectable({
   providedIn: 'root'

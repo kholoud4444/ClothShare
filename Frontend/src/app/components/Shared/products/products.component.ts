@@ -8,7 +8,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import {ItemService} from '../../../services/item.service';
 
 
-import {ItemDtoForProduct} from '../../interfaces/item-dto-for-product';
+import {ItemDtoForProduct} from '../../../interfaces/item-dto-for-product';
 import {AuthService} from '../../../services/auth.service';
 
 @Component({

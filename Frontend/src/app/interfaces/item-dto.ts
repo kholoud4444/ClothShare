@@ -40,7 +40,7 @@ export enum ItemState {
 export enum GenderSuitability {
   MALE = 'ذكر',
   FEMALE = 'أنثى',
-  UNISEX = 'مشتترك'
+  UNISEX = 'مشترك'
 }
 
 export enum ItemStatus {

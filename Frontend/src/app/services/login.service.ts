@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Login} from '../components/interfaces/login';
-import {VerifyEmailComponent} from '../components/auth/verify-email/verify-email.component';
-import {VerifyEmail} from '../components/interfaces/verify-email';
-import {VerifyResetPasswordToken} from '../components/interfaces/verify-reset-password-token';
-import {CreateNewPassword} from '../components/interfaces/createNewPassword';
+import {Login} from '../interfaces/login';
+import {VerifyEmail} from '../interfaces/verify-email';
+import {VerifyResetPasswordToken} from '../interfaces/verify-reset-password-token';
+import {CreateNewPassword} from '../interfaces/createNewPassword';
+
 
 
 @Injectable({

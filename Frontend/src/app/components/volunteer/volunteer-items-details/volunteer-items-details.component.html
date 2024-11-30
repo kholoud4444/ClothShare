@@ -3,12 +3,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">تعديل المنتج</h1>
+        <h1 class="modal-title fs-5 text-center w-100" id="exampleModalLabel">تعديل الملبس</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- Product Details Form -->
-        <form [formGroup]="form" (ngSubmit)="editItem()" >
+        <form [formGroup]="form" (ngSubmit)="editItem()">
           <!-- Type -->
           <div class="form-group">
             <label for="type" class="text-end">النوع</label>
@@ -45,7 +45,7 @@
           <!-- Description -->
           <div class="form-group">
             <label for="description">الوصف:</label>
-            <textarea id="description" class="form-control" formControlName="description" placeholder="أدخل وصف المنتج هنا" maxlength="500"></textarea>
+            <textarea id="description" class="form-control" formControlName="description" placeholder="أدخل وصف الملبس هنا" maxlength="500"></textarea>
           </div>
 
 
@@ -58,23 +58,6 @@
 </div>
 </div>
 </div>
-<!--<form [formGroup]="filterForm" (ngSubmit)="getItems()">-->
-<!--  <div>-->
-<!--    <label>Status:</label>-->
-<!--    <input type="text" formControlName="status" placeholder="Enter status (e.g., active)">-->
-<!--  </div>-->
-
-<!--  <div>-->
-<!--    <label>Gender Suitability:</label>-->
-<!--    <input-->
-<!--      type="text"-->
-<!--      formControlName="genderSuitability"-->
-<!--      placeholder="Enter gender suitability (e.g., male, female, unisex)"-->
-<!--    >-->
-<!--  </div>-->
-
-<!--  <button type="submit">Filter</button>-->
-<!--</form>-->
 <table class="table mt-3" >
   <thead class="text-end" style="background-color: #001F3F">
   <tr >

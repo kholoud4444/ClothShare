@@ -7,7 +7,7 @@ import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {LoginService} from '../../../services/login.service';
 import {Router} from '@angular/router';
 import {PasswordModule} from 'primeng/password';
-import {CreateNewPassword} from '../../interfaces/createNewPassword';
+import {CreateNewPassword} from '../../../interfaces/createNewPassword';
 import {InputOtpModule} from 'primeng/inputotp';
 import {NotificationService} from '../../../services/notification.service';
 

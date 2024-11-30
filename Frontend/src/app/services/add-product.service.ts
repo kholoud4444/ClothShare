@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {MessageDto} from '../components/interfaces/AddImage/message-dto';
-import {ImageUrl} from '../components/interfaces/AddImage/image-url';
-import {ItemDto} from '../components/interfaces/item-dto';
+import {MessageDto} from '../interfaces/AddImage/message-dto';
+import {ImageUrl} from '../interfaces/AddImage/image-url';
+import {ItemDto} from '../interfaces/item-dto';
 
 
 @Injectable({

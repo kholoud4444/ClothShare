@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {PrimeTemplate} from 'primeng/api';
 import {TableModule} from 'primeng/table';
-import {UserInterface} from '../../interfaces/user-interface';
+import {UserInterface} from '../../../interfaces/user-interface';
 import {AdminService} from '../../../services/admin.service';
 import {PaginatorModule} from "primeng/paginator";
 

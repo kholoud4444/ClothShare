@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {TableModule} from 'primeng/table';
 
 import {AdminService} from '../../../services/admin.service';
-import {UserInterface, userResponseDetails} from '../../interfaces/user-interface';
+import {UserInterface, userResponseDetails} from '../../../interfaces/user-interface';
 import {PaginatorModule} from 'primeng/paginator';
 
 

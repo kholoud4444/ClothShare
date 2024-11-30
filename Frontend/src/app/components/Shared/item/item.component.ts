@@ -4,10 +4,9 @@ import {FormsModule} from '@angular/forms';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {ItemService} from '../../../services/item.service';
-import {ItemDtoForProduct} from '../../interfaces/item-dto-for-product';
+import {ItemDtoForProduct} from '../../../interfaces/item-dto-for-product';
 import {AuthService} from '../../../services/auth.service';
-import {Request} from '../../interfaces/request';
-import {CreateRequest} from '../../interfaces/CreateRequest';
+import {CreateRequest} from '../../../interfaces/CreateRequest';
 
 @Component({
   selector: 'app-item',

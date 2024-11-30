@@ -7,7 +7,7 @@ import {FloatLabelModule} from 'primeng/floatlabel';
 import {ChipsModule} from 'primeng/chips';
 import {ButtonDirective} from 'primeng/button';
 import {ActivatedRoute, Router} from '@angular/router';
-import {VerifyEmail} from '../../interfaces/verify-email';
+import {VerifyEmail} from '../../../interfaces/verify-email';
 import {InputOtpModule} from 'primeng/inputotp';
 import {RegisterService} from '../../../services/register.service';
 

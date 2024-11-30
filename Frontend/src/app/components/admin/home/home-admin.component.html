@@ -1,14 +1,4 @@
 <div class="dashboard-container" dir="rtl">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <h2>لوحة التحكم</h2>
-    <ul>
-      <li><a routerLink="/admin/needy">المستفيدين</a></li>
-      <li><a routerLink="/admin/volunteers">المتطوعين</a></li>
-      <li><a routerLink="/admin/products">الملابس</a></li>
-      <li><a routerLink="/admin">الطلبات</a></li>
-    </ul>
-  </aside>
 
   <!-- Main Content Area -->
   <main class="content">
@@ -25,7 +15,7 @@
       <table class="table">
         <thead>
         <tr>
-          <th>اسم المنتج</th>
+          <th>اسم الملبس</th>
           <th>اسم المتبرع</th>
           <th>الصورة</th>
           <th>الحالة</th>
@@ -39,8 +29,21 @@
           <td><img [src]="item.item.imageUrl" alt="item image" /></td>
           <td>{{ item.item.status }}</td>
           <td>
-            <button (click)="changeItemRequest(item, 'تم_الموافقه')" class="btn btn-success btn-spacing">موافق</button>
-            <button (click)="changeItemRequest(item, 'مرفوض')" class="btn btn-danger btn-spacing">رافض</button>
+            <!-- موافق Button with Icon, disabled if status is 'تم_الموافقه' -->
+            <button
+              (click)="changeItemRequest(item, 'تم_الموافقه')"
+              class="btn btn-success btn-spacing"
+              [disabled]="item.item.status === 'تم_الموافقه'">
+              <i class="pi pi-check" style="margin-left: 5px;"></i> موافق
+            </button>
+
+            <!-- رافض Button with Icon, disabled if status is 'مرفوض' -->
+            <button
+              (click)="changeItemRequest(item, 'مرفوض')"
+              class="btn btn-danger btn-spacing"
+              [disabled]="item.item.status === 'مرفوض'">
+              <i class="pi pi-times" style="margin-left: 5px;"></i> رافض
+            </button>
           </td>
         </tr>
 

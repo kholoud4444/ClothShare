@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {NgIf} from '@angular/common';
 import {AdminService} from '../../../services/admin.service';
-import {ContactUs} from '../../interfaces/contact-us';
+import {ContactUs} from '../../../interfaces/contact-us';
 import {FormsModule} from '@angular/forms';
 
 @Component({
