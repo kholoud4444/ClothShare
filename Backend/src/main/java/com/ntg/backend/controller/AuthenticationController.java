@@ -71,4 +71,9 @@ public class AuthenticationController {
         return new ResponseEntity<>(new MessageDto<>("Password Reset Successfully", null), HttpStatus.OK);
 
     }
+    @PostMapping("/contactus")
+    public ResponseEntity <MessageDto<ContactUs>> loginPage( @RequestBody ContactUs contactUs) {
+        return new ResponseEntity<>(new MessageDto<>("email sent Successfully", contactUs), HttpStatus.OK);
+    }
+
 }

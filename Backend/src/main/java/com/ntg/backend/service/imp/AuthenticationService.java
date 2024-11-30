@@ -136,6 +136,15 @@ public class AuthenticationService {
             logger.error("Error while sending email: {}", e.getMessage());
         }
     }
+    public void contactUsMail(ContactUs contactUs)
+    {
+           try {
+        emailService.sendEmail(contactUs.getSentTo(), contactUs.getSubject(), contactUs.getMessage());
+    } catch (Exception e) {
+        logger.error("Error while sending email: {}", e.getMessage());
+    }
+}
+
 
     // Reset password logic
     public void sendPasswordResetToken(String email) {
